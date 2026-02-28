@@ -1,0 +1,11 @@
+# Archive (original files, not tracked)
+_archive/
+
+# Sub-repos (managed independently)
+nemea-front/
+nemea-back/
+
+# OS
+.DS_Store
+Thumbs.db
+.claude/settings.local.json
