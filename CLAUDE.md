@@ -52,7 +52,6 @@ El negocio maneja:
 
 | Agente | Uso |
 |--------|-----|
-| `git-workflow` | Ciclo completo: branch → commit → push → PR → cleanup |
 | `plan-manager` | Crear, listar, archivar planes de implementación |
 | `oop-coder` | Escribir código siguiendo OOP/SOLID |
 | `oop-reviewer` | Revisar código contra SOLID y patrones del proyecto |
@@ -64,6 +63,7 @@ El negocio maneja:
 
 | Comando | Acción |
 |---------|--------|
+| `/push` | Push + PR: `/push f d` (front→dev), `/push b p` (back→prod), `/push w` (web→main) |
 | `/plan` | Gestionar planes (list, create, archive) |
 | `/senior` | Consultor senior: `/senior r` (review), `/senior c` (consult) |
 | `/run` | Levantar dev servers (front, back, o ambos) |
