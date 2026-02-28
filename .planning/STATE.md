@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 1 of 7 (Backend Scaffold)
-Plan: 0 of 3 in current phase
-Status: Context gathered, ready to plan
-Last activity: 2026-02-28 — Phase 1 context gathered via discuss-phase
+Plan: 1 of 3 in current phase
+Status: Executing phase 1
+Last activity: 2026-02-28 — Plan 01-01 completed (NestJS scaffold)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [#░░░░░░░░░] 5%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: 10min
+- Total execution time: 0.17 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1 - Backend Scaffold | 1 | 10min | 10min |
 
 **Recent Trend:**
-- Last 5 plans: none yet
+- Last 5 plans: 01-01 (10min)
 - Trend: -
 
 *Updated after each plan completion*
@@ -47,6 +47,10 @@ Recent decisions affecting current work:
 - Roadmap: CostsModule is separate from ProductsModule to avoid circular deps (imports both SuppliesModule + ProductsModule)
 - Roadmap: TiendanubeConfigModule named explicitly to avoid collision with @nestjs/config's ConfigModule
 - Roadmap: Soft delete strategy (is_active vs @DeleteDateColumn) — decision deferred to Phase 3/4 planning
+- 01-01: SWC builder with typeCheck: true for fast compilation + type safety
+- 01-01: ESLint flat config (not legacy .eslintrc) matching frontend sonarjs/explicit-return-type conventions
+- 01-01: Port 4000 in main.ts per CLAUDE.md backend convention
+- 01-01: ES2021 target in tsconfig for wider runtime compatibility (scaffold defaulted to ES2023)
 
 ### Pending Todos
 
@@ -61,5 +65,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Phase 1 context gathered — 6 areas discussed (API format, dev setup, routes, security, testing, git hooks)
-Resume file: .planning/phases/01-backend-scaffold/01-CONTEXT.md
+Stopped at: Completed 01-01-PLAN.md (NestJS project scaffold)
+Resume file: .planning/phases/01-backend-scaffold/01-01-SUMMARY.md

@@ -67,11 +67,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: Backend runs on NestJS 11 with TypeORM and PostgreSQL
+- [x] **INFR-01**: Backend runs on NestJS 11 with TypeORM and PostgreSQL
 - [ ] **INFR-02**: Database uses migrations only (never synchronize)
 - [ ] **INFR-03**: Docker Compose for local PostgreSQL development
 - [ ] **INFR-04**: All tables have created_at and updated_at timestamps
-- [ ] **INFR-05**: TypeScript strict mode, no any, explicit return types
+- [x] **INFR-05**: TypeScript strict mode, no any, explicit return types
 
 ## v2 Requirements
 
@@ -126,11 +126,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFR-01 | Phase 1: Backend Scaffold | Pending |
+| INFR-01 | Phase 1: Backend Scaffold | Complete (01-01) |
 | INFR-02 | Phase 1: Backend Scaffold | Pending |
 | INFR-03 | Phase 1: Backend Scaffold | Pending |
 | INFR-04 | Phase 1: Backend Scaffold | Pending |
-| INFR-05 | Phase 1: Backend Scaffold | Pending |
+| INFR-05 | Phase 1: Backend Scaffold | Complete (01-01) |
 | AUTH-01 | Phase 2: Auth | Pending |
 | AUTH-02 | Phase 2: Auth | Pending |
 | AUTH-03 | Phase 2: Auth | Pending |

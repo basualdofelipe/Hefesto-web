@@ -39,7 +39,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- NestJS 11 project scaffold, TypeScript strict, ESLint flat config, Prettier, Husky
+- [x] 01-01-PLAN.md -- NestJS 11 project scaffold, TypeScript strict, ESLint flat config, Prettier, Husky
 - [ ] 01-02-PLAN.md -- TypeORM + Docker Compose PostgreSQL + shared DataSource + BaseEntity + migrations
 - [ ] 01-03-PLAN.md -- Swagger, helmet, throttler, env validation, HttpExceptionFilter, health check, Railway Procfile
 
@@ -151,7 +151,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend Scaffold | 0/3 | Not started | - |
+| 1. Backend Scaffold | 1/3 | In progress | - |
 | 2. Auth | 0/3 | Not started | - |
 | 3. Catalogs and Suppliers | 0/3 | Not started | - |
 | 4. Supplies and Price History | 0/3 | Not started | - |
