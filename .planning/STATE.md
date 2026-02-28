@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 1 of 7 (Backend Scaffold)
-Plan: 2 of 3 in current phase
-Status: Executing phase 1
-Last activity: 2026-02-28 — Plan 01-02 completed (Docker + TypeORM + BaseEntity)
+Plan: 3 of 3 in current phase
+Status: Phase 1 complete (pending user verification checkpoint)
+Last activity: 2026-02-28 — Plan 01-03 completed (Health, Swagger, cross-cutting concerns)
 
-Progress: [##░░░░░░░░] 9%
+Progress: [###░░░░░░░] 14%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 7.5min
-- Total execution time: 0.25 hours
+- Total plans completed: 3
+- Average duration: 6.7min
+- Total execution time: 0.33 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1 - Backend Scaffold | 2 | 15min | 7.5min |
+| 1 - Backend Scaffold | 3 | 20min | 6.7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10min), 01-02 (5min)
-- Trend: improving
+- Last 5 plans: 01-01 (10min), 01-02 (5min), 01-03 (5min)
+- Trend: stable (fast)
 
 *Updated after each plan completion*
 
@@ -55,6 +55,10 @@ Recent decisions affecting current work:
 - 01-02: synchronize: false unconditional, migrationsRun: true for auto-execution on app start
 - 01-02: Definite assignment assertion (!) on entity properties required for TypeScript strict + TypeORM decorators
 - 01-02: E2E test isolation via setup-e2e.ts overriding DATABASE_URL to test database on port 5433
+- 01-03: ResponseInterceptor excludes Swagger routes from envelope wrapping to preserve raw Swagger JSON
+- 01-03: Health logic kept in AppController (no delegation to AppService) since it is trivial
+- 01-03: HttpExceptionFilter catches all exceptions (@Catch() with no args), not just HttpException
+- 01-03: E2E tests mirror main.ts setup (prefix, pipes, filters, interceptors, helmet) for realistic testing
 
 ### Pending Todos
 
@@ -69,5 +73,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-02-PLAN.md (Docker + TypeORM + BaseEntity)
-Resume file: .planning/phases/01-backend-scaffold/01-02-SUMMARY.md
+Stopped at: Completed 01-03-PLAN.md (Health, Swagger, cross-cutting concerns) -- awaiting human verification checkpoint
+Resume file: .planning/phases/01-backend-scaffold/01-03-SUMMARY.md

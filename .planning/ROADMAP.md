@@ -16,7 +16,7 @@ scaffolded — each phase delivers working backend endpoints consumed by real UI
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
+- [x] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
 - [ ] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [ ] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [ ] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
@@ -41,7 +41,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md -- NestJS 11 project scaffold, TypeScript strict, ESLint flat config, Prettier, Husky
 - [x] 01-02-PLAN.md -- TypeORM + Docker Compose PostgreSQL + shared DataSource + BaseEntity + migrations
-- [ ] 01-03-PLAN.md -- Swagger, helmet, throttler, env validation, HttpExceptionFilter, health check, Railway Procfile
+- [x] 01-03-PLAN.md -- Swagger, helmet, throttler, env validation, HttpExceptionFilter, health check, Railway Procfile
 
 ### Phase 2: Auth
 **Goal**: Users can log in with Google and the backend enforces authentication and roles on every request
@@ -151,7 +151,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend Scaffold | 2/3 | In progress | - |
+| 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
 | 2. Auth | 0/3 | Not started | - |
 | 3. Catalogs and Suppliers | 0/3 | Not started | - |
 | 4. Supplies and Price History | 0/3 | Not started | - |
