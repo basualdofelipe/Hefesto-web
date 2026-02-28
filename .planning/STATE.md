@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 1 of 7 (Backend Scaffold)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: Executing phase 1
-Last activity: 2026-02-28 — Plan 01-01 completed (NestJS scaffold)
+Last activity: 2026-02-28 — Plan 01-02 completed (Docker + TypeORM + BaseEntity)
 
-Progress: [#░░░░░░░░░] 5%
+Progress: [##░░░░░░░░] 9%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 10min
-- Total execution time: 0.17 hours
+- Total plans completed: 2
+- Average duration: 7.5min
+- Total execution time: 0.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1 - Backend Scaffold | 1 | 10min | 10min |
+| 1 - Backend Scaffold | 2 | 15min | 7.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10min)
-- Trend: -
+- Last 5 plans: 01-01 (10min), 01-02 (5min)
+- Trend: improving
 
 *Updated after each plan completion*
 
@@ -51,6 +51,10 @@ Recent decisions affecting current work:
 - 01-01: ESLint flat config (not legacy .eslintrc) matching frontend sonarjs/explicit-return-type conventions
 - 01-01: Port 4000 in main.ts per CLAUDE.md backend convention
 - 01-01: ES2021 target in tsconfig for wider runtime compatibility (scaffold defaulted to ES2023)
+- 01-02: Shared DataSource pattern -- data-source.ts is the single source of truth for CLI and NestJS runtime
+- 01-02: synchronize: false unconditional, migrationsRun: true for auto-execution on app start
+- 01-02: Definite assignment assertion (!) on entity properties required for TypeScript strict + TypeORM decorators
+- 01-02: E2E test isolation via setup-e2e.ts overriding DATABASE_URL to test database on port 5433
 
 ### Pending Todos
 
@@ -65,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-01-PLAN.md (NestJS project scaffold)
-Resume file: .planning/phases/01-backend-scaffold/01-01-SUMMARY.md
+Stopped at: Completed 01-02-PLAN.md (Docker + TypeORM + BaseEntity)
+Resume file: .planning/phases/01-backend-scaffold/01-02-SUMMARY.md
