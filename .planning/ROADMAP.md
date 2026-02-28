@@ -36,12 +36,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `synchronize: false` is hardcoded unconditionally in TypeORM config — verified by code review
   4. Swagger UI is accessible at `http://localhost:4000/api/docs` in development
   5. Railway deploy succeeds and `GET /health` returns 200 in the production environment
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: NestJS 11 project init, folder structure, TypeScript strict config, linting
-- [ ] 01-02: TypeORM + PostgreSQL + Docker Compose + migration setup (synchronize false, migrationsRun true)
-- [ ] 01-03: Swagger, helmet, throttler, @nestjs/config + Joi env validation, Railway deploy
+- [ ] 01-01-PLAN.md -- NestJS 11 project scaffold, TypeScript strict, ESLint flat config, Prettier, Husky
+- [ ] 01-02-PLAN.md -- TypeORM + Docker Compose PostgreSQL + shared DataSource + BaseEntity + migrations
+- [ ] 01-03-PLAN.md -- Swagger, helmet, throttler, env validation, HttpExceptionFilter, health check, Railway Procfile
 
 ### Phase 2: Auth
 **Goal**: Users can log in with Google and the backend enforces authentication and roles on every request
