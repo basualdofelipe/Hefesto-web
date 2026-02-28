@@ -56,6 +56,7 @@ El negocio maneja:
 | `plan-manager` | Crear, listar, archivar planes de implementación |
 | `oop-coder` | Escribir código siguiendo OOP/SOLID |
 | `oop-reviewer` | Revisar código contra SOLID y patrones del proyecto |
+| `senior` | Consultor senior: reviews profundos, consulting técnico, validación |
 | `code-simplifier` | Simplificar código (3 iteraciones automáticas) |
 | `ui-ux` | Revisar diseño visual y experiencia de usuario |
 
@@ -64,6 +65,7 @@ El negocio maneja:
 | Comando | Acción |
 |---------|--------|
 | `/plan` | Gestionar planes (list, create, archive) |
+| `/senior` | Consultor senior: `/senior r` (review), `/senior c` (consult) |
 | `/run` | Levantar dev servers (front, back, o ambos) |
 | `/stop` | Parar dev servers |
 | `/chat-commit` | Commit solo los cambios de esta sesión |
@@ -72,6 +74,7 @@ El negocio maneja:
 
 Las políticas están en `.claude/docs/policies/`:
 - **git-commit-policy.md** — Reglas de commits y branches
+- **plan-execution-protocol.md** — Ciclo obligatorio por fase (code → commit → review → fix)
 - **post-implementation-review.md** — Pipeline de review post-código
 
 ## Modelo de Permisos

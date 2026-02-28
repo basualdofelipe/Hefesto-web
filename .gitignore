@@ -2,8 +2,8 @@
 _archive/
 
 # Sub-repos (managed independently)
-nemea-front/
-nemea-back/
+/nemea-front/
+/nemea-back/
 
 # OS
 .DS_Store
