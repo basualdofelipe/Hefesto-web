@@ -63,6 +63,7 @@ El negocio maneja:
 
 | Comando | Acción |
 |---------|--------|
+| `/commit` | Commit local: `/commit f`, `/commit b "fix: message"`, `/commit w` |
 | `/push` | Push + PR: `/push f d` (front→dev), `/push b p` (back→prod), `/push w` (web→main) |
 | `/plan` | Gestionar planes (list, create, archive) |
 | `/senior` | Consultor senior: `/senior r` (review), `/senior c` (consult) |
