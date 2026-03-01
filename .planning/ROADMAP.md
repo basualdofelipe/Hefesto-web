@@ -53,12 +53,12 @@ Plans:
   3. An ADMIN user can reach write endpoints; a USER role user receives 403 on those same endpoints
   4. Removing an email from the whitelist in the DB causes the next API request from that user to fail (no waiting for JWT expiry)
   5. All backend routes return 401 when called without a valid Authorization header (global guard, no opt-in required)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Users table + migration, email whitelist, ADMIN/USER role enum, JwtAuthGuard + RolesGuard as APP_GUARD
-- [ ] 02-02: POST /auth/google endpoint (validate Google id_token, mint NestJS JWT), GET /auth/me
-- [ ] 02-03: NextAuth config in nemea-front (jwt/session callbacks, token exchange with backend, @Public() decorator)
+- [ ] 02-01-PLAN.md -- User entity + migration with admin seed, UsersModule/UsersService, auth decorators (@Public/@Roles/@CurrentUser), JwtAuthGuard + RolesGuard as APP_GUARD, JWT strategy with whitelist check, AuthModule wiring
+- [ ] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
+- [ ] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper
 
 ### Phase 3: Catalogs and Suppliers
 **Goal**: All reference data (product dimensions, supply types, suppliers) exists and can be managed before any supply or product is created
