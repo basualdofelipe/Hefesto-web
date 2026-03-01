@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-02-28T21:03:48.469Z"
+status: in-progress
+last_updated: "2026-03-01T12:52:14Z"
 progress:
-  total_phases: 1
+  total_phases: 7
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 22
+  completed_plans: 4
 ---
 
 # Project State
@@ -23,27 +23,28 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 2 of 7 (Auth)
-Plan: 0 of 3 in current phase
-Status: Phase 2 context gathered — ready for planning
-Last activity: 2026-03-01 — Phase 2 context discussion completed
+Plan: 1 of 3 in current phase
+Status: Plan 02-01 complete — auth foundation (guards, user entity, JWT strategy)
+Last activity: 2026-03-01 — Plan 02-01 executed (7min)
 
-Progress: [###░░░░░░░] 14%
+Progress: [####░░░░░░] 18%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 6.7min
-- Total execution time: 0.33 hours
+- Total plans completed: 4
+- Average duration: 6.8min
+- Total execution time: 0.45 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
+| 2 - Auth | 1 | 7min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10min), 01-02 (5min), 01-03 (5min)
+- Last 5 plans: 01-01 (10min), 01-02 (5min), 01-03 (5min), 02-01 (7min)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -72,6 +73,12 @@ Recent decisions affecting current work:
 - 01-03: Health logic kept in AppController (no delegation to AppService) since it is trivial
 - 01-03: HttpExceptionFilter catches all exceptions (@Catch() with no args), not just HttpException
 - 01-03: E2E tests mirror main.ts setup (prefix, pipes, filters, interceptors, helmet) for realistic testing
+- 02-01: Guard registration order: ThrottlerGuard in AppModule, JwtAuthGuard first then RolesGuard in AuthModule
+- 02-01: JwtStrategy checks whitelist on every request via usersService.findActiveByEmail -- instant revocation
+- 02-01: JWT TTL 7 days -- whitelist check per request makes short TTL unnecessary
+- 02-01: @Public() opt-out pattern for health and swagger routes
+- 02-01: Admin seed in migration with admin@nemea.com as placeholder
+- 02-01: google-auth-library installed for id_token verification in Plan 02-02
 
 ### Pending Todos
 
@@ -86,5 +93,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-auth/02-CONTEXT.md
+Stopped at: Completed 02-01-PLAN.md
+Resume file: .planning/phases/02-auth/02-01-SUMMARY.md

@@ -10,10 +10,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Authentication
 
 - [ ] **AUTH-01**: User can log in with Google OAuth and stay logged in across sessions
-- [ ] **AUTH-02**: Only whitelisted emails in DB can access the app (no public registration)
-- [ ] **AUTH-03**: User with ADMIN role can create, edit, and delete all resources
-- [ ] **AUTH-04**: User with USER role can view all resources but cannot modify anything
-- [ ] **AUTH-05**: Backend validates JWT from NextAuth on every request and checks email whitelist
+- [x] **AUTH-02**: Only whitelisted emails in DB can access the app (no public registration)
+- [x] **AUTH-03**: User with ADMIN role can create, edit, and delete all resources
+- [x] **AUTH-04**: User with USER role can view all resources but cannot modify anything
+- [x] **AUTH-05**: Backend validates JWT from NextAuth on every request and checks email whitelist
 
 ### Catalogs
 
@@ -132,10 +132,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-04 | Phase 1: Backend Scaffold | Complete (01-02) |
 | INFR-05 | Phase 1: Backend Scaffold | Complete (01-01) |
 | AUTH-01 | Phase 2: Auth | Pending |
-| AUTH-02 | Phase 2: Auth | Pending |
-| AUTH-03 | Phase 2: Auth | Pending |
-| AUTH-04 | Phase 2: Auth | Pending |
-| AUTH-05 | Phase 2: Auth | Pending |
+| AUTH-02 | Phase 2: Auth | Complete (02-01) |
+| AUTH-03 | Phase 2: Auth | Complete (02-01) |
+| AUTH-04 | Phase 2: Auth | Complete (02-01) |
+| AUTH-05 | Phase 2: Auth | Complete (02-01) |
 | CATL-01 | Phase 3: Catalogs and Suppliers | Pending |
 | CATL-02 | Phase 3: Catalogs and Suppliers | Pending |
 | CATL-03 | Phase 3: Catalogs and Suppliers | Pending |
