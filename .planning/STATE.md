@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T16:04:06Z"
+last_updated: "2026-03-01T20:00:00Z"
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 22
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 3 — Catalogs and Suppliers
+**Current focus:** Phase 3 complete. Ready for Phase 4 — Supplies and Price History
 
 ## Current Position
 
-Phase: 3 of 7 (Catalogs and Suppliers)
-Plan: 3 of 3 in current phase
-Status: Plan 03-02 (Catalogs & Suppliers API) complete. Ready for Plan 03-03.
-Last activity: 2026-03-01 — Plan 03-02 completed (7 entities, CatalogsModule, SuppliersModule, migrations, seed data)
+Phase: 3 of 7 (Catalogs and Suppliers) -- COMPLETE
+Plan: 3 of 3 in current phase (all done)
+Status: Phase 3 complete. All 3 plans delivered (UUID migration, API, frontend UI). Ready for Phase 4.
+Last activity: 2026-03-01 — Plan 03-03 completed (sidebar layout, catalog tabs, supplier pages)
 
-Progress: [########░░] 36%
+Progress: [#########░] 41%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 7min
-- Total execution time: 0.93 hours
+- Total plans completed: 9
+- Average duration: 8min
+- Total execution time: 1.27 hours
 
 **By Phase:**
 
@@ -42,11 +42,11 @@ Progress: [########░░] 36%
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
 | 2 - Auth | 3 | 24min | 8min |
-| 3 - Catalogs & Suppliers | 2/3 | 12min | 6min |
+| 3 - Catalogs & Suppliers | 3/3 | 32min | 10.7min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (7min), 02-03 (10min), 03-01 (7min), 03-02 (5min)
-- Trend: stable (fast)
+- Last 5 plans: 02-03 (10min), 03-01 (7min), 03-02 (5min), 03-03 (20min)
+- Trend: stable (03-03 longer due to UI complexity + checkpoint)
 
 *Updated after each plan completion*
 
@@ -98,10 +98,21 @@ Recent decisions affecting current work:
 - 03-02: Partial unique index on suppliers (WHERE is_active = true) allows reactivating deactivated supplier names
 - 03-02: FK-safe delete prepared with 23503 catch for future Phase 5 product references
 - 03-02: Supplier toggle-status via PATCH endpoint instead of DELETE for soft delete
+- 03-03: Route groups (app)/(auth) separate sidebar layout from auth pages cleanly
+- 03-03: Client-side apiClientFetch wrapper mirrors server-side apiFetch for mutations
+- 03-03: Inline CRUD pattern for catalogs avoids page navigation for simple name edits
+- 03-03: Server-component data fetching with client-component interactivity for catalog tabs
+- 03-03: EditSupplierClient wrapper bridges server-side fetch and client-side form
 
 ### Pending Todos
 
-None -- Plan 03-02 complete, ready for Plan 03-03.
+None -- Phase 3 complete, ready for Phase 4.
+
+### Known UI Issues (from 03-03 verification)
+
+- Supplier email validation may be overly strict (zod .email() on optional field)
+- Catalog tabs wrap awkwardly on mobile (needs horizontal scroll)
+- Mobile sidebar backdrop needs further testing
 
 ### Blockers/Concerns
 
@@ -111,5 +122,5 @@ None -- Plan 03-02 complete, ready for Plan 03-03.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 03-02-PLAN.md
-Resume file: .planning/phases/03-catalogs-and-suppliers/03-02-SUMMARY.md
+Stopped at: Completed 03-03-PLAN.md (Phase 3 complete)
+Resume file: .planning/phases/03-catalogs-and-suppliers/03-03-SUMMARY.md

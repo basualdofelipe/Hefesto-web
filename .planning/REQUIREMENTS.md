@@ -17,17 +17,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Catalogs
 
-- [ ] **CATL-01**: Admin can CRUD product types (ej: Billetera, Cinturón)
-- [ ] **CATL-02**: Admin can CRUD product names (ej: Hefesto, Ares)
-- [ ] **CATL-03**: Admin can CRUD product finishes (ej: Lisa, Grabada)
-- [ ] **CATL-04**: Admin can CRUD product colors (ej: Marrón, Negro)
-- [ ] **CATL-05**: Admin can CRUD product sizes (ej: Chico, Grande)
-- [ ] **CATL-06**: Admin can CRUD supply types (ej: Cuero, Herraje, Packaging)
+- [x] **CATL-01**: Admin can CRUD product types (ej: Billetera, Cinturón)
+- [x] **CATL-02**: Admin can CRUD product names (ej: Hefesto, Ares)
+- [x] **CATL-03**: Admin can CRUD product finishes (ej: Lisa, Grabada)
+- [x] **CATL-04**: Admin can CRUD product colors (ej: Marrón, Negro)
+- [x] **CATL-05**: Admin can CRUD product sizes (ej: Chico, Grande)
+- [x] **CATL-06**: Admin can CRUD supply types (ej: Cuero, Herraje, Packaging)
 
 ### Suppliers
 
-- [ ] **SUPP-01**: Admin can CRUD suppliers with name, address, email, phone, whatsapp, description
-- [ ] **SUPP-02**: Admin can deactivate/reactivate suppliers (soft delete)
+- [x] **SUPP-01**: Admin can CRUD suppliers with name, address, email, phone, whatsapp, description
+- [x] **SUPP-02**: Admin can deactivate/reactivate suppliers (soft delete)
 
 ### Supplies & Prices
 
@@ -136,14 +136,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 2: Auth | Complete (02-01) |
 | AUTH-04 | Phase 2: Auth | Complete (02-01) |
 | AUTH-05 | Phase 2: Auth | Complete (02-01) |
-| CATL-01 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| CATL-02 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| CATL-03 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| CATL-04 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| CATL-05 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| CATL-06 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| SUPP-01 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
-| SUPP-02 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-01 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| CATL-02 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| CATL-03 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| CATL-04 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| CATL-05 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| CATL-06 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| SUPP-01 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
+| SUPP-02 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
 | SPPL-01 | Phase 4: Supplies and Price History | Pending |
 | SPPL-02 | Phase 4: Supplies and Price History | Pending |
 | SPPL-03 | Phase 4: Supplies and Price History | Pending |

@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
 - [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
-- [ ] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
+- [x] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [ ] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
 - [ ] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price
 - [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
@@ -75,7 +75,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md -- UUID migration (users integer→UUID) + BaseEntity update to UUID PK + fix all id:number references across backend and frontend
 - [x] 03-02-PLAN.md -- 6 catalog entities + supplier entity + migrations + CatalogsModule (generic CRUD) + SuppliersModule (CRUD + toggle-status) + seed data + AppModule registration
-- [ ] 03-03-PLAN.md -- Shadcn sidebar + route groups (auth/app) + catalog tabs page with inline CRUD + supplier list/form pages + client API wrapper + visual verification checkpoint
+- [x] 03-03-PLAN.md -- Shadcn sidebar + route groups (auth/app) + catalog tabs page with inline CRUD + supplier list/form pages + client API wrapper + visual verification checkpoint
 
 ### Phase 4: Supplies and Price History
 **Goal**: Supplies with their types and suppliers exist, and every price change is preserved as an immutable historical record
@@ -153,7 +153,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
-| 3. Catalogs and Suppliers | 2/3 | In progress | - |
+| 3. Catalogs and Suppliers | 3/3 | Complete | 2026-03-01 |
 | 4. Supplies and Price History | 0/3 | Not started | - |
 | 5. Products and BOM | 0/4 | Not started | - |
 | 6. Cost Calculation | 0/3 | Not started | - |
