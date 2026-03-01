@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T13:16:14Z"
+last_updated: "2026-03-01T14:05:26Z"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 22
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -18,33 +18,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 2 — Auth
+**Current focus:** Phase 3 — Catalogs and Suppliers
 
 ## Current Position
 
-Phase: 2 of 7 (Auth)
-Plan: 3 of 3 in current phase
-Status: Plan 02-03 Tasks 1-3 complete — frontend auth (NextAuth, login, header). Task 4 checkpoint:human-verify PENDING.
-Last activity: 2026-03-01 — Plan 02-03 executed Tasks 1-3 (7min)
+Phase: 3 of 7 (Catalogs and Suppliers)
+Plan: 1 of 3 in current phase
+Status: Phase 2 Auth complete (all 3 plans, E2E verified). Ready for Phase 3.
+Last activity: 2026-03-01 — Plan 02-03 completed (checkpoint approved, migration fix committed)
 
-Progress: [#####░░░░░] 25%
+Progress: [######░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5 (02-03 pending checkpoint)
-- Average duration: 6.8min
-- Total execution time: 0.57 hours
+- Total plans completed: 6
+- Average duration: 7.2min
+- Total execution time: 0.72 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
-| 2 - Auth | 2 (+1 pending) | 14min (+7min) | 7min |
+| 2 - Auth | 3 | 24min | 8min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (5min), 01-03 (5min), 02-01 (7min), 02-02 (7min), 02-03 (7min, pending checkpoint)
+- Last 5 plans: 01-03 (5min), 02-01 (7min), 02-02 (7min), 02-03 (10min)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -77,7 +77,7 @@ Recent decisions affecting current work:
 - 02-01: JwtStrategy checks whitelist on every request via usersService.findActiveByEmail -- instant revocation
 - 02-01: JWT TTL 7 days -- whitelist check per request makes short TTL unnecessary
 - 02-01: @Public() opt-out pattern for health and swagger routes
-- 02-01: Admin seed in migration with admin@nemea.com as placeholder
+- 02-01: Admin seed in migration (updated to basualdofelipe@gmail.com during 02-03 verification)
 - 02-01: google-auth-library installed for id_token verification in Plan 02-02
 - 02-02: AuthService.verifyGoogleIdToken as private method -- clean mocking without overriding google-auth-library internals
 - 02-02: POST /auth/google returns 200 (not 201) -- token exchange is not resource creation
@@ -93,16 +93,15 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-- Task 4 of Plan 02-03: checkpoint:human-verify — E2E auth flow verification needed before closing Phase 2
+None -- Phase 2 complete, ready for Phase 3 planning.
 
 ### Blockers/Concerns
 
-- Phase 2 (Auth): NextAuth jwt/session callback + NestJS POST /auth/google token exchange is the highest-complexity item — must be verified end-to-end before building on top of it. See .planning/research/PITFALLS.md.
 - Phase 4 (Supplies): Soft delete + unique constraint strategy must be decided before the first entity with unique constraints is migrated. Options: is_active partial index vs @DeleteDateColumn. Decide during Phase 3 planning.
 - Phase 6 (Costs): DISTINCT ON batched query must be verified against NestJS logger to confirm exactly 2 SQL queries for the product list (explicit acceptance criterion).
 
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Plan 02-03 Task 4 checkpoint:human-verify — awaiting E2E auth flow verification
+Stopped at: Completed 02-03-PLAN.md (Phase 2 Auth fully done)
 Resume file: .planning/phases/02-auth/02-03-SUMMARY.md

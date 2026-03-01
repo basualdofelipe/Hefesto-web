@@ -31,7 +31,7 @@ tech-stack:
 
 key-files:
   created: ["nemea-front/src/auth.ts", "nemea-front/src/proxy.ts", "nemea-front/src/app/api/auth/[...nextauth]/route.ts", "nemea-front/src/providers/SessionProvider.tsx", "nemea-front/src/lib/api.ts", "nemea-front/src/types/next-auth.d.ts", "nemea-front/src/app/login/page.tsx", "nemea-front/src/app/acceso-denegado/page.tsx", "nemea-front/src/components/layout/Header.tsx", "nemea-front/src/hooks/useIsAdmin.ts", "nemea-front/src/components/ui/dropdown-menu.tsx", "nemea-front/src/components/ui/avatar.tsx"]
-  modified: ["nemea-front/src/app/layout.tsx", "nemea-front/package.json", "nemea-front/.env.example", "nemea-front/.gitignore"]
+  modified: ["nemea-front/src/app/layout.tsx", "nemea-front/package.json", "nemea-front/.env.example", "nemea-front/.gitignore", "nemea-back/src/database/migrations/1772369233961-CreateUserTable.ts"]
 
 key-decisions:
   - "Backend call only in jwt callback (not signIn) -- avoids double POST /auth/google per Pitfall 2"
@@ -53,21 +53,21 @@ patterns-established:
 requirements-completed: [AUTH-01, AUTH-02, AUTH-04]
 
 # Metrics
-duration: 7min
+duration: 10min
 completed: 2026-03-01
 ---
 
 # Phase 2 Plan 03: Frontend Auth Integration Summary
 
-**NextAuth v5 with Google provider exchanging tokens with NestJS backend, branded login/access-denied pages, proxy.ts route protection with callbackUrl, and header with user avatar dropdown for logout**
+**NextAuth v5 with Google provider exchanging tokens with NestJS backend, branded login/access-denied pages, proxy.ts route protection with callbackUrl, header with user avatar dropdown for logout, and E2E verified auth flow**
 
 ## Performance
 
-- **Duration:** 7 min
+- **Duration:** 10 min (7 min coding + 3 min verification/fix)
 - **Started:** 2026-03-01T13:08:54Z
-- **Completed:** 2026-03-01T13:16:14Z
-- **Tasks:** 3 of 4 (Task 4 is checkpoint:human-verify -- pending)
-- **Files modified:** 16 (12 created, 4 modified)
+- **Completed:** 2026-03-01T14:05:26Z
+- **Tasks:** 4 of 4
+- **Files modified:** 17 (12 created, 5 modified)
 
 ## Accomplishments
 - Auth.js v5 config with Google provider, JWT strategy, and callbacks that exchange Google id_token with NestJS backend POST /api/auth/google
@@ -78,16 +78,19 @@ completed: 2026-03-01
 - useIsAdmin() hook ready for Phase 3+ to conditionally hide action buttons
 - apiFetch wrapper for server-side authenticated API calls with automatic Bearer token
 - TypeScript module augmentation for Session and JWT types
+- E2E auth flow verified by human: login, session persistence, access-denied for non-whitelisted, logout via header dropdown
+- Admin seed email updated from placeholder to real user (basualdofelipe@gmail.com) during verification
 
 ## Task Commits
 
 Each task was committed atomically:
 
-1. **Task 1: NextAuth config, route handler, proxy, SessionProvider, types, and api wrapper** - `d3a7219` (feat)
-2. **Task 2: Login page and access-denied page** - `f6c366a` (feat)
-3. **Task 3: Header with user avatar dropdown and useIsAdmin hook** - `d9d5eca` (feat)
+1. **Task 1: NextAuth config, route handler, proxy, SessionProvider, types, and api wrapper** - `d3a7219` (feat, nemea-front)
+2. **Task 2: Login page and access-denied page** - `f6c366a` (feat, nemea-front)
+3. **Task 3: Header with user avatar dropdown and useIsAdmin hook** - `d9d5eca` (feat, nemea-front)
+4. **Task 4: Verify complete auth flow end-to-end** - `ac64d1a` (fix, nemea-back) -- admin seed email updated during verification
 
-Note: All commits are in the nemea-front/ sub-repo on the `development` branch.
+Note: Tasks 1-3 commits are in nemea-front/ on `development`. Task 4 fix commit is in nemea-back/ on `development`.
 
 ## Files Created/Modified
 - `nemea-front/src/auth.ts` - NextAuth v5 config: Google provider, JWT/session callbacks, backend token exchange
@@ -106,6 +109,7 @@ Note: All commits are in the nemea-front/ sub-repo on the `development` branch.
 - `nemea-front/package.json` - Added next-auth@5.0.0-beta.30 dependency
 - `nemea-front/.env.example` - Updated with AUTH_SECRET, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET
 - `nemea-front/.gitignore` - Added !.env.example exception to track env template
+- `nemea-back/src/database/migrations/1772369233961-CreateUserTable.ts` - Updated admin seed email from placeholder to real user
 
 ## Decisions Made
 - Backend call only in jwt callback (not signIn) to avoid double POST /auth/google -- per RESEARCH.md Pitfall 2
@@ -146,22 +150,24 @@ Note: All commits are in the nemea-front/ sub-repo on the `development` branch.
 
 ## User Setup Required
 
-Before verifying the auth flow (Task 4 checkpoint), the user must:
-1. Create a `.env.local` file in `nemea-front/` with actual values for AUTH_SECRET, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, and NEXT_PUBLIC_API_URL
-2. Ensure `http://localhost:3000/api/auth/callback/google` is in the Google OAuth Client's Authorized redirect URIs
-3. Backend must be running with the same GOOGLE_CLIENT_ID as the frontend's AUTH_GOOGLE_ID
+Completed during Task 4 verification:
+1. `.env.local` created in `nemea-front/` with AUTH_SECRET, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, NEXT_PUBLIC_API_URL
+2. `http://localhost:3000/api/auth/callback/google` added to Google OAuth Client's Authorized redirect URIs
+3. Backend GOOGLE_CLIENT_ID updated to match frontend AUTH_GOOGLE_ID
+4. Admin seed email updated to `basualdofelipe@gmail.com` (real user)
 
 ## Next Phase Readiness
-- Frontend auth flow complete (pending E2E human verification in Task 4)
+- Phase 2 Auth is fully complete -- all auth flows verified end-to-end by human tester
+- Admin seed uses real email (basualdofelipe@gmail.com), verified working with Google OAuth
 - apiFetch wrapper ready for all future data-fetching in Phase 3+
 - useIsAdmin() hook ready for Phase 3+ role-gating
 - Header with logout ready for all authenticated pages
-- After Task 4 verification, Phase 2 Auth is fully complete
+- Ready to proceed to Phase 3: Catalogs and Suppliers
 
 ## Self-Check: PASSED
 
-All 12 created files and 4 modified files verified on disk. All 3 commit hashes (d3a7219, f6c366a, d9d5eca) verified in git log. Build passes (0 errors). Lint passes (0 errors). SUMMARY.md exists.
+All 12 created files and 5 modified files verified on disk. All 4 commit hashes (d3a7219, f6c366a, d9d5eca, ac64d1a) verified in git log. Build passes (0 errors). Lint passes (0 errors). E2E auth flow verified by human. SUMMARY.md exists.
 
 ---
 *Phase: 02-auth*
-*Completed: 2026-03-01 (Tasks 1-3; Task 4 checkpoint pending)*
+*Completed: 2026-03-01*

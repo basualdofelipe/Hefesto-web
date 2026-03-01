@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can log in with Google OAuth and stay logged in across sessions
+- [x] **AUTH-01**: User can log in with Google OAuth and stay logged in across sessions
 - [x] **AUTH-02**: Only whitelisted emails in DB can access the app (no public registration)
 - [x] **AUTH-03**: User with ADMIN role can create, edit, and delete all resources
 - [x] **AUTH-04**: User with USER role can view all resources but cannot modify anything
@@ -131,7 +131,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-03 | Phase 1: Backend Scaffold | Complete (01-02) |
 | INFR-04 | Phase 1: Backend Scaffold | Complete (01-02) |
 | INFR-05 | Phase 1: Backend Scaffold | Complete (01-01) |
-| AUTH-01 | Phase 2: Auth | Code complete (02-03), pending E2E verification |
+| AUTH-01 | Phase 2: Auth | Complete (02-03, E2E verified) |
 | AUTH-02 | Phase 2: Auth | Complete (02-01) |
 | AUTH-03 | Phase 2: Auth | Complete (02-01) |
 | AUTH-04 | Phase 2: Auth | Complete (02-01) |

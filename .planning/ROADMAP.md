@@ -17,7 +17,7 @@ scaffolded — each phase delivers working backend endpoints consumed by real UI
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
-- [ ] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
+- [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [ ] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [ ] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
 - [ ] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price
@@ -58,7 +58,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md -- User entity + migration with admin seed, UsersModule/UsersService, auth decorators (@Public/@Roles/@CurrentUser), JwtAuthGuard + RolesGuard as APP_GUARD, JWT strategy with whitelist check, AuthModule wiring
 - [x] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
-- [ ] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper (Tasks 1-3 complete, Task 4 checkpoint pending)
+- [x] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper
 
 ### Phase 3: Catalogs and Suppliers
 **Goal**: All reference data (product dimensions, supply types, suppliers) exists and can be managed before any supply or product is created
@@ -152,7 +152,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
-| 2. Auth | 2/3 | In progress | - |
+| 2. Auth | 3/3 | Complete | 2026-03-01 |
 | 3. Catalogs and Suppliers | 0/3 | Not started | - |
 | 4. Supplies and Price History | 0/3 | Not started | - |
 | 5. Products and BOM | 0/4 | Not started | - |
