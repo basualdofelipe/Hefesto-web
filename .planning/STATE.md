@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T13:04:54Z"
+last_updated: "2026-03-01T13:16:14Z"
 progress:
   total_phases: 7
   completed_phases: 1
@@ -23,16 +23,16 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 2 of 7 (Auth)
-Plan: 2 of 3 in current phase
-Status: Plan 02-02 complete — auth endpoints (AuthService, AuthController, UsersController)
-Last activity: 2026-03-01 — Plan 02-02 executed (7min)
+Plan: 3 of 3 in current phase
+Status: Plan 02-03 Tasks 1-3 complete — frontend auth (NextAuth, login, header). Task 4 checkpoint:human-verify PENDING.
+Last activity: 2026-03-01 — Plan 02-03 executed Tasks 1-3 (7min)
 
-Progress: [#####░░░░░] 23%
+Progress: [#####░░░░░] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 5 (02-03 pending checkpoint)
 - Average duration: 6.8min
 - Total execution time: 0.57 hours
 
@@ -41,10 +41,10 @@ Progress: [#####░░░░░] 23%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
-| 2 - Auth | 2 | 14min | 7min |
+| 2 - Auth | 2 (+1 pending) | 14min (+7min) | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (5min), 01-03 (5min), 02-01 (7min), 02-02 (7min)
+- Last 5 plans: 01-02 (5min), 01-03 (5min), 02-01 (7min), 02-02 (7min), 02-03 (7min, pending checkpoint)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -83,10 +83,17 @@ Recent decisions affecting current work:
 - 02-02: POST /auth/google returns 200 (not 201) -- token exchange is not resource creation
 - 02-02: Unknown routes return 404 (not 401) -- NestJS resolves routes before guards run on unmatched paths
 - 02-02: JwtUser import type required for isolatedModules + emitDecoratorMetadata compatibility
+- 02-03: Backend call only in jwt callback (not signIn) -- avoids double POST /auth/google per Pitfall 2
+- 02-03: AUTH_SECRET env var (not NEXTAUTH_SECRET) -- Auth.js v5 auto-detects per Pitfall 5
+- 02-03: proxy.ts matcher excludes api routes -- prevents NextAuth route handler interception per Pitfall 6
+- 02-03: Login page uses server action (signIn from @/auth) -- keeps page as server component
+- 02-03: Header returns null when no session -- renders only on authenticated pages
+- 02-03: .env.example tracked via !.env.example gitignore exception
+- 02-03: Updated .env.example replacing deprecated NEXTAUTH_SECRET with AUTH_SECRET/AUTH_GOOGLE_ID/AUTH_GOOGLE_SECRET
 
 ### Pending Todos
 
-None yet.
+- Task 4 of Plan 02-03: checkpoint:human-verify — E2E auth flow verification needed before closing Phase 2
 
 ### Blockers/Concerns
 
@@ -97,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 02-02-PLAN.md
-Resume file: .planning/phases/02-auth/02-02-SUMMARY.md
+Stopped at: Plan 02-03 Task 4 checkpoint:human-verify — awaiting E2E auth flow verification
+Resume file: .planning/phases/02-auth/02-03-SUMMARY.md

@@ -131,7 +131,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-03 | Phase 1: Backend Scaffold | Complete (01-02) |
 | INFR-04 | Phase 1: Backend Scaffold | Complete (01-02) |
 | INFR-05 | Phase 1: Backend Scaffold | Complete (01-01) |
-| AUTH-01 | Phase 2: Auth | Pending |
+| AUTH-01 | Phase 2: Auth | Code complete (02-03), pending E2E verification |
 | AUTH-02 | Phase 2: Auth | Complete (02-01) |
 | AUTH-03 | Phase 2: Auth | Complete (02-01) |
 | AUTH-04 | Phase 2: Auth | Complete (02-01) |

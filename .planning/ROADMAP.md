@@ -58,7 +58,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md -- User entity + migration with admin seed, UsersModule/UsersService, auth decorators (@Public/@Roles/@CurrentUser), JwtAuthGuard + RolesGuard as APP_GUARD, JWT strategy with whitelist check, AuthModule wiring
 - [x] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
-- [ ] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper
+- [ ] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper (Tasks 1-3 complete, Task 4 checkpoint pending)
 
 ### Phase 3: Catalogs and Suppliers
 **Goal**: All reference data (product dimensions, supply types, suppliers) exists and can be managed before any supply or product is created
