@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T12:52:14Z"
+last_updated: "2026-03-01T13:04:54Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 22
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -23,28 +23,28 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 2 of 7 (Auth)
-Plan: 1 of 3 in current phase
-Status: Plan 02-01 complete — auth foundation (guards, user entity, JWT strategy)
-Last activity: 2026-03-01 — Plan 02-01 executed (7min)
+Plan: 2 of 3 in current phase
+Status: Plan 02-02 complete — auth endpoints (AuthService, AuthController, UsersController)
+Last activity: 2026-03-01 — Plan 02-02 executed (7min)
 
-Progress: [####░░░░░░] 18%
+Progress: [#####░░░░░] 23%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 6.8min
-- Total execution time: 0.45 hours
+- Total execution time: 0.57 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
-| 2 - Auth | 1 | 7min | 7min |
+| 2 - Auth | 2 | 14min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10min), 01-02 (5min), 01-03 (5min), 02-01 (7min)
+- Last 5 plans: 01-02 (5min), 01-03 (5min), 02-01 (7min), 02-02 (7min)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -79,6 +79,10 @@ Recent decisions affecting current work:
 - 02-01: @Public() opt-out pattern for health and swagger routes
 - 02-01: Admin seed in migration with admin@nemea.com as placeholder
 - 02-01: google-auth-library installed for id_token verification in Plan 02-02
+- 02-02: AuthService.verifyGoogleIdToken as private method -- clean mocking without overriding google-auth-library internals
+- 02-02: POST /auth/google returns 200 (not 201) -- token exchange is not resource creation
+- 02-02: Unknown routes return 404 (not 401) -- NestJS resolves routes before guards run on unmatched paths
+- 02-02: JwtUser import type required for isolatedModules + emitDecoratorMetadata compatibility
 
 ### Pending Todos
 
@@ -93,5 +97,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/02-auth/02-01-SUMMARY.md
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-auth/02-02-SUMMARY.md

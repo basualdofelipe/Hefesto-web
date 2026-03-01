@@ -57,7 +57,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md -- User entity + migration with admin seed, UsersModule/UsersService, auth decorators (@Public/@Roles/@CurrentUser), JwtAuthGuard + RolesGuard as APP_GUARD, JWT strategy with whitelist check, AuthModule wiring
-- [ ] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
+- [x] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
 - [ ] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper
 
 ### Phase 3: Catalogs and Suppliers
@@ -152,7 +152,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
-| 2. Auth | 1/3 | In progress | - |
+| 2. Auth | 2/3 | In progress | - |
 | 3. Catalogs and Suppliers | 0/3 | Not started | - |
 | 4. Supplies and Price History | 0/3 | Not started | - |
 | 5. Products and BOM | 0/4 | Not started | - |
