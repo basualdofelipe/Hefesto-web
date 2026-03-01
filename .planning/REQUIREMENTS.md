@@ -136,14 +136,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 2: Auth | Complete (02-01) |
 | AUTH-04 | Phase 2: Auth | Complete (02-01) |
 | AUTH-05 | Phase 2: Auth | Complete (02-01) |
-| CATL-01 | Phase 3: Catalogs and Suppliers | Pending |
-| CATL-02 | Phase 3: Catalogs and Suppliers | Pending |
-| CATL-03 | Phase 3: Catalogs and Suppliers | Pending |
-| CATL-04 | Phase 3: Catalogs and Suppliers | Pending |
-| CATL-05 | Phase 3: Catalogs and Suppliers | Pending |
-| CATL-06 | Phase 3: Catalogs and Suppliers | Pending |
-| SUPP-01 | Phase 3: Catalogs and Suppliers | Pending |
-| SUPP-02 | Phase 3: Catalogs and Suppliers | Pending |
+| CATL-01 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-02 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-03 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-04 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-05 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| CATL-06 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| SUPP-01 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
+| SUPP-02 | Phase 3: Catalogs and Suppliers | In Progress (API 03-02, UI 03-03) |
 | SPPL-01 | Phase 4: Supplies and Price History | Pending |
 | SPPL-02 | Phase 4: Supplies and Price History | Pending |
 | SPPL-03 | Phase 4: Supplies and Price History | Pending |

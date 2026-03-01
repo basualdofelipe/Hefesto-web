@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T15:56:05Z"
+last_updated: "2026-03-01T16:04:06Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 22
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -23,18 +23,18 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 3 of 7 (Catalogs and Suppliers)
-Plan: 2 of 3 in current phase
-Status: Plan 03-01 (UUID Migration) complete. Ready for Plan 03-02.
-Last activity: 2026-03-01 — Plan 03-01 completed (UUID migration + all type references updated)
+Plan: 3 of 3 in current phase
+Status: Plan 03-02 (Catalogs & Suppliers API) complete. Ready for Plan 03-03.
+Last activity: 2026-03-01 — Plan 03-02 completed (7 entities, CatalogsModule, SuppliersModule, migrations, seed data)
 
-Progress: [#######░░░] 32%
+Progress: [########░░] 36%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 7.3min
-- Total execution time: 0.84 hours
+- Total plans completed: 8
+- Average duration: 7min
+- Total execution time: 0.93 hours
 
 **By Phase:**
 
@@ -42,10 +42,10 @@ Progress: [#######░░░] 32%
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
 | 2 - Auth | 3 | 24min | 8min |
-| 3 - Catalogs & Suppliers | 1/3 | 7min | 7min |
+| 3 - Catalogs & Suppliers | 2/3 | 12min | 6min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (7min), 02-02 (7min), 02-03 (10min), 03-01 (7min)
+- Last 5 plans: 02-02 (7min), 02-03 (10min), 03-01 (7min), 03-02 (5min)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -94,18 +94,22 @@ Recent decisions affecting current work:
 - 03-01: UUID migration uses add-column/drop-column strategy (not ALTER TYPE) for clean SERIAL-to-UUID conversion
 - 03-01: PK constraint renamed from auto-generated hash to semantic PK_users_id
 - 03-01: Consistent mock UUID (a1b2c3d4-e5f6-7890-abcd-ef1234567890) across all test files
+- 03-02: Generic dimension-to-repository map in CatalogsService avoids 6 duplicate controllers for identical name-only entities
+- 03-02: Partial unique index on suppliers (WHERE is_active = true) allows reactivating deactivated supplier names
+- 03-02: FK-safe delete prepared with 23503 catch for future Phase 5 product references
+- 03-02: Supplier toggle-status via PATCH endpoint instead of DELETE for soft delete
 
 ### Pending Todos
 
-None -- Plan 03-01 complete, ready for Plan 03-02.
+None -- Plan 03-02 complete, ready for Plan 03-03.
 
 ### Blockers/Concerns
 
-- Phase 4 (Supplies): Soft delete + unique constraint strategy must be decided before the first entity with unique constraints is migrated. Options: is_active partial index vs @DeleteDateColumn. Decide during Phase 3 planning.
+- Phase 4 (Supplies): Soft delete strategy decided in 03-02 -- is_active with partial unique index. Apply same pattern to supplies.
 - Phase 6 (Costs): DISTINCT ON batched query must be verified against NestJS logger to confirm exactly 2 SQL queries for the product list (explicit acceptance criterion).
 
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 03-01-PLAN.md
-Resume file: .planning/phases/03-catalogs-and-suppliers/03-01-SUMMARY.md
+Stopped at: Completed 03-02-PLAN.md
+Resume file: .planning/phases/03-catalogs-and-suppliers/03-02-SUMMARY.md
