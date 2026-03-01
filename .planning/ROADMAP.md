@@ -70,12 +70,13 @@ Plans:
   3. Admin can create a supplier with name, address, email, phone, whatsapp, and description
   4. Admin can deactivate a supplier and the supplier no longer appears in active lists (soft delete)
   5. USER role user can view all catalog and supplier data but cannot modify anything
-**Plans**: 3 plans
+**Plans**: 4 plans
 
 Plans:
 - [x] 03-01-PLAN.md -- UUID migration (users integer→UUID) + BaseEntity update to UUID PK + fix all id:number references across backend and frontend
 - [x] 03-02-PLAN.md -- 6 catalog entities + supplier entity + migrations + CatalogsModule (generic CRUD) + SuppliersModule (CRUD + toggle-status) + seed data + AppModule registration
 - [x] 03-03-PLAN.md -- Shadcn sidebar + route groups (auth/app) + catalog tabs page with inline CRUD + supplier list/form pages + client API wrapper + visual verification checkpoint
+- [x] 03-04-PLAN.md -- Gap closure: fix supplier email validation chain, revert catalog tabs scroll (flex-wrap kept), confirm mobile sidebar backdrop
 
 ### Phase 4: Supplies and Price History
 **Goal**: Supplies with their types and suppliers exist, and every price change is preserved as an immutable historical record
@@ -153,7 +154,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
-| 3. Catalogs and Suppliers | 3/3 | Complete | 2026-03-01 |
+| 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
 | 4. Supplies and Price History | 0/3 | Not started | - |
 | 5. Products and BOM | 0/4 | Not started | - |
 | 6. Cost Calculation | 0/3 | Not started | - |
