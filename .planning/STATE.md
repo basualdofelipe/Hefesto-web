@@ -103,5 +103,5 @@ None -- Phase 2 complete, ready for Phase 3 planning.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 02-03-PLAN.md (Phase 2 Auth fully done)
-Resume file: .planning/phases/02-auth/02-03-SUMMARY.md
+Stopped at: Phase 3 context gathered
+Resume file: .planning/phases/03-catalogs-and-suppliers/03-CONTEXT.md
