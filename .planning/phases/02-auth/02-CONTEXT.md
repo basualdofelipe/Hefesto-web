@@ -88,6 +88,7 @@ Users can log in with Google and the backend enforces authentication and roles o
 ## Deferred Ideas
 
 - User management UI (list users, change roles, add/remove from whitelist) — future phase or V2
+- Dynamic RBAC: table `role_permissions` with UI to assign granular permissions per role per resource (ej: rol "Asistente" puede editar precios pero no productos). Evaluar si se necesita cuando haya más de 2-3 usuarios — V2+
 - Multiple auth providers (GitHub, email/password) — V2 if needed
 - Audit log of login events — V2
 
