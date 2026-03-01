@@ -70,12 +70,12 @@ Plans:
   3. Admin can create a supplier with name, address, email, phone, whatsapp, and description
   4. Admin can deactivate a supplier and the supplier no longer appears in active lists (soft delete)
   5. USER role user can view all catalog and supplier data but cannot modify anything
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Catalog entities + migrations (product_type, product_name, product_finish, product_color, product_size, supply_type) + CRUD endpoints
-- [ ] 03-02: Suppliers entity + migration (with is_active soft delete + partial unique index) + CRUD endpoints
-- [ ] 03-03: Frontend pages: catalog management screens and suppliers list/form
+- [ ] 03-01-PLAN.md -- UUID migration (users integer→UUID) + BaseEntity update to UUID PK + fix all id:number references across backend and frontend
+- [ ] 03-02-PLAN.md -- 6 catalog entities + supplier entity + migrations + CatalogsModule (generic CRUD) + SuppliersModule (CRUD + toggle-status) + seed data + AppModule registration
+- [ ] 03-03-PLAN.md -- Shadcn sidebar + route groups (auth/app) + catalog tabs page with inline CRUD + supplier list/form pages + client API wrapper + visual verification checkpoint
 
 ### Phase 4: Supplies and Price History
 **Goal**: Supplies with their types and suppliers exist, and every price change is preserved as an immutable historical record
