@@ -58,6 +58,14 @@ CRUD for all 5 product dimensions (product_type, product_name, product_finish, p
 - Future phases add their items when built
 - Mobile: hamburger icon in header opens sidebar as overlay/drawer
 
+### ID strategy (project-wide, starts in this phase)
+- Migrate from integer SERIAL to UUID for all entities
+- `BaseEntity.id` changes to `@PrimaryGeneratedColumn('uuid')` (string type)
+- Existing `users` table gets a migration to alter id from integer to UUID
+- All new entities (catalogs, suppliers) born with UUID PKs
+- All FKs reference UUID columns
+- This is a one-time breaking change — best done now with only 1 table existing
+
 ### Seed data
 - Seed all 6 catalog dimensions with real business data extracted from `Costos Nemea.xlsx`
 - Also seed supplier data from the Excel
@@ -80,6 +88,7 @@ CRUD for all 5 product dimensions (product_type, product_name, product_finish, p
 - Catalog page is intentionally simple — each tab is the same pattern (list of names with inline CRUD)
 - Supplier form follows standard admin form patterns (separate page, back button, save/cancel)
 - The sidebar navigation is being introduced in this phase and will grow as future phases are built
+- **Quality bar:** App serves as portfolio piece. Professional structure everywhere (UUID PKs, proper patterns, clean code) but no overengineering. Standard modern practices, not enterprise astronautics. Should look and feel like a real production app.
 
 </specifics>
 
