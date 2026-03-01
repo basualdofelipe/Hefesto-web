@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-01T14:05:26Z"
+last_updated: "2026-03-01T15:56:05Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 22
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -23,18 +23,18 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 3 of 7 (Catalogs and Suppliers)
-Plan: 1 of 3 in current phase
-Status: Phase 2 Auth complete (all 3 plans, E2E verified). Ready for Phase 3.
-Last activity: 2026-03-01 — Plan 02-03 completed (checkpoint approved, migration fix committed)
+Plan: 2 of 3 in current phase
+Status: Plan 03-01 (UUID Migration) complete. Ready for Plan 03-02.
+Last activity: 2026-03-01 — Plan 03-01 completed (UUID migration + all type references updated)
 
-Progress: [######░░░░] 30%
+Progress: [#######░░░] 32%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 7.2min
-- Total execution time: 0.72 hours
+- Total plans completed: 7
+- Average duration: 7.3min
+- Total execution time: 0.84 hours
 
 **By Phase:**
 
@@ -42,9 +42,10 @@ Progress: [######░░░░] 30%
 |-------|-------|-------|----------|
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
 | 2 - Auth | 3 | 24min | 8min |
+| 3 - Catalogs & Suppliers | 1/3 | 7min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (5min), 02-01 (7min), 02-02 (7min), 02-03 (10min)
+- Last 5 plans: 02-01 (7min), 02-02 (7min), 02-03 (10min), 03-01 (7min)
 - Trend: stable (fast)
 
 *Updated after each plan completion*
@@ -90,10 +91,13 @@ Recent decisions affecting current work:
 - 02-03: Header returns null when no session -- renders only on authenticated pages
 - 02-03: .env.example tracked via !.env.example gitignore exception
 - 02-03: Updated .env.example replacing deprecated NEXTAUTH_SECRET with AUTH_SECRET/AUTH_GOOGLE_ID/AUTH_GOOGLE_SECRET
+- 03-01: UUID migration uses add-column/drop-column strategy (not ALTER TYPE) for clean SERIAL-to-UUID conversion
+- 03-01: PK constraint renamed from auto-generated hash to semantic PK_users_id
+- 03-01: Consistent mock UUID (a1b2c3d4-e5f6-7890-abcd-ef1234567890) across all test files
 
 ### Pending Todos
 
-None -- Phase 2 complete, ready for Phase 3 planning.
+None -- Plan 03-01 complete, ready for Plan 03-02.
 
 ### Blockers/Concerns
 
@@ -103,5 +107,5 @@ None -- Phase 2 complete, ready for Phase 3 planning.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-catalogs-and-suppliers/03-CONTEXT.md
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-catalogs-and-suppliers/03-01-SUMMARY.md
