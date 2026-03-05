@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
 - [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [x] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
-- [ ] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
+- [x] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
 - [ ] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price
 - [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
 - [ ] **Phase 7: Expenses and Config** - Expense tracking with categories, Tiendanube config storage
@@ -88,12 +88,12 @@ Plans:
   3. User can view all historical prices for any supply sorted from newest to oldest
   4. The "current price" of a supply is always the most recently added record — verified by checking the product cost after a price update
   5. Admin can deactivate a supply and it is excluded from cost calculations going forward
-**Plans**: 3 plans
+**Plans**: 3 plans (2 feature + 1 gap closure)
 
 Plans:
 - [x] 04-01-PLAN.md -- Supply + SupplyPriceHistory entities, migration (partial unique index + composite price index), SuppliesModule CRUD + price endpoints, supplier cascade deactivation
 - [x] 04-02-PLAN.md -- Frontend grouped expandable table by supply type, create/edit modal, inline price addition, price history modal, search/filter, sidebar "Datos base" group
-- [ ] 04-03-PLAN.md -- Gap closure: fix toggleStatus supplier validation, Next.js dev server error, edit modal stale data on reopen
+- [x] 04-03-PLAN.md -- Gap closure: fix toggleStatus supplier validation, Next.js dev server error, edit modal stale data on reopen
 
 ### Phase 5: Products and BOM
 **Goal**: Products exist with auto-generated SKUs, their material composition is defined and versioned, and their selling price is tracked
@@ -155,7 +155,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
 | 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
-| 4. Supplies and Price History | 0/2 | Not started | - |
+| 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
 | 5. Products and BOM | 0/4 | Not started | - |
 | 6. Cost Calculation | 0/3 | Not started | - |
 | 7. Expenses and Config | 0/3 | Not started | - |

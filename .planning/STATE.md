@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-05T21:15:07Z"
+status: phase_complete
+last_updated: "2026-03-05T22:55:00Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 4 in progress — Supplies and Price History (Plan 1 of 2 complete)
+**Current focus:** Phase 4 complete — Supplies and Price History fully verified. Next: Phase 5 Products and BOM
 
 ## Current Position
 
-Phase: 4 of 7 (Supplies and Price History)
-Plan: 2 of 2 in current phase (Tasks 1-2 complete, checkpoint pending)
-Status: Plan 04-02 Tasks 1-2 complete. Frontend supplies page built with grouped table, modals, inline price, search/filter. Visual verification checkpoint (Task 3) pending.
-Last activity: 2026-03-05 — Plan 04-02 Tasks 1-2 committed (supplies frontend UI)
+Phase: 4 of 7 (Supplies and Price History) -- COMPLETE
+Plan: 3 of 3 in current phase (all complete, all gaps closed)
+Status: Phase 04 fully complete. All 3 plans executed, verification passed 7/7, gap closure plan 04-03 fixed all 3 gaps.
+Last activity: 2026-03-05 — Plan 04-03 gap closure complete (supplier validation + form reset + Fragment key)
 
-Progress: [##########░] 46%
+Progress: [############░] 52%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 7.6min
-- Total execution time: 1.33 hours
+- Total plans completed: 12
+- Average duration: 7.8min
+- Total execution time: 1.56 hours
 
 **By Phase:**
 
@@ -43,11 +43,11 @@ Progress: [##########░] 46%
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
 | 2 - Auth | 3 | 24min | 8min |
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
-| 4 - Supplies & Price History | 1/2 | 4min | 4min |
+| 4 - Supplies & Price History | 3/3 | 27min | 9min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (7min), 03-02 (5min), 03-03 (20min), 03-04 (5min), 04-01 (4min)
-- Trend: fast execution for backend-only plans
+- Last 5 plans: 03-03 (20min), 03-04 (5min), 04-01 (4min), 04-02 (8min), 04-03 (15min)
+- Trend: gap closure plans take longer due to investigation + iteration
 
 *Updated after each plan completion*
 
@@ -114,10 +114,13 @@ Recent decisions affecting current work:
 - 04-02: PriceHistoryDialog uses useCallback+useRef pattern to satisfy react-hooks/set-state-in-effect lint rule
 - 04-02: Shared types.ts centralizes Supply, PriceRecord, UNIT_LABELS, formatPrice for cross-component reuse
 - 04-02: SupplyTypeGroup manages own collapsible state independently (all open by default)
+- 04-03: ConflictException guard on toggleStatus checks both !supply.isActive AND !supply.supplier.isActive before blocking reactivation
+- 04-03: useEffect deps include [supply, open, reset] to reset form on dialog reopen (not just on supply prop change)
+- 04-03: Fragment with explicit key replaces React shorthand in map rendering to fix console warning
 
 ### Pending Todos
 
-Plan 04-02 Tasks 1-2 committed. Task 3 (visual verification checkpoint) pending user approval.
+Phase 04 complete. Next: plan Phase 5 (Products and BOM).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -133,5 +136,5 @@ Plan 04-02 Tasks 1-2 committed. Task 3 (visual verification checkpoint) pending 
 ## Session Continuity
 
 Last session: 2026-03-05
-Stopped at: Plan 04-02 Tasks 1-2 complete, checkpoint:human-verify pending (Task 3)
-Resume file: .planning/phases/04-supplies-and-price-history/04-02-SUMMARY.md
+Stopped at: Phase 04 complete (all 3 plans + verification + gap closure). Ready for Phase 5 planning.
+Resume file: .planning/phases/04-supplies-and-price-history/04-03-SUMMARY.md
