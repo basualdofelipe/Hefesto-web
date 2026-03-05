@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-01T18:50:51.547Z"
+last_updated: "2026-03-05T21:15:07Z"
 progress:
-  total_phases: 3
+  total_phases: 4
   completed_phases: 3
-  total_plans: 10
-  completed_plans: 10
+  total_plans: 12
+  completed_plans: 11
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 3 complete. Ready for Phase 4 — Supplies and Price History
+**Current focus:** Phase 4 in progress — Supplies and Price History (Plan 1 of 2 complete)
 
 ## Current Position
 
-Phase: 3 of 7 (Catalogs and Suppliers) -- COMPLETE (with gap closure)
-Plan: 4 of 4 in current phase (all done, including gap closure)
-Status: Phase 3 complete. 4 plans delivered (UUID migration, API, frontend UI, gap closure). Ready for Phase 4.
-Last activity: 2026-03-01 — Plan 03-04 completed (gap closure: email validation fix, tabs reverted, sidebar confirmed)
+Phase: 4 of 7 (Supplies and Price History)
+Plan: 1 of 2 in current phase (backend API complete, frontend next)
+Status: Plan 04-01 complete. SuppliesModule with 7 REST endpoints, price history, supplier cascade. Plan 04-02 (frontend) next.
+Last activity: 2026-03-05 — Plan 04-01 completed (supplies backend API)
 
-Progress: [#########░] 41%
+Progress: [##########░] 46%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 8min
-- Total execution time: 1.27 hours
+- Total plans completed: 11
+- Average duration: 7.6min
+- Total execution time: 1.33 hours
 
 **By Phase:**
 
@@ -43,10 +43,11 @@ Progress: [#########░] 41%
 | 1 - Backend Scaffold | 3 | 20min | 6.7min |
 | 2 - Auth | 3 | 24min | 8min |
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
+| 4 - Supplies & Price History | 1/2 | 4min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (10min), 03-01 (7min), 03-02 (5min), 03-03 (20min)
-- Trend: stable (03-03 longer due to UI complexity + checkpoint)
+- Last 5 plans: 03-01 (7min), 03-02 (5min), 03-03 (20min), 03-04 (5min), 04-01 (4min)
+- Trend: fast execution for backend-only plans
 
 *Updated after each plan completion*
 
@@ -103,10 +104,15 @@ Recent decisions affecting current work:
 - 03-03: Inline CRUD pattern for catalogs avoids page navigation for simple name edits
 - 03-03: Server-component data fetching with client-component interactivity for catalog tabs
 - 03-03: EditSupplierClient wrapper bridges server-side fetch and client-side form
+- 04-01: Composite partial unique index on supplies defined in migration SQL (not @Index decorator) to avoid TypeORM FK column resolution issues
+- 04-01: 2-query pattern (find + DISTINCT ON) for current price instead of complex QueryBuilder subquery join
+- 04-01: Supplier cascade deactivation via direct Supply repo injection in SuppliersModule (no circular dependency)
+- 04-01: SupplyPriceHistory.price typed as string (TypeORM decimal behavior), frontend parses with parseFloat
+- 04-01: Supplier NOT editable after supply creation (supplierId excluded from UpdateSupplyDto)
 
 ### Pending Todos
 
-None -- Phase 3 complete, ready for Phase 4.
+Plan 04-02 (frontend) pending.
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -122,5 +128,5 @@ None -- Phase 3 complete, ready for Phase 4.
 ## Session Continuity
 
 Last session: 2026-03-05
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-supplies-and-price-history/04-CONTEXT.md
+Stopped at: Completed 04-01-PLAN.md (supplies backend API)
+Resume file: .planning/phases/04-supplies-and-price-history/04-01-SUMMARY.md

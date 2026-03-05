@@ -31,11 +31,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Supplies & Prices
 
-- [ ] **SPPL-01**: Admin can CRUD supplies with name, type, and supplier
-- [ ] **SPPL-02**: Admin can add a new price to a supply (creates historical record, previous prices preserved)
-- [ ] **SPPL-03**: User can view price history for any supply
-- [ ] **SPPL-04**: Current price of a supply is always the most recent record in history
-- [ ] **SPPL-05**: Admin can deactivate/reactivate supplies (soft delete)
+- [x] **SPPL-01**: Admin can CRUD supplies with name, type, and supplier
+- [x] **SPPL-02**: Admin can add a new price to a supply (creates historical record, previous prices preserved)
+- [x] **SPPL-03**: User can view price history for any supply
+- [x] **SPPL-04**: Current price of a supply is always the most recent record in history
+- [x] **SPPL-05**: Admin can deactivate/reactivate supplies (soft delete)
 
 ### Products
 
@@ -144,11 +144,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CATL-06 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
 | SUPP-01 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
 | SUPP-02 | Phase 3: Catalogs and Suppliers | Complete (03-02 API + 03-03 UI) |
-| SPPL-01 | Phase 4: Supplies and Price History | Pending |
-| SPPL-02 | Phase 4: Supplies and Price History | Pending |
-| SPPL-03 | Phase 4: Supplies and Price History | Pending |
-| SPPL-04 | Phase 4: Supplies and Price History | Pending |
-| SPPL-05 | Phase 4: Supplies and Price History | Pending |
+| SPPL-01 | Phase 4: Supplies and Price History | Complete |
+| SPPL-02 | Phase 4: Supplies and Price History | Complete |
+| SPPL-03 | Phase 4: Supplies and Price History | Complete |
+| SPPL-04 | Phase 4: Supplies and Price History | Complete |
+| SPPL-05 | Phase 4: Supplies and Price History | Complete |
 | PROD-01 | Phase 5: Products and BOM | Pending |
 | PROD-02 | Phase 5: Products and BOM | Pending |
 | PROD-03 | Phase 5: Products and BOM | Pending |
