@@ -23,9 +23,9 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 4 of 7 (Supplies and Price History)
-Plan: 1 of 2 in current phase (backend API complete, frontend next)
-Status: Plan 04-01 complete. SuppliesModule with 7 REST endpoints, price history, supplier cascade. Plan 04-02 (frontend) next.
-Last activity: 2026-03-05 — Plan 04-01 completed (supplies backend API)
+Plan: 2 of 2 in current phase (Tasks 1-2 complete, checkpoint pending)
+Status: Plan 04-02 Tasks 1-2 complete. Frontend supplies page built with grouped table, modals, inline price, search/filter. Visual verification checkpoint (Task 3) pending.
+Last activity: 2026-03-05 — Plan 04-02 Tasks 1-2 committed (supplies frontend UI)
 
 Progress: [##########░] 46%
 
@@ -109,10 +109,15 @@ Recent decisions affecting current work:
 - 04-01: Supplier cascade deactivation via direct Supply repo injection in SuppliersModule (no circular dependency)
 - 04-01: SupplyPriceHistory.price typed as string (TypeORM decimal behavior), frontend parses with parseFloat
 - 04-01: Supplier NOT editable after supply creation (supplierId excluded from UpdateSupplyDto)
+- 04-02: Sidebar restructured with SidebarGroupLabel for Datos base section (Catalogos, Proveedores, Insumos)
+- 04-02: Unified zod schema for create/edit form to avoid TypeScript resolver type incompatibility with react-hook-form
+- 04-02: PriceHistoryDialog uses useCallback+useRef pattern to satisfy react-hooks/set-state-in-effect lint rule
+- 04-02: Shared types.ts centralizes Supply, PriceRecord, UNIT_LABELS, formatPrice for cross-component reuse
+- 04-02: SupplyTypeGroup manages own collapsible state independently (all open by default)
 
 ### Pending Todos
 
-Plan 04-02 (frontend) pending.
+Plan 04-02 Tasks 1-2 committed. Task 3 (visual verification checkpoint) pending user approval.
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -128,5 +133,5 @@ Plan 04-02 (frontend) pending.
 ## Session Continuity
 
 Last session: 2026-03-05
-Stopped at: Completed 04-01-PLAN.md (supplies backend API)
-Resume file: .planning/phases/04-supplies-and-price-history/04-01-SUMMARY.md
+Stopped at: Plan 04-02 Tasks 1-2 complete, checkpoint:human-verify pending (Task 3)
+Resume file: .planning/phases/04-supplies-and-price-history/04-02-SUMMARY.md
