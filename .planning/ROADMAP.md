@@ -73,7 +73,7 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [x] 03-01-PLAN.md -- UUID migration (users integer→UUID) + BaseEntity update to UUID PK + fix all id:number references across backend and frontend
+- [x] 03-01-PLAN.md -- UUID migration (users integer->UUID) + BaseEntity update to UUID PK + fix all id:number references across backend and frontend
 - [x] 03-02-PLAN.md -- 6 catalog entities + supplier entity + migrations + CatalogsModule (generic CRUD) + SuppliersModule (CRUD + toggle-status) + seed data + AppModule registration
 - [x] 03-03-PLAN.md -- Shadcn sidebar + route groups (auth/app) + catalog tabs page with inline CRUD + supplier list/form pages + client API wrapper + visual verification checkpoint
 - [x] 03-04-PLAN.md -- Gap closure: fix supplier email validation chain, revert catalog tabs scroll (flex-wrap kept), confirm mobile sidebar backdrop
@@ -88,12 +88,11 @@ Plans:
   3. User can view all historical prices for any supply sorted from newest to oldest
   4. The "current price" of a supply is always the most recently added record — verified by checking the product cost after a price update
   5. Admin can deactivate a supply and it is excluded from cost calculations going forward
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Supplies entity + migration (with soft delete partial index) + CRUD endpoints + SuppliesService exported
-- [ ] 04-02: SuppliesPriceHistory entity + migration (composite index on supply_id, created_at DESC) + POST /supplies/:id/prices + GET /supplies/:id/prices
-- [ ] 04-03: Frontend pages: supplies list, supply detail with price history, add price form
+- [ ] 04-01-PLAN.md -- Supply + SupplyPriceHistory entities, migration (partial unique index + composite price index), SuppliesModule CRUD + price endpoints, supplier cascade deactivation
+- [ ] 04-02-PLAN.md -- Frontend grouped expandable table by supply type, create/edit modal, inline price addition, price history modal, search/filter, sidebar "Datos base" group
 
 ### Phase 5: Products and BOM
 **Goal**: Products exist with auto-generated SKUs, their material composition is defined and versioned, and their selling price is tracked
@@ -148,14 +147,14 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
 | 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
-| 4. Supplies and Price History | 0/3 | Not started | - |
+| 4. Supplies and Price History | 0/2 | Not started | - |
 | 5. Products and BOM | 0/4 | Not started | - |
 | 6. Cost Calculation | 0/3 | Not started | - |
 | 7. Expenses and Config | 0/3 | Not started | - |
