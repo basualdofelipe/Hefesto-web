@@ -88,11 +88,12 @@ Plans:
   3. User can view all historical prices for any supply sorted from newest to oldest
   4. The "current price" of a supply is always the most recently added record — verified by checking the product cost after a price update
   5. Admin can deactivate a supply and it is excluded from cost calculations going forward
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md -- Supply + SupplyPriceHistory entities, migration (partial unique index + composite price index), SuppliesModule CRUD + price endpoints, supplier cascade deactivation
-- [ ] 04-02-PLAN.md -- Frontend grouped expandable table by supply type, create/edit modal, inline price addition, price history modal, search/filter, sidebar "Datos base" group
+- [x] 04-01-PLAN.md -- Supply + SupplyPriceHistory entities, migration (partial unique index + composite price index), SuppliesModule CRUD + price endpoints, supplier cascade deactivation
+- [x] 04-02-PLAN.md -- Frontend grouped expandable table by supply type, create/edit modal, inline price addition, price history modal, search/filter, sidebar "Datos base" group
+- [ ] 04-03-PLAN.md -- Gap closure: fix toggleStatus supplier validation, Next.js dev server error, edit modal stale data on reopen
 
 ### Phase 5: Products and BOM
 **Goal**: Products exist with auto-generated SKUs, their material composition is defined and versioned, and their selling price is tracked
