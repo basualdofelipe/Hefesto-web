@@ -105,13 +105,13 @@ Plans:
   3. When Admin changes the BOM, the old composition is preserved with is_active = false and the new one becomes active — old record is still queryable
   4. Admin can add a selling price to a product; previous selling prices are preserved as history
   5. Admin can deactivate a product; it is excluded from active product views but the record is not deleted
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 05-01: Catalog dimension entities wired to products, Product entity + migration (5 FK dims + sku_code + is_active) + SKU generation + CRUD endpoints
-- [ ] 05-02: SuppliesPerProductHistory entity + migration (BOM with is_active versioning, transaction wrapping) + BOM endpoints
-- [ ] 05-03: ProductPriceHistory entity + migration + POST /products/:id/prices endpoint + GET /products/:id/prices
-- [ ] 05-04: Frontend pages: product list (no cost yet), product detail, create/edit product form, BOM editor
+- [ ] 05-01-PLAN.md -- sku_code on catalog tables + Product entity + migration + ProductsModule CRUD + SKU generation + batch creation
+- [ ] 05-02-PLAN.md -- BOM entity + ProductPriceHistory entity + migrations + BOM endpoints + price endpoints + supply deactivation guard + seed data
+- [ ] 05-03-PLAN.md -- Frontend product list grouped by type, batch creation modal, edit modal, expand inline with BOM/price, sidebar update
+- [ ] 05-04-PLAN.md -- BOM editor modal, group BOM editor, selling price inline/history/batch, visual verification checkpoint
 
 ### Phase 6: Cost Calculation
 **Goal**: Every product displays its current real cost calculated dynamically from the latest supply prices — the core value of the app
@@ -156,6 +156,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
 | 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
 | 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
-| 5. Products and BOM | 0/4 | Not started | - |
+| 5. Products and BOM | 0/4 | Planning complete | - |
 | 6. Cost Calculation | 0/3 | Not started | - |
 | 7. Expenses and Config | 0/3 | Not started | - |
