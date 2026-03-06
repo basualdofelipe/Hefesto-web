@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [x] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [x] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
-- [ ] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price
+- [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price (completed 2026-03-06)
 - [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
 - [ ] **Phase 7: Expenses and Config** - Expense tracking with categories, Tiendanube config storage
 
@@ -156,6 +156,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 2. Auth | 3/3 | Complete | 2026-03-01 |
 | 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
 | 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
-| 5. Products and BOM | 0/4 | Planning complete | - |
+| 5. Products and BOM | 4/4 | Complete   | 2026-03-06 |
 | 6. Cost Calculation | 0/3 | Not started | - |
 | 7. Expenses and Config | 0/3 | Not started | - |
