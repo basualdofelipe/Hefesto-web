@@ -38,7 +38,7 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 Phase: 5 of 7 (Products and BOM) -- COMPLETE
 Plan: 4 of 4 in current phase (05-04 complete)
 Status: Phase 5 complete. Full product lifecycle: batch create, edit, BOM editor, selling prices, group operations.
-Last activity: 2026-03-06 — Plan 05-04 BOM/Price Frontend Wiring complete
+Last activity: 2026-03-06 - Completed quick task 1: Fix button nesting hydration error and catalog creation broken
 
 Progress: [####################░░░░░] 80%
 
@@ -159,6 +159,12 @@ Phase 05 complete (4/4 plans). Next: Phase 6 (Cost Calculation).
 - ~~Supplier email validation~~ FIXED in 03-04 (empty string → undefined transform)
 - Catalog tabs wrap on mobile (flex-wrap) — functional, will redesign in UI polish
 - ~~Mobile sidebar backdrop~~ CONFIRMED working in 03-04
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Fix button nesting hydration error and catalog creation broken | 2026-03-06 | cf0492e | [1-fix-button-nesting-hydration-error-and-c](./quick/1-fix-button-nesting-hydration-error-and-c/) |
 
 ### Blockers/Concerns
 
