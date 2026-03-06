@@ -43,9 +43,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PROD-02**: Each product has an auto-generated unique SKU (sku_code)
 - [x] **PROD-03**: Admin can edit product attributes
 - [x] **PROD-04**: Admin can deactivate/reactivate products (soft delete)
-- [ ] **PROD-05**: Admin can define the material composition (BOM) of a product: list of supplies with quantity and unit_type (m2, unit, meter, kg)
-- [ ] **PROD-06**: When BOM changes, old composition is preserved as history (is_active flag)
-- [ ] **PROD-07**: Admin can add a selling price to a product (historical record)
+- [x] **PROD-05**: Admin can define the material composition (BOM) of a product: list of supplies with quantity and unit_type (m2, unit, meter, kg)
+- [x] **PROD-06**: When BOM changes, old composition is preserved as history (is_active flag)
+- [x] **PROD-07**: Admin can add a selling price to a product (historical record)
 
 ### Cost Calculation
 
@@ -153,9 +153,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-02 | Phase 5: Products and BOM | Complete |
 | PROD-03 | Phase 5: Products and BOM | Complete |
 | PROD-04 | Phase 5: Products and BOM | Complete |
-| PROD-05 | Phase 5: Products and BOM | Pending |
-| PROD-06 | Phase 5: Products and BOM | Pending |
-| PROD-07 | Phase 5: Products and BOM | Pending |
+| PROD-05 | Phase 5: Products and BOM | Complete |
+| PROD-06 | Phase 5: Products and BOM | Complete |
+| PROD-07 | Phase 5: Products and BOM | Complete |
 | COST-01 | Phase 6: Cost Calculation | Pending |
 | COST-02 | Phase 6: Cost Calculation | Pending |
 | COST-03 | Phase 6: Cost Calculation | Pending |

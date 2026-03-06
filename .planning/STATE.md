@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-last_updated: "2026-03-06T01:21:47Z"
+last_updated: "2026-03-06T01:32:43Z"
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 16
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State
@@ -23,18 +23,18 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 5 of 7 (Products and BOM)
-Plan: 1 of 4 in current phase (05-01 complete)
-Status: Plan 05-01 complete. Product entity, migrations, and CRUD API delivered.
-Last activity: 2026-03-06 — Plan 05-01 Products entity and CRUD complete
+Plan: 2 of 4 in current phase (05-02 complete)
+Status: Plan 05-02 complete. BOM version swap, product price history, supply deactivation guard, and seed data.
+Last activity: 2026-03-06 — Plan 05-02 BOM and Price History complete
 
-Progress: [##############░░░░░░░░░░░] 57%
+Progress: [###############░░░░░░░░░░] 61%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 7.6min
-- Total execution time: 1.65 hours
+- Total plans completed: 14
+- Average duration: 7.7min
+- Total execution time: 1.78 hours
 
 **By Phase:**
 
@@ -44,10 +44,10 @@ Progress: [##############░░░░░░░░░░░] 57%
 | 2 - Auth | 3 | 24min | 8min |
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
 | 4 - Supplies & Price History | 3/3 | 27min | 9min |
-| 5 - Products & BOM | 1/4 | 5min | 5min |
+| 5 - Products & BOM | 2/4 | 13min | 6.5min |
 
 **Recent Trend:**
-- Last 5 plans: 03-04 (5min), 04-01 (4min), 04-02 (8min), 04-03 (15min), 05-01 (5min)
+- Last 5 plans: 04-01 (4min), 04-02 (8min), 04-03 (15min), 05-01 (5min), 05-02 (8min)
 - Trend: standard CRUD plans execute fast (~5min), gap closure plans take longer
 
 *Updated after each plan completion*
@@ -124,10 +124,15 @@ Recent decisions affecting current work:
 - 05-01: UpdateProductDto requires all 5 dimension IDs (SKU regenerates on any change)
 - 05-01: ProductsService exported for future BOM and cost calculation modules
 - 05-01: product_sizes "Unico" gets sku_code=0 (sentinel for single-size products)
+- 05-02: BOM version swap: deactivate old + insert new in entityManager.transaction
+- 05-02: ProductPriceHistory append-only with DISTINCT ON for current price in findAll
+- 05-02: Supply deactivation guard checks bomRepo.count before allowing is_active=false
+- 05-02: Batch routes defined BEFORE :id routes to avoid NestJS UUID param collision
+- 05-02: lint-staged: prettier --write instead of --check for reliable Windows commit hooks
 
 ### Pending Todos
 
-Phase 05 in progress. Plan 05-01 complete, next: 05-02 (BOM or frontend).
+Phase 05 in progress. Plans 05-01 and 05-02 complete, next: 05-03 (frontend products page).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -143,5 +148,5 @@ Phase 05 in progress. Plan 05-01 complete, next: 05-02 (BOM or frontend).
 ## Session Continuity
 
 Last session: 2026-03-06
-Stopped at: Completed 05-01-PLAN.md (Products entity and CRUD)
-Resume file: .planning/phases/05-products-and-bom/05-01-SUMMARY.md
+Stopped at: Completed 05-02-PLAN.md (BOM and Price History)
+Resume file: .planning/phases/05-products-and-bom/05-02-SUMMARY.md
