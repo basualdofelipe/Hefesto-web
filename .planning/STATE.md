@@ -8,7 +8,7 @@ progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 18
-  completed_plans: 17
+  completed_plans: 18
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 6 in progress. Plan 06-01 complete (cost calculation backend). Next: Plan 06-02 (frontend cost display).
+**Current focus:** Phase 6 complete. All cost calculation (backend + frontend) done. Next: Phase 07 (Expenses & Config).
 
 ## Current Position
 
 Phase: 6 of 7 (Cost Calculation) -- IN PROGRESS
-Plan: 1 of 2 in current phase (06-01 complete)
-Status: CostsModule with batched 2-query cost calculation. Products API enriched with cost/breakdown/warnings.
-Last activity: 2026-03-06 - Completed 06-01-PLAN.md (Cost Calculation Backend)
+Plan: 2 of 2 in current phase (06-02 complete)
+Status: Frontend cost display complete. Product list with Costo/Margen columns, enriched BOM, product detail page.
+Last activity: 2026-03-06 - Completed 06-02-PLAN.md (Frontend Cost Display)
 
-Progress: [#####################░░░░] 85%
+Progress: [#######################░░] 90%
 
 ## Performance Metrics
 
@@ -45,7 +45,7 @@ Progress: [#####################░░░░] 85%
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
 | 4 - Supplies & Price History | 3/3 | 27min | 9min |
 | 5 - Products & BOM | 4/4 | 31min | 7.8min |
-| 6 - Cost Calculation | 1/2 | 5min | 5min |
+| 6 - Cost Calculation | 2/2 | 11min | 5.5min |
 
 **Recent Trend:**
 - Last 5 plans: 05-01 (5min), 05-02 (8min), 05-03 (6min), 05-04 (12min), 06-01 (5min)
@@ -140,10 +140,13 @@ Recent decisions affecting current work:
 - 06-01: CostsModule imports only entity repos (no ProductsModule/SuppliesModule) to avoid circular deps
 - 06-01: Cost breakdown excluded from findAll list response (null) for performance, included only in findOne detail
 - 06-01: findOneWithPrice added to ProductsService for single-product price fetch in detail view
+- 06-02: Expanded row fetches product detail in parallel with BOM to get costBreakdown (list returns null)
+- 06-02: formatMargin calculates markup % (margin/cost) not gross margin (margin/price)
+- 06-02: Product name Link with stopPropagation to avoid row expand on click
 
 ### Pending Todos
 
-Phase 06 plan 01 complete (cost calculation backend). Next: Plan 06-02 (frontend cost display).
+Phase 06 complete (cost calculation backend + frontend). Next: Phase 07 (Expenses & Config).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -169,5 +172,5 @@ Phase 06 plan 01 complete (cost calculation backend). Next: Plan 06-02 (frontend
 ## Session Continuity
 
 Last session: 2026-03-06
-Stopped at: Completed 06-01-PLAN.md (Cost Calculation Backend)
-Resume file: .planning/phases/06-cost-calculation/06-01-SUMMARY.md
+Stopped at: Completed 06-02-PLAN.md (Frontend Cost Display)
+Resume file: .planning/phases/06-cost-calculation/06-02-SUMMARY.md
