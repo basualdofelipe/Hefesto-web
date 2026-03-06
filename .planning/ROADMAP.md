@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [x] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [x] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
-- [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price (completed 2026-03-06)
+- [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price (completed 2026-03-06)
 - [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
 - [ ] **Phase 7: Expenses and Config** - Expense tracking with categories, Tiendanube config storage
 
@@ -108,10 +108,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 05-01-PLAN.md -- sku_code on catalog tables + Product entity + migration + ProductsModule CRUD + SKU generation + batch creation
-- [ ] 05-02-PLAN.md -- BOM entity + ProductPriceHistory entity + migrations + BOM endpoints + price endpoints + supply deactivation guard + seed data
-- [ ] 05-03-PLAN.md -- Frontend product list grouped by type, batch creation modal, edit modal, expand inline with BOM/price, sidebar update
-- [ ] 05-04-PLAN.md -- BOM editor modal, group BOM editor, selling price inline/history/batch, visual verification checkpoint
+- [x] 05-01-PLAN.md -- sku_code on catalog tables + Product entity + migration + ProductsModule CRUD + SKU generation + batch creation
+- [x] 05-02-PLAN.md -- BOM entity + ProductPriceHistory entity + migrations + BOM endpoints + price endpoints + supply deactivation guard + seed data
+- [x] 05-03-PLAN.md -- Frontend product list grouped by type, batch creation modal, edit modal, expand inline with BOM/price, sidebar update
+- [x] 05-04-PLAN.md -- BOM editor modal, group BOM editor, selling price inline/history/batch, visual verification checkpoint
 
 ### Phase 6: Cost Calculation
 **Goal**: Every product displays its current real cost calculated dynamically from the latest supply prices — the core value of the app
@@ -122,12 +122,11 @@ Plans:
   2. After updating a supply price, the product list immediately reflects the new cost for all products that use that supply — no manual action required
   3. The product detail page shows a cost breakdown listing each supply, its quantity, its current price, and its line cost
   4. NestJS logs confirm cost calculation uses exactly 2 SQL queries for the entire product list (no N+1 queries)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: CostsModule + CostsService with batched DISTINCT ON query (1 composition query + 1 price query + in-memory calc)
-- [ ] 06-02: GET /products returns ProductWithCostDto[] with cost and cost_breakdown, role-differentiated view for USER
-- [ ] 06-03: Frontend: product list with cost column, product detail with cost breakdown table
+- [ ] 06-01-PLAN.md -- CostsModule + CostsService with batched DISTINCT ON query + enrich GET /products and GET /products/:id with cost data
+- [ ] 06-02-PLAN.md -- Frontend: cost/margin columns in product list, enriched BOM table, product detail page at /productos/:id, group header aggregation
 
 ### Phase 7: Expenses and Config
 **Goal**: Expense tracking is operational at parity with the Google Sheets, and Tiendanube configuration is stored in the DB for future use
@@ -157,5 +156,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
 | 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
 | 5. Products and BOM | 4/4 | Complete   | 2026-03-06 |
-| 6. Cost Calculation | 0/3 | Not started | - |
+| 6. Cost Calculation | 0/2 | Not started | - |
 | 7. Expenses and Config | 0/3 | Not started | - |
