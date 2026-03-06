@@ -2,26 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-05T22:36:39.879Z"
+status: in_progress
+last_updated: "2026-03-06T01:21:47Z"
 progress:
-  total_phases: 4
+  total_phases: 7
   completed_phases: 4
-  total_plans: 13
+  total_plans: 16
   completed_plans: 13
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: phase_complete
-last_updated: "2026-03-05T22:55:00Z"
-progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 12
-  completed_plans: 12
 ---
 
 # Project State
@@ -31,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 5 context gathered — Products and BOM. Next: plan Phase 5
+**Current focus:** Phase 5 — Products and BOM. Plan 05-01 complete, continuing with 05-02.
 
 ## Current Position
 
-Phase: 4 of 7 (Supplies and Price History) -- COMPLETE
-Plan: 3 of 3 in current phase (all complete, all gaps closed)
-Status: Phase 04 fully complete. All 3 plans executed, verification passed 7/7, gap closure plan 04-03 fixed all 3 gaps.
-Last activity: 2026-03-05 — Plan 04-03 gap closure complete (supplier validation + form reset + Fragment key)
+Phase: 5 of 7 (Products and BOM)
+Plan: 1 of 4 in current phase (05-01 complete)
+Status: Plan 05-01 complete. Product entity, migrations, and CRUD API delivered.
+Last activity: 2026-03-06 — Plan 05-01 Products entity and CRUD complete
 
-Progress: [############░] 52%
+Progress: [##############░░░░░░░░░░░] 57%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 7.8min
-- Total execution time: 1.56 hours
+- Total plans completed: 13
+- Average duration: 7.6min
+- Total execution time: 1.65 hours
 
 **By Phase:**
 
@@ -57,10 +44,11 @@ Progress: [############░] 52%
 | 2 - Auth | 3 | 24min | 8min |
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
 | 4 - Supplies & Price History | 3/3 | 27min | 9min |
+| 5 - Products & BOM | 1/4 | 5min | 5min |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (20min), 03-04 (5min), 04-01 (4min), 04-02 (8min), 04-03 (15min)
-- Trend: gap closure plans take longer due to investigation + iteration
+- Last 5 plans: 03-04 (5min), 04-01 (4min), 04-02 (8min), 04-03 (15min), 05-01 (5min)
+- Trend: standard CRUD plans execute fast (~5min), gap closure plans take longer
 
 *Updated after each plan completion*
 
@@ -130,10 +118,16 @@ Recent decisions affecting current work:
 - 04-03: ConflictException guard on toggleStatus checks both !supply.isActive AND !supply.supplier.isActive before blocking reactivation
 - 04-03: useEffect deps include [supply, open, reset] to reset form on dialog reopen (not just on supply prop change)
 - 04-03: Fragment with explicit key replaces React shorthand in map rendering to fix console warning
+- 05-01: SKU format: type.name.finish.color.size using skuCode SMALLINT from each dimension
+- 05-01: Partial unique index on products.sku_code WHERE is_active = true (same pattern as supplies)
+- 05-01: Batch creation via entityManager.transaction with cartesian product of colors x sizes
+- 05-01: UpdateProductDto requires all 5 dimension IDs (SKU regenerates on any change)
+- 05-01: ProductsService exported for future BOM and cost calculation modules
+- 05-01: product_sizes "Unico" gets sku_code=0 (sentinel for single-size products)
 
 ### Pending Todos
 
-Phase 04 complete. Next: plan Phase 5 (Products and BOM).
+Phase 05 in progress. Plan 05-01 complete, next: 05-02 (BOM or frontend).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -148,6 +142,6 @@ Phase 04 complete. Next: plan Phase 5 (Products and BOM).
 
 ## Session Continuity
 
-Last session: 2026-03-05
-Stopped at: Phase 5 context gathered. Ready for Phase 5 planning.
-Resume file: .planning/phases/05-products-and-bom/05-CONTEXT.md
+Last session: 2026-03-06
+Stopped at: Completed 05-01-PLAN.md (Products entity and CRUD)
+Resume file: .planning/phases/05-products-and-bom/05-01-SUMMARY.md
