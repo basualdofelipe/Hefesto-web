@@ -31,7 +31,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 4 complete — Supplies and Price History fully verified. Next: Phase 5 Products and BOM
+**Current focus:** Phase 5 context gathered — Products and BOM. Next: plan Phase 5
 
 ## Current Position
 
@@ -149,5 +149,5 @@ Phase 04 complete. Next: plan Phase 5 (Products and BOM).
 ## Session Continuity
 
 Last session: 2026-03-05
-Stopped at: Phase 04 complete (all 3 plans + verification + gap closure). Ready for Phase 5 planning.
-Resume file: .planning/phases/04-supplies-and-price-history/04-03-SUMMARY.md
+Stopped at: Phase 5 context gathered. Ready for Phase 5 planning.
+Resume file: .planning/phases/05-products-and-bom/05-CONTEXT.md
