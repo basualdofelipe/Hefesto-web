@@ -2,26 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-06T02:59:23.171Z"
-progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 17
-  completed_plans: 17
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
 status: in_progress
-last_updated: "2026-03-06T01:54:00Z"
+last_updated: "2026-03-06T21:30:24Z"
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 16
-  completed_plans: 16
+  total_plans: 18
+  completed_plans: 17
 ---
 
 # Project State
@@ -31,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 5 complete. All 4 plans executed. Next: Phase 6 (Cost Calculation).
+**Current focus:** Phase 6 in progress. Plan 06-01 complete (cost calculation backend). Next: Plan 06-02 (frontend cost display).
 
 ## Current Position
 
-Phase: 5 of 7 (Products and BOM) -- COMPLETE
-Plan: 4 of 4 in current phase (05-04 complete)
-Status: Phase 5 complete. Full product lifecycle: batch create, edit, BOM editor, selling prices, group operations.
-Last activity: 2026-03-06 - Completed quick task 1: Fix button nesting hydration error and catalog creation broken
+Phase: 6 of 7 (Cost Calculation) -- IN PROGRESS
+Plan: 1 of 2 in current phase (06-01 complete)
+Status: CostsModule with batched 2-query cost calculation. Products API enriched with cost/breakdown/warnings.
+Last activity: 2026-03-06 - Completed 06-01-PLAN.md (Cost Calculation Backend)
 
-Progress: [####################░░░░░] 80%
+Progress: [#####################░░░░] 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
-- Average duration: 7.8min
-- Total execution time: 2.08 hours
+- Total plans completed: 17
+- Average duration: 7.6min
+- Total execution time: 2.16 hours
 
 **By Phase:**
 
@@ -58,9 +45,10 @@ Progress: [####################░░░░░] 80%
 | 3 - Catalogs & Suppliers | 4/4 | 40min | 10min |
 | 4 - Supplies & Price History | 3/3 | 27min | 9min |
 | 5 - Products & BOM | 4/4 | 31min | 7.8min |
+| 6 - Cost Calculation | 1/2 | 5min | 5min |
 
 **Recent Trend:**
-- Last 5 plans: 04-03 (15min), 05-01 (5min), 05-02 (8min), 05-03 (6min), 05-04 (12min)
+- Last 5 plans: 05-01 (5min), 05-02 (8min), 05-03 (6min), 05-04 (12min), 06-01 (5min)
 - Trend: standard CRUD plans execute fast (~5min), frontend pages ~6min, wiring plans with bug fixes ~12min
 
 *Updated after each plan completion*
@@ -149,10 +137,13 @@ Recent decisions affecting current work:
 - 05-04: BomGroupEditorDialog uses majority BOM detection via serialized JSON comparison
 - 05-04: Migration fix: dynamic ROW_NUMBER fallback for user-created catalog items not in CASE statements
 - 05-04: Auth ClientFetchError is pre-existing (not phase 5), documented but not fixed
+- 06-01: CostsModule imports only entity repos (no ProductsModule/SuppliesModule) to avoid circular deps
+- 06-01: Cost breakdown excluded from findAll list response (null) for performance, included only in findOne detail
+- 06-01: findOneWithPrice added to ProductsService for single-product price fetch in detail view
 
 ### Pending Todos
 
-Phase 05 complete (4/4 plans). Next: Phase 6 (Cost Calculation).
+Phase 06 plan 01 complete (cost calculation backend). Next: Plan 06-02 (frontend cost display).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -178,5 +169,5 @@ Phase 05 complete (4/4 plans). Next: Phase 6 (Cost Calculation).
 ## Session Continuity
 
 Last session: 2026-03-06
-Stopped at: Completed 05-04-PLAN.md (BOM/Price Frontend Wiring) -- Phase 5 complete
-Resume file: .planning/phases/05-products-and-bom/05-04-SUMMARY.md
+Stopped at: Completed 06-01-PLAN.md (Cost Calculation Backend)
+Resume file: .planning/phases/06-cost-calculation/06-01-SUMMARY.md

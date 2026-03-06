@@ -49,9 +49,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Cost Calculation
 
-- [ ] **COST-01**: System calculates product cost dynamically: SUM(latest_price(supply) × quantity) for all active materials
-- [ ] **COST-02**: Product list shows calculated cost per product
-- [ ] **COST-03**: When a supply price is updated, all products using that supply reflect the new cost automatically (no manual recalculation)
+- [x] **COST-01**: System calculates product cost dynamically: SUM(latest_price(supply) × quantity) for all active materials
+- [x] **COST-02**: Product list shows calculated cost per product
+- [x] **COST-03**: When a supply price is updated, all products using that supply reflect the new cost automatically (no manual recalculation)
 - [ ] **COST-04**: Product detail shows cost breakdown by material
 
 ### Expenses
@@ -156,9 +156,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-05 | Phase 5: Products and BOM | Complete |
 | PROD-06 | Phase 5: Products and BOM | Complete |
 | PROD-07 | Phase 5: Products and BOM | Complete |
-| COST-01 | Phase 6: Cost Calculation | Pending |
-| COST-02 | Phase 6: Cost Calculation | Pending |
-| COST-03 | Phase 6: Cost Calculation | Pending |
+| COST-01 | Phase 6: Cost Calculation | Complete |
+| COST-02 | Phase 6: Cost Calculation | Complete |
+| COST-03 | Phase 6: Cost Calculation | Complete |
 | COST-04 | Phase 6: Cost Calculation | Pending |
 | EXPN-01 | Phase 7: Expenses and Config | Pending |
 | EXPN-02 | Phase 7: Expenses and Config | Pending |
