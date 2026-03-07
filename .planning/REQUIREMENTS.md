@@ -56,9 +56,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Expenses
 
-- [ ] **EXPN-01**: Admin can register an expense with amount, concept, date, and category
-- [ ] **EXPN-02**: Admin can view list of expenses filtered by category or date
-- [ ] **EXPN-03**: Categories include: materia prima, packaging, envío, herramientas, servicios, otros
+- [x] **EXPN-01**: Admin can register an expense with amount, concept, date, and category
+- [x] **EXPN-02**: Admin can view list of expenses filtered by category or date
+- [x] **EXPN-03**: Categories include: materia prima, packaging, envío, herramientas, servicios, otros
 
 ### Infrastructure
 
@@ -157,9 +157,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COST-02 | Phase 6: Cost Calculation | Complete |
 | COST-03 | Phase 6: Cost Calculation | Complete |
 | COST-04 | Phase 6: Cost Calculation | Complete |
-| EXPN-01 | Phase 7: Expenses | Pending |
-| EXPN-02 | Phase 7: Expenses | Pending |
-| EXPN-03 | Phase 7: Expenses | Pending |
+| EXPN-01 | Phase 7: Expenses | Complete |
+| EXPN-02 | Phase 7: Expenses | Complete |
+| EXPN-03 | Phase 7: Expenses | Complete |
 
 **Coverage:**
 - v1 requirements: 37 total (CONF-01, CONF-02 moved to v2)

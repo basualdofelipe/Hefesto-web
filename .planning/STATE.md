@@ -2,26 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-06T22:08:48.612Z"
-progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 19
-  completed_plans: 19
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
 status: in_progress
-last_updated: "2026-03-06T21:45:00Z"
+last_updated: "2026-03-07T01:17:30Z"
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 20
+  completed_plans: 19
 ---
 
 # Project State
@@ -31,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 6 complete. All cost calculation (backend + frontend) done. Next: Phase 07 (Expenses & Config).
+**Current focus:** Phase 07 in progress. Expenses backend complete (plan 01). Next: plan 02 (frontend).
 
 ## Current Position
 
-Phase: 6 of 7 (Cost Calculation) -- COMPLETE
-Plan: 2 of 2 in current phase (all complete)
-Status: Phase 6 complete. Cost calculation backend + frontend verified by user.
-Last activity: 2026-03-06 - Completed 06-02-PLAN.md (Frontend Cost Display) -- checkpoint approved
+Phase: 7 of 7 (Expenses & Config)
+Plan: 1 of 2 in current phase (07-01 complete)
+Status: Expenses backend API complete. Frontend implementation next.
+Last activity: 2026-03-06 - Completed 07-01-PLAN.md (Expenses Backend)
 
-Progress: [#######################░░] 92%
+Progress: [########################░] 95%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
-- Average duration: 7.6min
-- Total execution time: 2.16 hours
+- Total plans completed: 19
+- Average duration: 7.4min
+- Total execution time: 2.23 hours
 
 **By Phase:**
 
@@ -59,6 +46,7 @@ Progress: [#######################░░] 92%
 | 4 - Supplies & Price History | 3/3 | 27min | 9min |
 | 5 - Products & BOM | 4/4 | 31min | 7.8min |
 | 6 - Cost Calculation | 2/2 | 11min | 5.5min |
+| 7 - Expenses & Config | 1/2 | 4min | 4min |
 
 **Recent Trend:**
 - Last 5 plans: 05-01 (5min), 05-02 (8min), 05-03 (6min), 05-04 (12min), 06-01 (5min)
@@ -156,10 +144,14 @@ Recent decisions affecting current work:
 - 06-02: Expanded row fetches product detail in parallel with BOM to get costBreakdown (list returns null)
 - 06-02: formatMargin calculates markup % (margin/cost) not gross margin (margin/price)
 - 06-02: Product name Link with stopPropagation to avoid row expand on click
+- 07-01: Expense.amount typed as string (TypeORM decimal behavior, same as SupplyPriceHistory.price)
+- 07-01: Expense.date uses PostgreSQL DATE type (not timestamptz) to avoid timezone shift on calendar dates
+- 07-01: Hard delete on expenses (no soft delete) per user decision
+- 07-01: ExpenseCategory integrated into CatalogsModule dimension map (zero new controller/service code)
 
 ### Pending Todos
 
-Phase 06 complete (cost calculation backend + frontend). Next: Phase 07 (Expenses & Config).
+Phase 07 plan 01 complete (expenses backend). Next: 07-02 (expenses frontend).
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
@@ -185,5 +177,5 @@ Phase 06 complete (cost calculation backend + frontend). Next: Phase 07 (Expense
 ## Session Continuity
 
 Last session: 2026-03-06
-Stopped at: Completed 06-02-PLAN.md (Frontend Cost Display) -- checkpoint approved
-Resume file: .planning/phases/06-cost-calculation/06-02-SUMMARY.md
+Stopped at: Completed 07-01-PLAN.md (Expenses Backend)
+Resume file: .planning/phases/07-expenses-and-config/07-01-SUMMARY.md
