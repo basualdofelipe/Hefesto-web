@@ -135,7 +135,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Admin can register an expense with amount, concept, date, and category (selected from editable categories)
   2. Admin can view the expense list grouped by month, filtered by category or date range, with subtotals per month and a grand total summary
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 07-01-PLAN.md -- ExpenseCategory as catalog dimension + Expense entity + ExpensesModule CRUD with filtering + migration with seed data
+- [ ] 07-02-PLAN.md -- Frontend: expense list grouped by month, create/edit/delete modals, category/date filters, summary bar, catalog tab, sidebar restructure + visual verification
 
 ## Progress
 
@@ -150,4 +154,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
 | 5. Products and BOM | 4/4 | Complete   | 2026-03-06 |
 | 6. Cost Calculation | 0/2 | Not started | - |
-| 7. Expenses | 0/0 | Not started | - |
+| 7. Expenses | 0/2 | Not started | - |
