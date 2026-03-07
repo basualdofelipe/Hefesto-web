@@ -5,7 +5,7 @@
 Nemea is a cost management system for an artisan leather goods workshop that replaces Google Sheets.
 The journey: stand up a production-grade NestJS backend, lock down auth, build catalogs and supplier
 data as the FK foundation, layer supplies with price history, define product BOMs, wire up dynamic cost
-calculation (the core value), and finish with expenses and Tiendanube config. The frontend is already
+calculation (the core value), and finish with expense tracking. The frontend is already
 scaffolded — each phase delivers working backend endpoints consumed by real UI.
 
 ## Phases
@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
 - [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price (completed 2026-03-06)
 - [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
-- [ ] **Phase 7: Expenses and Config** - Expense tracking with categories, Tiendanube config storage
+- [ ] **Phase 7: Expenses** - Expense tracking with editable categories, grouped by month
 
 ## Phase Details
 
@@ -128,21 +128,14 @@ Plans:
 - [ ] 06-01-PLAN.md -- CostsModule + CostsService with batched DISTINCT ON query + enrich GET /products and GET /products/:id with cost data
 - [ ] 06-02-PLAN.md -- Frontend: cost/margin columns in product list, enriched BOM table, product detail page at /productos/:id, group header aggregation
 
-### Phase 7: Expenses and Config
-**Goal**: Expense tracking is operational at parity with the Google Sheets, and Tiendanube configuration is stored in the DB for future use
+### Phase 7: Expenses
+**Goal**: Expense tracking is operational at parity with the Google Sheets
 **Depends on**: Phase 6
-**Requirements**: EXPN-01, EXPN-02, EXPN-03, CONF-01, CONF-02
+**Requirements**: EXPN-01, EXPN-02, EXPN-03
 **Success Criteria** (what must be TRUE):
-  1. Admin can register an expense with amount, concept, date, and category (one of 6 predefined categories)
-  2. Admin can view the expense list filtered by category or by date range
-  3. Admin can view and edit the Tiendanube configuration (plan, card rates, transfer rate, installments, IIBB, IVA) and the values persist in the DB
-  4. USER role user can view expenses and config but cannot create or modify either
+  1. Admin can register an expense with amount, concept, date, and category (selected from editable categories)
+  2. Admin can view the expense list grouped by month, filtered by category or date range, with subtotals per month and a grand total summary
 **Plans**: TBD
-
-Plans:
-- [ ] 07-01: Expenses entity + migration (amount, concept, date, category enum) + CRUD endpoints with filters
-- [ ] 07-02: TiendanubeConfigModule entity + migration + GET/PUT /config/tiendanube (named TiendanubeConfigModule to avoid @nestjs/config collision)
-- [ ] 07-03: Frontend pages: expense list with filters, add expense form, Tiendanube config settings page
 
 ## Progress
 
@@ -157,4 +150,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
 | 5. Products and BOM | 4/4 | Complete   | 2026-03-06 |
 | 6. Cost Calculation | 0/2 | Not started | - |
-| 7. Expenses and Config | 0/3 | Not started | - |
+| 7. Expenses | 0/0 | Not started | - |

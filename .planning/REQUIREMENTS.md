@@ -60,11 +60,6 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **EXPN-02**: Admin can view list of expenses filtered by category or date
 - [ ] **EXPN-03**: Categories include: materia prima, packaging, envío, herramientas, servicios, otros
 
-### Config
-
-- [ ] **CONF-01**: Admin can view and edit Tiendanube config (plan, tasas de tarjeta, transferencia, cuotas, IIBB, IVA)
-- [ ] **CONF-02**: Config data is stored in DB for future use by calculadora (v2)
-
 ### Infrastructure
 
 - [x] **INFR-01**: Backend runs on NestJS 11 with TypeORM and PostgreSQL
@@ -79,6 +74,8 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ### Tiendanube
 
+- **CONF-01**: Admin can view and edit Tiendanube config (plan, tasas de tarjeta, transferencia, cuotas, IIBB, IVA)
+- **CONF-02**: Config data is stored in DB for use by calculadora
 - **TNUB-01**: Calculadora Tiendanube forward (precio → ganancia) connected to real product costs
 - **TNUB-02**: Calculadora Tiendanube inverse (ganancia → precio)
 - **TNUB-03**: Calculadora uses config_tiendanube rates from DB
@@ -160,15 +157,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COST-02 | Phase 6: Cost Calculation | Complete |
 | COST-03 | Phase 6: Cost Calculation | Complete |
 | COST-04 | Phase 6: Cost Calculation | Complete |
-| EXPN-01 | Phase 7: Expenses and Config | Pending |
-| EXPN-02 | Phase 7: Expenses and Config | Pending |
-| EXPN-03 | Phase 7: Expenses and Config | Pending |
-| CONF-01 | Phase 7: Expenses and Config | Pending |
-| CONF-02 | Phase 7: Expenses and Config | Pending |
+| EXPN-01 | Phase 7: Expenses | Pending |
+| EXPN-02 | Phase 7: Expenses | Pending |
+| EXPN-03 | Phase 7: Expenses | Pending |
 
 **Coverage:**
-- v1 requirements: 39 total
-- Mapped to phases: 39
+- v1 requirements: 37 total (CONF-01, CONF-02 moved to v2)
+- Mapped to phases: 37
 - Unmapped: 0
 
 ---
