@@ -151,7 +151,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-Phase 07 plan 01 complete (expenses backend). Next: 07-02 (expenses frontend).
+10 todos pending. See `.planning/todos/pending/`.
+Latest: Fix JWT expiry silent failure - redirect to login on 401 (auth)
 
 ### Known UI Issues (from 03-03 verification → 03-04 gap closure)
 
