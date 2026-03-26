@@ -17,10 +17,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Catalogs
 
-- [x] **CATL-01**: Admin can CRUD product types (ej: Billetera, Cinturón)
+- [x] **CATL-01**: Admin can CRUD product types (ej: Billetera, Cinturon)
 - [x] **CATL-02**: Admin can CRUD product names (ej: Hefesto, Ares)
 - [x] **CATL-03**: Admin can CRUD product finishes (ej: Lisa, Grabada)
-- [x] **CATL-04**: Admin can CRUD product colors (ej: Marrón, Negro)
+- [x] **CATL-04**: Admin can CRUD product colors (ej: Marron, Negro)
 - [x] **CATL-05**: Admin can CRUD product sizes (ej: Chico, Grande)
 - [x] **CATL-06**: Admin can CRUD supply types (ej: Cuero, Herraje, Packaging)
 
@@ -49,7 +49,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Cost Calculation
 
-- [x] **COST-01**: System calculates product cost dynamically: SUM(latest_price(supply) × quantity) for all active materials
+- [x] **COST-01**: System calculates product cost dynamically: SUM(latest_price(supply) x quantity) for all active materials
 - [x] **COST-02**: Product list shows calculated cost per product
 - [x] **COST-03**: When a supply price is updated, all products using that supply reflect the new cost automatically (no manual recalculation)
 - [x] **COST-04**: Product detail shows cost breakdown by material
@@ -58,7 +58,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **EXPN-01**: Admin can register an expense with amount, concept, date, and category
 - [x] **EXPN-02**: Admin can view list of expenses filtered by category or date
-- [x] **EXPN-03**: Categories include: materia prima, packaging, envío, herramientas, servicios, otros
+- [x] **EXPN-03**: Categories include: materia prima, packaging, envio, herramientas, servicios, otros
 
 ### Infrastructure
 
@@ -79,20 +79,20 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 - [ ] **HARD-03**: Backend endpoints enforce role-based access via @Roles decorators (ADMIN for mutations, USER for read-only)
 - [ ] **HARD-04**: Admin can manage users (create, view, deactivate) from a /usuarios page in the frontend
 - [ ] **HARD-05**: Acceso-denegado page shows clear message for unauthorized users
-- [ ] **HARD-06**: Supply type "producción externa" exists as a catalog seed for taller-sourced products
+- [ ] **HARD-06**: Supply type "produccion externa" exists as a catalog seed for taller-sourced products
 - [ ] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox) — zero duplication
 
 ### Product UX
 
-- [ ] **PRUX-01**: Product table groups hierarchically: type → name → finish, with collapsible sections
-- [ ] **PRUX-02**: BOM group editor scopes to name level (all "Hércules") instead of type level (all "Cinturones")
+- [ ] **PRUX-01**: Product table groups hierarchically: type > name > finish, with collapsible sections
+- [ ] **PRUX-02**: BOM group editor scopes to name level (all "Hercules") instead of type level (all "Cinturones")
 - [ ] **PRUX-03**: Individual products can have custom BOM overrides that differ from the group default
 
 ### Tiendanube Config
 
 - [ ] **TNCF-01**: Admin can view and edit Tiendanube plans (Inicial/Esencial/Impulso/Escala) with rates per payment method and deposit timing
 - [ ] **TNCF-02**: Admin can view and edit installment fee rates (1, 3, 6, 9, 12 cuotas)
-- [ ] **TNCF-03**: Admin can view and edit tax config (IVA rate, IIBB alícuota, Tiendanube transaction fee per plan)
+- [ ] **TNCF-03**: Admin can view and edit tax config (IVA rate, IIBB alicuota, Tiendanube transaction fee per plan)
 - [ ] **TNCF-04**: Config page includes a "Verificar tasas" link to the official Pago Nube rates page
 
 ### Calculadora
@@ -155,11 +155,13 @@ Deferred to future release. Tracked but not in current roadmap.
 | Real-time collaboration | 2-3 users total, standard REST is sufficient |
 | Automated purchase orders | No stock levels tracked = no reorder point to trigger |
 | Mobile app | Web-first, responsive design covers mobile access |
-| Multi-idioma | App interna en español |
+| Multi-idioma | App interna en espanol |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
+
+### v1.0 (Complete)
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
@@ -201,11 +203,41 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXPN-02 | Phase 7: Expenses | Complete |
 | EXPN-03 | Phase 7: Expenses | Complete |
 
+### v1.1 (In Progress)
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| HARD-01 | Phase 8: Hardening | Pending |
+| HARD-02 | Phase 8: Hardening | Pending |
+| HARD-03 | Phase 8: Hardening | Pending |
+| HARD-04 | Phase 8: Hardening | Pending |
+| HARD-05 | Phase 8: Hardening | Pending |
+| HARD-06 | Phase 8: Hardening | Pending |
+| HARD-07 | Phase 8: Hardening | Pending |
+| PRUX-01 | Phase 9: Product UX | Pending |
+| PRUX-02 | Phase 9: Product UX | Pending |
+| PRUX-03 | Phase 9: Product UX | Pending |
+| TNCF-01 | Phase 10: Tiendanube Config | Pending |
+| TNCF-02 | Phase 10: Tiendanube Config | Pending |
+| TNCF-03 | Phase 10: Tiendanube Config | Pending |
+| TNCF-04 | Phase 10: Tiendanube Config | Pending |
+| CALC-01 | Phase 11: Calculadora | Pending |
+| CALC-02 | Phase 11: Calculadora | Pending |
+| CALC-03 | Phase 11: Calculadora | Pending |
+| CALC-04 | Phase 11: Calculadora | Pending |
+| SCEN-01 | Phase 12: Scenarios | Pending |
+| SCEN-02 | Phase 12: Scenarios | Pending |
+| SCEN-03 | Phase 12: Scenarios | Pending |
+| SCEN-04 | Phase 12: Scenarios | Pending |
+| DASH-01 | Phase 13: Investor Dashboard | Pending |
+| DASH-02 | Phase 13: Investor Dashboard | Pending |
+| DASH-03 | Phase 13: Investor Dashboard | Pending |
+
 **Coverage:**
-- v1 requirements: 37 total (CONF-01, CONF-02 moved to v2)
-- Mapped to phases: 37
+- v1.0 requirements: 37/37 mapped (all complete)
+- v1.1 requirements: 25/25 mapped
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-28*
-*Last updated: 2026-02-28 — traceability populated by roadmapper*
+*Last updated: 2026-03-26 -- v1.1 traceability populated by roadmapper*

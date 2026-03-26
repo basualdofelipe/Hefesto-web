@@ -2,11 +2,15 @@
 
 ## Overview
 
-Nemea is a cost management system for an artisan leather goods workshop that replaces Google Sheets.
-The journey: stand up a production-grade NestJS backend, lock down auth, build catalogs and supplier
-data as the FK foundation, layer supplies with price history, define product BOMs, wire up dynamic cost
-calculation (the core value), and finish with expense tracking. The frontend is already
-scaffolded — each phase delivers working backend endpoints consumed by real UI.
+Nemea is a cost management and pricing simulation system for an artisan leather goods business.
+v1.0 replaced Google Sheets with a production-grade NestJS + Next.js app covering products, supplies,
+costs, and expenses. v1.1 hardens the foundation, adds Tiendanube pricing simulation (forward/inverse
+calculadora with real costs), and delivers an investor dashboard with scenario modeling for margin analysis.
+
+## Milestones
+
+- v1.0 MVP - Phases 1-7 (shipped 2026-03-11)
+- v1.1 Tiendanube & Investor Dashboard - Phases 8-13 (in progress)
 
 ## Phases
 
@@ -16,15 +20,29 @@ scaffolded — each phase delivers working backend endpoints consumed by real UI
 
 Decimal phases appear between their surrounding integers in numeric order.
 
+### v1.0 MVP (Phases 1-7) - SHIPPED 2026-03-11
+
 - [x] **Phase 1: Backend Scaffold** - NestJS 11 app running with TypeORM migrations, Docker Compose, Swagger
 - [x] **Phase 2: Auth** - Google OAuth via NextAuth exchanges for NestJS JWT, global guard, email whitelist, roles
 - [x] **Phase 3: Catalogs and Suppliers** - CRUD for all 5 product dimensions, supply types, and suppliers
 - [x] **Phase 4: Supplies and Price History** - Supply CRUD with append-only price history and composite index
-- [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price (completed 2026-03-06)
-- [ ] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
-- [ ] **Phase 7: Expenses** - Expense tracking with editable categories, grouped by month
+- [x] **Phase 5: Products and BOM** - Product CRUD with SKU, material composition with version history, selling price
+- [x] **Phase 6: Cost Calculation** - Dynamic cost per product (batched DISTINCT ON query), visible in product list and detail
+- [x] **Phase 7: Expenses** - Expense tracking with editable categories, grouped by month
+
+### v1.1 Tiendanube & Investor Dashboard (Phases 8-13)
+
+- [ ] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
+- [ ] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
+- [ ] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
+- [ ] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
+- [ ] **Phase 12: Scenarios** - User-scoped what-if scenarios with price overrides and recalculated margins
+- [ ] **Phase 13: Investor Dashboard** - Catalog summary with margins, Tiendanube net profit, scenario selector, aggregate KPIs
 
 ## Phase Details
+
+<details>
+<summary>v1.0 MVP (Phases 1-7) - SHIPPED 2026-03-11</summary>
 
 ### Phase 1: Backend Scaffold
 **Goal**: NestJS 11 backend runs locally and on Railway with migrations wired up before any entity is written
@@ -125,8 +143,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md -- CostsModule + CostsService with batched DISTINCT ON query + enrich GET /products and GET /products/:id with cost data
-- [ ] 06-02-PLAN.md -- Frontend: cost/margin columns in product list, enriched BOM table, product detail page at /productos/:id, group header aggregation
+- [x] 06-01-PLAN.md -- CostsModule + CostsService with batched DISTINCT ON query + enrich GET /products and GET /products/:id with cost data
+- [x] 06-02-PLAN.md -- Frontend: cost/margin columns in product list, enriched BOM table, product detail page at /productos/:id, group header aggregation
 
 ### Phase 7: Expenses
 **Goal**: Expense tracking is operational at parity with the Google Sheets
@@ -138,20 +156,96 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md -- ExpenseCategory as catalog dimension + Expense entity + ExpensesModule CRUD with filtering + migration with seed data
-- [ ] 07-02-PLAN.md -- Frontend: expense list grouped by month, create/edit/delete modals, category/date filters, summary bar, catalog tab, sidebar restructure + visual verification
+- [x] 07-01-PLAN.md -- ExpenseCategory as catalog dimension + Expense entity + ExpensesModule CRUD with filtering + migration with seed data
+- [x] 07-02-PLAN.md -- Frontend: expense list grouped by month, create/edit/delete modals, category/date filters, summary bar, catalog tab, sidebar restructure + visual verification
+
+</details>
+
+### Phase 8: Hardening
+**Goal**: The app is secure, DRY, and investment-ready — all existing endpoints enforce roles, JWT expiry is handled gracefully, and shared types eliminate duplication
+**Depends on**: Phase 7
+**Requirements**: HARD-01, HARD-02, HARD-03, HARD-04, HARD-05, HARD-06, HARD-07
+**Success Criteria** (what must be TRUE):
+  1. Unauthenticated user navigating to any /app route is redirected to /login by Next.js middleware — no flash of protected content
+  2. When a JWT expires mid-session, the user is redirected to /login automatically instead of seeing a broken UI or generic error
+  3. A USER-role investor calling a mutation endpoint (POST, PATCH, DELETE) on products, supplies, suppliers, catalogs, or expenses receives a 403 Forbidden
+  4. Admin can view a /usuarios page listing all users, create a new user with email and role, and deactivate an existing user
+  5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates
+**Plans**: TBD
+
+### Phase 9: Product UX
+**Goal**: Products are navigable by business hierarchy (type > name > finish) and BOM editing respects the real grouping level (name, not type)
+**Depends on**: Phase 8 (requires HARD-07 shared types)
+**Requirements**: PRUX-01, PRUX-02, PRUX-03
+**Success Criteria** (what must be TRUE):
+  1. Product table displays a collapsible tree: type level collapses to show names, name level collapses to show finishes, with product rows nested under finish
+  2. BOM group editor triggered from a product name header applies to all products sharing that name (e.g., all "Hercules" regardless of type), not all products of the same type
+  3. An individual product can have a custom BOM that differs from its name-group default, and the UI clearly indicates which products have overrides
+**Plans**: TBD
+
+### Phase 10: Tiendanube Config
+**Goal**: Tiendanube rate tables are stored in the database and editable by admin, serving as the single source of truth for all pricing calculations
+**Depends on**: Phase 8
+**Requirements**: TNCF-01, TNCF-02, TNCF-03, TNCF-04
+**Success Criteria** (what must be TRUE):
+  1. Admin can view and edit the four Tiendanube plans (Inicial, Esencial, Impulso, Escala) with their commission rates per payment method and deposit timing
+  2. Admin can view and edit installment fee rates for 1, 3, 6, 9, and 12 cuotas
+  3. Admin can view and edit tax configuration (IVA rate, IIBB alicuota, transaction fee per plan)
+  4. The config page shows a "Verificar tasas" link that opens the official Pago Nube rates page in a new tab
+  5. Seed migration populates the tables with verified March 2026 rates so the system is usable immediately after deploy
+**Plans**: TBD
+
+### Phase 11: Calculadora
+**Goal**: Users can simulate Tiendanube pricing for any product — seeing real profit after all deductions (forward) or the price needed for a target profit (inverse)
+**Depends on**: Phase 10
+**Requirements**: CALC-01, CALC-02, CALC-03, CALC-04
+**Success Criteria** (what must be TRUE):
+  1. User selects a product and a Tiendanube plan, and sees net profit calculated from real cost (from DB) minus all Tiendanube deductions (commission, installments, IVA, IIBB)
+  2. User enters a desired profit amount and the calculadora returns the required selling price — the forward calculation of that price matches the target profit within $0.01
+  3. Product cost is auto-populated from the database (not manually entered) and updates if the underlying supply prices change
+  4. A batch endpoint returns margins for all products in the catalog in a single request, using no more than 6 SQL queries regardless of product count
+**Plans**: TBD
+
+### Phase 12: Scenarios
+**Goal**: Investors can create what-if scenarios with overridden selling prices and see recalculated margins without touching real data
+**Depends on**: Phase 11
+**Requirements**: SCEN-01, SCEN-02, SCEN-03, SCEN-04
+**Success Criteria** (what must be TRUE):
+  1. User can create a named scenario (e.g., "Aumento Enero 2027") and set custom selling prices for specific products within it
+  2. User can apply a bulk adjustment (e.g., "+10% all cinturones") and the scenario recalculates all affected product margins instantly
+  3. Scenario shows a margin summary table with real costs, overridden prices, and recalculated net margins after Tiendanube deductions
+  4. Each user sees only their own scenarios — querying another user's scenario returns 404
+  5. Creating or modifying a scenario never writes to product_price_history — real pricing data remains untouched
+**Plans**: TBD
+
+### Phase 13: Investor Dashboard
+**Goal**: Investors have a single page showing the full catalog with margins, aggregate metrics, and scenario-aware views
+**Depends on**: Phase 12
+**Requirements**: DASH-01, DASH-02, DASH-03
+**Success Criteria** (what must be TRUE):
+  1. Investor sees a catalog summary table showing every active product with its cost, current selling price, and net margin after Tiendanube deductions
+  2. Dashboard can be filtered by product type, and the filtered view updates the aggregate metrics accordingly
+  3. Dashboard shows aggregate KPIs: average margin percentage, total catalog value, and the products with best and worst margins
+  4. Dashboard loads with no more than 6 SQL queries total regardless of product count — no N+1 performance degradation
+**Plans**: TBD
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Backend Scaffold | 3/3 | Complete (pending verification) | 2026-02-28 |
-| 2. Auth | 3/3 | Complete | 2026-03-01 |
-| 3. Catalogs and Suppliers | 4/4 | Complete | 2026-03-01 |
-| 4. Supplies and Price History | 3/3 | Complete | 2026-03-05 |
-| 5. Products and BOM | 4/4 | Complete   | 2026-03-06 |
-| 6. Cost Calculation | 0/2 | Not started | - |
-| 7. Expenses | 0/2 | Not started | - |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Backend Scaffold | v1.0 | 3/3 | Complete | 2026-02-28 |
+| 2. Auth | v1.0 | 3/3 | Complete | 2026-03-01 |
+| 3. Catalogs and Suppliers | v1.0 | 4/4 | Complete | 2026-03-01 |
+| 4. Supplies and Price History | v1.0 | 3/3 | Complete | 2026-03-05 |
+| 5. Products and BOM | v1.0 | 4/4 | Complete | 2026-03-06 |
+| 6. Cost Calculation | v1.0 | 2/2 | Complete | 2026-03-11 |
+| 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
+| 8. Hardening | v1.1 | 0/? | Not started | - |
+| 9. Product UX | v1.1 | 0/? | Not started | - |
+| 10. Tiendanube Config | v1.1 | 0/? | Not started | - |
+| 11. Calculadora | v1.1 | 0/? | Not started | - |
+| 12. Scenarios | v1.1 | 0/? | Not started | - |
+| 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
