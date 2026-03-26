@@ -68,22 +68,62 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFR-04**: All tables have created_at and updated_at timestamps
 - [x] **INFR-05**: TypeScript strict mode, no any, explicit return types
 
-## v2 Requirements
+## v1.1 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 
-### Tiendanube
+### Hardening
 
-- **CONF-01**: Admin can view and edit Tiendanube config (plan, tasas de tarjeta, transferencia, cuotas, IIBB, IVA)
-- **CONF-02**: Config data is stored in DB for use by calculadora
-- **TNUB-01**: Calculadora Tiendanube forward (precio → ganancia) connected to real product costs
-- **TNUB-02**: Calculadora Tiendanube inverse (ganancia → precio)
-- **TNUB-03**: Calculadora uses config_tiendanube rates from DB
+- [ ] **HARD-01**: Next.js middleware protects all app routes — unauthenticated users redirected to /login
+- [ ] **HARD-02**: apiClientFetch detects 401 responses and redirects to login (JWT expiry handling)
+- [ ] **HARD-03**: Backend endpoints enforce role-based access via @Roles decorators (ADMIN for mutations, USER for read-only)
+- [ ] **HARD-04**: Admin can manage users (create, view, deactivate) from a /usuarios page in the frontend
+- [ ] **HARD-05**: Acceso-denegado page shows clear message for unauthorized users
+- [ ] **HARD-06**: Supply type "producción externa" exists as a catalog seed for taller-sourced products
+- [ ] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox) — zero duplication
+
+### Product UX
+
+- [ ] **PRUX-01**: Product table groups hierarchically: type → name → finish, with collapsible sections
+- [ ] **PRUX-02**: BOM group editor scopes to name level (all "Hércules") instead of type level (all "Cinturones")
+- [ ] **PRUX-03**: Individual products can have custom BOM overrides that differ from the group default
+
+### Tiendanube Config
+
+- [ ] **TNCF-01**: Admin can view and edit Tiendanube plans (Inicial/Esencial/Impulso/Escala) with rates per payment method and deposit timing
+- [ ] **TNCF-02**: Admin can view and edit installment fee rates (1, 3, 6, 9, 12 cuotas)
+- [ ] **TNCF-03**: Admin can view and edit tax config (IVA rate, IIBB alícuota, Tiendanube transaction fee per plan)
+- [ ] **TNCF-04**: Config page includes a "Verificar tasas" link to the official Pago Nube rates page
+
+### Calculadora
+
+- [ ] **CALC-01**: User can select a product and see net profit calculated with real cost + Tiendanube deductions (forward mode)
+- [ ] **CALC-02**: User can enter a desired profit and see the required selling price (inverse mode)
+- [ ] **CALC-03**: Calculadora uses product costs from DB and Tiendanube config from admin-editable tables
+- [ ] **CALC-04**: Batch calculation endpoint returns margins for all products in the catalog
+
+### Simulator
+
+- [ ] **SCEN-01**: User can create a named scenario with overridden selling prices for specific products
+- [ ] **SCEN-02**: User can apply bulk price adjustments (e.g., "+10% all cinturones", "-20% entire catalog")
+- [ ] **SCEN-03**: Scenario shows recalculated margins for all affected products using real costs + overridden prices
+- [ ] **SCEN-04**: Scenarios are user-scoped (each investor sees only their own) and persist in DB
 
 ### Dashboard
 
-- **DASH-01**: Investors can view a dashboard with sales and profit metrics
-- **DASH-02**: Dashboard shows key business indicators
+- [ ] **DASH-01**: Investor can view a catalog summary table showing all products with cost, selling price, and net margin
+- [ ] **DASH-02**: Dashboard can be filtered by product type
+- [ ] **DASH-03**: Dashboard shows aggregate metrics (average margin, total catalog value, best/worst margin products)
+
+## v2+ Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Tiendanube API Integration
+
+- **TAPI-01**: Connect to Tiendanube API to read actual sales data
+- **TAPI-02**: Cross-check calculated commissions vs actual charges from Tiendanube
+- **TAPI-03**: Track sale prices, discounts, and multi-product orders from Tiendanube
 
 ### B2B
 
