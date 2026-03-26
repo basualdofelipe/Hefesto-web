@@ -2,7 +2,7 @@
 
 ## What This Is
 
-App web hub para gestionar un emprendimiento de marroquinería (artículos de cuero). Permite ver productos con su costo real calculado, administrar insumos con historial de precios, registrar gastos, y gestionar proveedores. Reemplaza el Google Sheets actual con una app profesional. Es para uso interno del dueño (admin) y en el futuro los inversores podrán ver reportes.
+App web para gestionar un emprendimiento de marroquinería (artículos de cuero). Permite ver productos con su costo real calculado, administrar insumos con historial de precios, registrar gastos, gestionar proveedores, simular pricing para Tiendanube, y ofrecer a inversores un dashboard con márgenes y escenarios. Reemplaza el Google Sheets actual con una app profesional. Para uso del dueño (admin) e inversores (read-only + simulador).
 
 ## Core Value
 
@@ -12,50 +12,62 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 
 ### Validated
 
-- ✓ Frontend scaffoldeado con Next.js 16 + Tailwind v4 + Shadcn/ui — existing (Fase 1)
-- ✓ Estructura de monorepo con sub-repos independientes — existing
-- ✓ Configuración de desarrollo (ESLint, Prettier, Jest, Husky) — existing
-- ✓ Sistema de temas dark/light con next-themes — existing
-- ✓ Tipografía custom (Engraving CC, Poppins, JetBrains Mono) — existing
+- ✓ Backend NestJS 11 + TypeORM + PostgreSQL + Docker + Swagger — v1.0 Phase 1
+- ✓ Auth: Google OAuth + JWT + whitelist + roles (ADMIN/USER) — v1.0 Phase 2
+- ✓ ABM catálogos (5 dimensiones producto + tipos insumo) — v1.0 Phase 3
+- ✓ ABM proveedores con soft delete — v1.0 Phase 3
+- ✓ ABM insumos con historial de precios append-only — v1.0 Phase 4
+- ✓ ABM productos con SKU, BOM versionado, historial precios venta — v1.0 Phase 5
+- ✓ Cálculo dinámico de costos (batched 2-query, DISTINCT ON) — v1.0 Phase 6
+- ✓ Registro de gastos con categorías — v1.0 Phase 7
+- ✓ TypeScript strict, zero `any`, explicit return types — v1.0
+- ✓ Monorepo + sub-repos + 2-branch model — v1.0
 
 ### Active
 
-- [ ] Backend NestJS scaffoldeado con TypeORM + PostgreSQL + Docker Compose
-- [ ] Auth: Google OAuth via NextAuth (front) + JWT validation (back) + whitelist de emails
-- [ ] ABM de insumos (cuero, herrajes, packaging) con tipo y proveedor
-- [ ] Historial de precios por insumo (cada actualización = nuevo registro, el último es el vigente)
-- [ ] ABM de proveedores con datos de contacto
-- [ ] ABM de tipos de insumo
-- [ ] ABM de productos con 5 dimensiones (tipo, nombre, terminación, color, talle)
-- [ ] Soft delete en productos (is_active)
-- [ ] Soft delete en insumos y proveedores (is_active)
-- [ ] Composición de materiales por producto (insumos + cantidad + unit_type)
-- [ ] Historial de composición de materiales (con is_active para cambios)
-- [ ] Cálculo dinámico de costo por producto (último precio × cantidad de cada insumo)
-- [ ] SKU único por producto (sku_code)
-- [ ] ABM de catálogos (tipos de producto, nombres, terminaciones, colores, talles)
-- [ ] Registro de gastos con categorías (materia prima, packaging, envío, etc.)
-- [ ] Historial de precios de producto (precio de venta)
-- [ ] Timestamps created_at/updated_at en tablas principales
-- [ ] Roles: ADMIN (gestiona todo) y USER (solo lectura)
+- [ ] Middleware auth (proxy.ts no wired as middleware.ts — rutas frontend desprotegidas)
+- [ ] 401 handling en apiClientFetch (redirect a login on JWT expiry)
+- [ ] DRY cleanup: interfaces duplicadas (SupplyOption 8x, UNIT_LABELS 5x, formatDate 4x)
+- [ ] Página admin de usuarios (backend CRUD existe, falta UI)
+- [ ] Mejora página acceso-denegado (mensaje claro para inversores)
+- [ ] Tipo insumo "producción externa" para productos de taller
+- [ ] Agrupación jerárquica de productos: tipo → nombre → terminación
+- [ ] BOM group editor scoped a nivel nombre (no tipo)
+- [ ] Config Tiendanube: planes, tasas, cuotas, IIBB como tablas admin-editables
+- [ ] Link "verificar tasas" a página oficial de Pago Nube
+- [ ] Calculadora Tiendanube forward (precio → ganancia) con costos reales de DB
+- [ ] Calculadora Tiendanube inverse (ganancia → precio)
+- [ ] Dashboard inversores: tabla resumen catálogo con márgenes
+- [ ] Simulador de escenarios guardables por usuario (override precios de venta)
 
 ### Out of Scope
 
-- Tiendanube (config, calculadora, integración API) — v2, el usuario lo descartó explícitamente de v1
-- Dashboard para inversores — v2, no hay definición de métricas todavía
+- Integración API Tiendanube (lectura de ventas reales) — v2+, requiere OAuth con Tiendanube
 - Clientes B2B y órdenes — v2, ventas fuera de Tiendanube
 - Envíos (shippers, shipping_method) — v2, depende de clientes/órdenes
 - Solicitudes de compra con aprobación por mail — v2+, sistema de workflows
-- Migración de datos del Google Sheets — última fase, primero la app
+- Migración de datos del Google Sheets — pendiente, primero la app
 - Mobile app — web-first
 - Notificaciones push/email — no hay necesidad actual
 - Multi-idioma — app interna en español
+- Corrección fiscal exacta — usuario consulta con contador, tasas configurables como workaround
+
+## Current Milestone: v1.1 Tiendanube & Investor Dashboard
+
+**Goal:** Hardening del v1, simulación de pricing para Tiendanube, y dashboard con escenarios para inversores.
+
+**Target features:**
+- Hardening: middleware, 401, DRY cleanup, users admin, producción externa
+- Product UX: agrupación jerárquica, BOM grupal por nombre
+- Config Tiendanube: tasas editables por admin
+- Calculadora Tiendanube: forward/inverse con costos reales
+- Simulador inversores: resumen catálogo + escenarios guardables
 
 ## Context
 
 **Empresa:** SEMPERGY ENTERPRISES SAS (marroquinería / artículos de cuero, marca Nemea)
 
-**Situación actual:** Toda la gestión se hace en Google Sheets con Apps Scripts custom. Funciona pero es frágil, difícil de escalar, y no permite roles ni acceso controlado.
+**Situación actual:** v1.0 completo — la app reemplaza Google Sheets para gestión de productos, insumos, costos y gastos. Desplegada en producción (Vercel + Railway). El negocio está pivotando de producción artesanal a compra de productos terminados de talleres externos.
 
 **Modelo de productos:** tipo → nombre → terminación → color → talle (ej: Billetera Hefesto Lisa Marrón Grande). Cada producto tiene un SKU único y una composición de materiales (cueros en m², adicionales en unidades).
 
@@ -91,14 +103,33 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Monorepo orquestador con sub-repos | Mismo patrón que Freedom-Base, cada proyecto tiene su git | ✓ Good |
-| Google OAuth sin passwords | App interna, 2-3 usuarios conocidos, cero gestión de contraseñas | — Pending |
+| Google OAuth sin passwords | App interna, 2-3 usuarios conocidos, cero gestión de contraseñas | ✓ Good |
 | Historial de precios (no JSONB) | Tabla normalizada con registros históricos, último precio = vigente | ✓ Good |
 | Materiales normalizados (no JSONB) | supplies_per_product_history con unit_type permite queries y historial | ✓ Good |
-| Soft delete (is_active) | Productos, insumos y proveedores con desactivación en vez de borrado físico | — Pending |
-| Gastos con categorías | Registro básico con categorización para futuros reportes | — Pending |
-| Timestamps en tablas principales | created_at/updated_at para auditoría en product, supplies, suppliers | — Pending |
-| Tiendanube fuera de v1 | El usuario lo descartó explícitamente, se enfoca en costos y productos | ✓ Good |
-| Cálculo de costo on-the-fly vs cache | Pendiente para cuando se implemente CostsModule | — Pending |
+| Soft delete (is_active) | Productos, insumos y proveedores con desactivación en vez de borrado físico | ✓ Good |
+| Gastos con categorías | Registro básico con categorización para futuros reportes | ✓ Good |
+| Timestamps en tablas principales | created_at/updated_at para auditoría en product, supplies, suppliers | ✓ Good |
+| Cálculo de costo on-the-fly (no cache) | Batched 2-query con DISTINCT ON, performante para este volumen | ✓ Good |
+| Pivot producción → talleres | BOM soporta "producción externa" como supply type sin cambios de schema | — Pending |
+| Tasas Tiendanube configurables | Admin edita en DB, no hardcodeadas. Cálculo fiscal "estimado" — corrección exacta con contador | — Pending |
+| Escenarios inversores en DB | USER crea scenarios con override de precios, no toca datos reales | — Pending |
+
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
 
 ---
-*Last updated: 2026-02-28 after initialization*
+*Last updated: 2026-03-26 after v1.1 milestone start*

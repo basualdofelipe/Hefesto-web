@@ -1,14 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: complete
-last_updated: "2026-03-11T17:01:49.357Z"
+milestone: v1.1
+milestone_name: tiendanube-investor-dashboard
+status: defining_requirements
+last_updated: "2026-03-26"
 progress:
-  total_phases: 7
-  completed_phases: 7
-  total_plans: 21
-  completed_plans: 21
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
@@ -18,13 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.0 complete. All 7 phases done.
+**Current focus:** Milestone v1.1 — Tiendanube pricing simulation + investor dashboard + v1 hardening.
 
 ## Current Position
 
-Phase: 7 of 7 (Expenses & Config) — COMPLETE
-Status: All v1 features implemented and verified.
-Last activity: 2026-03-11 - Completed 07-02 (Expenses Frontend), phase 07 verified.
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements for milestone v1.1
+Last activity: 2026-03-26 — Milestone v1.1 started
 
 Progress: [##########################] 100%
 
