@@ -1,17 +1,17 @@
 # Project Research Summary
 
-**Project:** Nemea — cost management system for artisan leather goods workshop
-**Domain:** Product cost management / inventory with price history (SMB artisan)
-**Researched:** 2026-02-28
-**Confidence:** MEDIUM-HIGH
+**Project:** Nemea v1.1 — Tiendanube Pricing Simulation & Investor Dashboard
+**Domain:** E-commerce pricing tool + investor margin analysis for artisan leather goods (Argentine market)
+**Researched:** 2026-03-26
+**Confidence:** HIGH
 
 ## Executive Summary
 
-Nemea is a bespoke internal tool that replaces a Google Sheets + Apps Script system for an artisan leather goods business. The domain is product cost management: tracking raw material prices over time, defining bill-of-materials (BOM) per product, and computing current cost automatically when prices change. Research confirms the already-chosen stack (NestJS 11 + TypeORM + PostgreSQL + Next.js + NextAuth) is production-grade and correct. No technology changes are recommended. The biggest open question was the auth integration between NextAuth and NestJS — that pattern is now fully documented: NextAuth handles Google OAuth, exchanges the Google `id_token` for a NestJS-minted JWT at login, and sends that NestJS JWT as `Authorization: Bearer` on every API call. The backend never calls Google on each request.
+Nemea v1.1 extends a fully-deployed NestJS + Next.js cost management app with three capability clusters: Tiendanube pricing simulation (forward/inverse calculadora), an investor margin dashboard with scenario modeling, and foundational hardening of auth and code quality. All research confirms that zero new npm dependencies are required — the existing stack (NestJS 11, TypeORM, Next.js 16, Shadcn/ui, Zod) covers every feature. The primary additions are architectural: four new NestJS modules (TiendanubeConfigModule, CalculadoraModule, ScenariosModule, DashboardModule) and four new frontend pages. The calculadora logic is already proven in a working prototype; migration means connecting it to DB-stored config, not inventing new math.
 
-The architectural approach is a clean modular NestJS application with 5 domain modules (Auth, Supplies, Products, Costs, TiendanubeConfig) backed by PostgreSQL with append-only price history and an `is_active` BOM versioning pattern. Cost calculation is performed on-the-fly at query time using a single batched SQL query — no cache needed at this scale (2-3 users, ~100 products). The CostsModule is deliberately separated from ProductsModule because cost calculation is a cross-cutting read concern that depends on both supplies and products.
+The recommended approach is strict build-order sequencing driven by a clean dependency DAG: hardening first (auth 401 handling, role enforcement, DRY cleanup), then Tiendanube config tables, then the calculator, then scenarios, then the dashboard. This order is non-negotiable — every layer depends on the one below. A critical architectural decision is to keep the 14-step forward calculation as a pure backend service (`CalculadoraService`) and never duplicate it in the frontend, ensuring the dashboard and the calculadora page always produce identical numbers from a single source of truth.
 
-The top risks are TypeORM migration misuse (`synchronize: true` causing silent data loss in production), the auth token exchange complexity between NextAuth and NestJS, and the N+1 query pattern when computing latest price per supply. All three are entirely preventable with the patterns documented in STACK.md and ARCHITECTURE.md, and all three must be addressed in their respective setup phases rather than retrofitted later.
+The highest-risk areas are floating-point precision in the chained percentage calculations (mitigated by rounding only at the end of the full calculation chain, not at intermediate steps), scenario data isolation (prevented by strict use of separate `scenario_overrides` table, never touching `product_price_history`), and missing role enforcement on existing backend endpoints (requires adding `@Roles(Role.ADMIN)` to all existing controllers before investors access the app). Auth hardening must be the first phase — broken JWT expiry handling will degrade every subsequent feature's user experience.
 
 ---
 
@@ -19,171 +19,119 @@ The top risks are TypeORM migration misuse (`synchronize: true` causing silent d
 
 ### Recommended Stack
 
-The stack is already decided and validated. NestJS 11 is the current stable release (Jan 2025, supported until 2030+). TypeORM 0.3.28 is the active API — the 0.3.x DataSource pattern is what the CLI expects. PostgreSQL 16-alpine on Docker for local development, Railway for production. Node 20 LTS matches the frontend. All `@nestjs/*` packages must match major version 11.
+**Zero new dependencies needed.** All v1.1 features are achievable with the current stack. For financial calculations, native JavaScript `Number` with `Math.round(value * 100) / 100` applied once at the end of the full chain is sufficient for ARS 2-decimal amounts — `decimal.js` is explicitly rejected as overkill. TypeORM returns `decimal` columns as strings; the conversion boundary (TypeORM entity to service) must be consistent: all service interfaces accept `number`, conversion happens once at the repo boundary.
 
-One non-obvious gap in the original stack definition: `passport-google-oauth20` is NOT needed on the backend. The backend only validates JWTs — it never runs an OAuth flow. The only auth libraries needed are `@nestjs/passport`, `passport`, `passport-jwt`, and `@nestjs/jwt`. A shared `NEXTAUTH_SECRET` between the Next.js and NestJS apps is the key integration point.
+**Core technologies (existing, validated for v1.1):**
+- NestJS 11 + TypeORM: four new modules (TiendanubeConfig, Calculadora, Scenarios, Dashboard) follow identical patterns to existing CatalogsModule and ExpensesModule
+- Next.js 16: `proxy.ts` is correctly named and located for Next.js 16 (not a naming bug); the real auth gap is 401 handling in `apiClientFetch`
+- PostgreSQL: 5 new tables added via TypeORM migrations; all extend `BaseEntity` (UUID PK, timestamps)
+- Shadcn/ui + Radix UI: all new UI components (tables, cards, collapsible groups, selects) use already-installed primitives
+- Zod + react-hook-form: calculadora form and scenario editor follow existing patterns exactly
 
-**Core technologies:**
-- NestJS 11: Backend framework — current stable, 2030+ support, improved module startup performance
-- TypeORM 0.3.28: ORM for PostgreSQL — active API (DataSource), matches Freedom-Base reference pattern
-- PostgreSQL 16-alpine: Primary database — current stable, Docker locally / Railway in production
-- `@nestjs/passport` + `passport-jwt`: JWT guard — validates NextAuth-signed tokens without calling Google per request
-- `@nestjs/config` + Joi: Environment management — validates required env vars at startup, fails fast on misconfiguration
-- `class-validator` + `class-transformer`: DTO validation — standalone packages only (not the unmaintained `@nestjs/` forks)
-- `helmet` + `@nestjs/throttler`: Security baseline — HTTP headers and rate limiting, applied globally at bootstrap
-- `@nestjs/swagger`: API documentation — auto-generated from decorators, enable in dev only
-
-See `.planning/research/STACK.md` for full library versions, Docker Compose config, migration setup scripts, and Railway production configuration.
+**Explicitly rejected additions:** `decimal.js`, `recharts` / `chart.js`, `@tanstack/react-table`, Redis / caching, background job queues, i18n libraries, a separate pricing microservice.
 
 ### Expected Features
 
-Nemea's feature set is a lean intersection of what artisan cost management tools (Craftybase, Katana MRP) provide, stripped to what actually maps to this business's current operations. The risk is building MORE than needed, not less — the data model and business rules are already fully known from the existing Sheets.
+**Must have (table stakes — v1.1 milestone fails without these):**
+- Auth hardening: 401 redirect in `apiClientFetch` + role-based redirects in `proxy.ts`
+- Role enforcement: `@Roles(Role.ADMIN)` on ALL existing controllers (products, supplies, suppliers, catalogs, expenses)
+- DRY cleanup: extract shared `SupplyOption` (defined 8x), `UNIT_LABELS` (5x), `formatDate` (4x) before adding new features
+- Users admin page: frontend UI for existing `/users` CRUD endpoints (backend already complete)
+- Tiendanube config tables: admin-editable plans (4), installment rates (5 tiers), tax config (IVA + IIBB) — all rates verified against official Tiendanube docs March 2026
+- Calculadora forward mode: price to profit after all Tiendanube deductions (14-step formula, proven in prototype)
+- Calculadora inverse mode: desired profit to required selling price (binary search over forward)
+- Investor dashboard: all products with cost, selling price, and gross margin (read-only)
+- Scenario simulator: named what-if scenarios with per-product price overrides, user-scoped
 
-**Must have (table stakes — Sheets replacement is incomplete without these):**
-- Google OAuth authentication with email whitelist and ADMIN/USER roles — prerequisite for everything
-- Catalog CRUD (5 product dimensions: type, name, finish, color, size — plus supply types and suppliers) — prerequisite for all entity CRUDs
-- Supply CRUD with append-only price history — foundation of cost calculations
-- Product CRUD with 5-dimension model and auto-generated SKU code
-- BOM management (material composition per product) with version history via `is_active` flag
-- Dynamic cost calculation surfaced in the products list view — the core value proposition
-- Expense tracking with categories — parity with Sheets
-- Selling price history per product — needed to compute margin
-- Investor read-only view (same product list, restricted role) — named stakeholder requirement
-- Soft delete for products and supplies — data integrity from day one
+**Should have (differentiators, ship if time allows):**
+- Net margin after Tiendanube deductions column in dashboard (the "killer column" — real profit vs gross margin)
+- Product hierarchical grouping: type > name > finish tree (frontend-only, no backend changes)
+- Calculadora auto-populated product cost from DB (eliminates manual cost entry, UX improvement)
+- BOM group editor scoped to product name instead of type (correctness fix for real business model)
+- `lastVerifiedAt` timestamp on Tiendanube config + link to official rates page
 
-**Should have (differentiators, add in v1.x after core is stable):**
-- Cost breakdown by material type (leather vs hardware vs packaging subtotals in product detail)
-- "Stale price" indicator on supplies (price not updated in N days)
-- CSV export of product list with costs
-
-**Defer (v2+):**
-- Tiendanube config + calculadora — user explicitly descoped from v1
-- B2B clients and orders — v2
-- Investor dashboard with computed metrics — v2
-- Multi-currency (ARS/USD) prices — v2 if operationally needed
-- Stock quantity tracking — v3+ (requires orders/fulfillment data model first)
-- Labor cost in BOM — v3+ (requires time-tracking process that does not exist)
-- Data migration from Google Sheets — final v1 phase, after app is stable
-
-**Key dependency chain (build order constraint):**
-Auth → Catalog → Suppliers → Supplies + Price History → Products + BOM → Cost Calculation
-
-See `.planning/research/FEATURES.md` for full prioritization matrix and anti-feature analysis.
+**Defer to v1.2+:**
+- Historical margin tracking (needs time-series data accumulation first)
+- PDF export (browser print-to-PDF is sufficient for 1-2 investors)
+- Multi-scenario side-by-side comparison (one-at-a-time is adequate for the user count)
+- Tiendanube API integration (no public rates API, massive scope for unclear gain)
 
 ### Architecture Approach
 
-The system follows a standard NestJS layered architecture (controller → service → repository) with 5 business modules. The most important architectural decision is that CostsModule is separate from ProductsModule: it imports both SuppliesModule and ProductsModule to perform enrichment, so ProductsModule never imports CostsModule (avoiding circular dependencies). Auth is implemented as a global `APP_GUARD` — every route is protected by default, with an explicit `@Public()` decorator as an opt-out escape hatch.
+Four new NestJS modules slot cleanly into the existing dependency graph with zero circular dependencies. The DAG is strictly one-directional: `TiendanubeConfigModule` (no deps) feeds `CalculadoraModule` (depends on CostsModule + TiendanubeConfigModule), which feeds `ScenariosModule`, which feeds `DashboardModule` (aggregates everything). The `CostsModule` is the linchpin — it avoids importing other feature modules by using `TypeOrmModule.forFeature()` directly, preserving its clean base-layer position. `DashboardModule` is a consumer-only aggregation layer that exports nothing, preventing any return dependencies.
 
 **Major components:**
-1. **AuthModule** — JWT validation (NextAuth-signed tokens), email whitelist check on every request, role attachment to request context. Two guards registered globally: `JwtAuthGuard` and `RolesGuard`.
-2. **SuppliesModule** — CRUD for supplies, suppliers, supply types, and append-only price history. Exports `SuppliesService` for use by CostsModule.
-3. **ProductsModule** — CRUD for products, 5 catalog dimension tables, BOM management with `is_active` versioning, selling price history. Exports `ProductsService` for use by CostsModule.
-4. **CostsModule** — Cross-cutting read service. Imports SuppliesModule + ProductsModule. Implements batched cost calculation: 1 query for active compositions, 1 `DISTINCT ON` query for latest prices per supply, in-memory multiplication. No N+1 queries.
-5. **TiendanubeConfigModule** — CRUD for Tiendanube rate configuration (explicitly named to avoid collision with `@nestjs/config`'s `ConfigModule`).
-
-See `.planning/research/ARCHITECTURE.md` for full directory structure, all 4 data flows with TypeScript examples, and scaling considerations.
+1. `TiendanubeConfigModule` — CRUD for plan rates, installment rates, tax config. Seed data via migration. Admin-only write, any-auth read. 3 entities, standalone.
+2. `CalculadoraModule` — Stateless `CalculadoraService` implementing `calcForward()` (14 steps), `calcInverse()` (binary search with epsilon convergence), `calcBatch()` (for dashboard). Pure math, no DB writes.
+3. `ScenariosModule` — User-scoped CRUD for named scenarios + price override tables. Strict isolation: never writes to `product_price_history`. 2 entities.
+4. `DashboardModule` — `DashboardService` composes data from all modules in 5 queries total + in-memory O(n) calculation loop. Consumer-only, exports nothing.
+5. Frontend: 4 new pages (`/calculadora`, `/dashboard`, `/configuracion/tiendanube`, `/admin/usuarios`) + shared types under `@/types/` + shared formatters under `@/lib/formatters.ts`.
 
 ### Critical Pitfalls
 
-1. **`synchronize: true` in TypeORM reaching production** — hardcode `synchronize: false` unconditionally (never `NODE_ENV !== 'production'`). Use `migrationsRun: true` as the safe equivalent. Set this up in Phase 2 before writing a single entity. Failure mode: silent column drops or table destruction on deploy.
-
-2. **Two TypeORM DataSource configs falling out of sync** — do NOT use `autoLoadEntities: true` in `TypeOrmModule.forRoot()`. Import the same entities array from `src/database/dataSource.ts` in both NestJS config and CLI config. Failure mode: `migration:generate` produces empty files, entity silently missing from DB.
-
-3. **NextAuth token exchange done incorrectly** — NextAuth `jwt` callback must call `POST /auth/google` on first login with Google's `id_token`, receive a NestJS-minted JWT, and store it as `token.backendToken`. Frontend sends this NestJS JWT as `Authorization: Bearer`. NestJS never calls Google per request. Failure mode: 401s on all API calls, or 200-400ms latency per request if Google verification runs on each.
-
-4. **Email whitelist checked only at login** — `JwtAuthGuard` must query the database whitelist on every request (one indexed lookup). Not just at login. Failure mode: deactivated users retain API access for the full JWT lifetime.
-
-5. **Soft delete breaking unique constraints** — `is_active = false` records still satisfy standard `UNIQUE` constraints, preventing re-creation of same-name supplies. Prevention: create partial unique indexes in the same migration that creates the table (`WHERE is_active = true`), or use TypeORM's `@DeleteDateColumn` with `WHERE deleted_at IS NULL`. Must be decided in Phase 4 before any data exists.
-
-See `.planning/research/PITFALLS.md` for full pitfall-to-phase mapping, security mistakes checklist, and recovery strategies.
+1. **Floating-point accumulation across 7 intermediate calculation steps** — Round only ONCE at the end of the full `calcForward()` chain, not at each intermediate step. Test: forward at $87,000 then inverse targeting result must round-trip within $0.01.
+2. **Scenario data leaking into real price history** — `ScenariosService` must NEVER write to `product_price_history`. Enforce at the module level by only registering `Scenario` + `ScenarioOverride` entity repos. Detect: query `product_price_history` after scenario creation — zero new records expected.
+3. **Missing role enforcement on existing endpoints** — All current controllers lack `@Roles(Role.ADMIN)`. A USER-role investor can navigate to `/productos` and see all cost data. Fix this in the hardening phase before investors access the system.
+4. **Silent 401 on JWT expiry** — `apiClientFetch` throws a generic error on 401; investors see broken UI with no recovery path. Add `window.location.href = '/login'` on 401. Handle 403 separately ("no permissions" message, not login redirect).
+5. **Dashboard N+1 via naive service composition** — `DashboardService` must load Tiendanube config ONCE, not inside a per-product loop. Target: no more than 6 SQL queries per dashboard request regardless of product count.
 
 ---
 
 ## Implications for Roadmap
 
-Based on combined research, the phase structure is directly driven by the feature dependency chain and module build order from ARCHITECTURE.md. No phase can be freely reordered.
+Based on the dependency DAG and pitfall analysis, the optimal phase structure is:
 
-### Phase 1: Backend Scaffold
+### Phase 1: Hardening
+**Rationale:** Auth is broken (no 401 handling, no role enforcement), and 8 duplicate types slow all subsequent work. Missing role enforcement is a security gap that must be closed before investors access any endpoint. DRY cleanup reduces friction for every subsequent feature phase. `deactivateBySupplier` dead code should be resolved here.
+**Delivers:** Secure, investment-grade foundation with all existing controllers protected. Shared type system established. Users admin page live. JWT expiry handled gracefully.
+**Addresses features:** Auth hardening (middleware + 401), role enforcement on all existing endpoints, DRY cleanup, users admin page.
+**Avoids pitfalls:** Pitfall 2 (JWT expiry silent failure), Pitfall 8 (role bypass on existing routes), Pitfall 5 (DRY cleanup breaking contracts — diff types before extracting), dead code.
 
-**Rationale:** The backend does not exist yet (Fase 2 in MEMORY.md). All subsequent phases depend on a correctly configured NestJS application with migrations wired up before any entity is written.
-**Delivers:** NestJS 11 app scaffolded at `nemea-back/`, PostgreSQL running via Docker Compose, TypeORM migrations configured (`synchronize: false`, `migrationsRun: true`), Swagger available at `/api/docs`, Railway environment variables documented.
-**Addresses features:** Infrastructure only — no business features.
-**Avoids pitfalls:** Pitfall 1 (`synchronize: true`) and Pitfall 2 (DataSource config divergence) must be solved here, not retrofitted.
-**Research flag:** Standard patterns — no additional research needed. STACK.md has the exact migration setup scripts.
+### Phase 2: Tiendanube Config
+**Rationale:** This is the single dependency gate for both the calculadora and the net margin dashboard column. Nothing in the pricing simulation stack can be built before rates are in the DB. Building it as a standalone module also validates the new entity/migration pattern before higher-complexity modules.
+**Delivers:** Admin-editable rate tables (4 plans, 5 installment tiers, IVA + IIBB). Config CRUD frontend page with "verify rates" link. Seed data with March 2026 verified rates.
+**Implements:** `TiendanubeConfigModule` — foundation of the new dependency DAG.
+**Avoids pitfalls:** Pitfall 7 (stale hardcoded rates — rates live in DB from day one), Pitfall 10 (decimal string convention established here: parse at repo boundary, number in service interfaces).
 
-### Phase 2: Authentication
+### Phase 3: Calculadora
+**Rationale:** Depends on Phase 2 (config) and the existing CostsModule. The pure calculation service is a prerequisite for both the calculadora page AND the dashboard net margin column AND scenario calculations. Proving the formula migration here prevents duplication later.
+**Delivers:** `POST /calculadora/forward` and `POST /calculadora/inverse` endpoints. Frontend calculadora page with product cost auto-population from DB. Binary search with epsilon convergence and bounds validation.
+**Uses:** `CalculadoraService` as pure math, `CostsService.calculateForProduct()` for DB lookup, `TiendanubeConfigService` for rates.
+**Avoids pitfalls:** Pitfall 1 (floating point — round only at chain end), Pitfall 6 (inverse edge cases — epsilon convergence, unreachable-target error return, zero-cost product guard).
 
-**Rationale:** Auth is the prerequisite for every other endpoint. No business feature can be built without knowing the auth guard pattern. The Google OAuth ↔ NestJS token exchange (Pitfall 3) is the highest-complexity item in the entire system and must be understood and tested in isolation before any business logic is layered on top.
-**Delivers:** `POST /auth/google` endpoint (validates Google `id_token`, mints NestJS JWT), `GET /auth/me`, global `JwtAuthGuard` + `RolesGuard`, email whitelist in `users` table (DB-checked on every request), `ADMIN`/`USER` role enum.
-**Addresses features:** Google OAuth authentication, email whitelist, role-based access.
-**Avoids pitfalls:** Pitfall 3 (token exchange), Pitfall 4 (whitelist on every request).
-**Research flag:** Needs careful implementation — the NextAuth jwt/session callback pattern is documented in PITFALLS.md but is integration-heavy and should be verified end-to-end before proceeding.
+### Phase 4: Scenarios
+**Rationale:** Scenarios are a layer on top of the calculadora. They require `CalculadoraService.calcBatch()` which exists after Phase 3. This is the most complex new feature and benefits from all its dependencies being proven before the integration layer is built.
+**Delivers:** Named what-if scenarios, per-product price overrides, user-scoped visibility. `PUT /scenarios/:id/overrides` bulk upsert. `GET /scenarios/:id/calculate` endpoint for full margin recalculation with overrides.
+**Avoids pitfalls:** Pitfall 4 (scenario data isolation — strict separate tables, never touch real pricing data), Pitfall 11 (scope creep — one active scenario vs reality, no side-by-side in v1.1).
 
-### Phase 3: Supplies and Price History
+### Phase 5: Investor Dashboard
+**Rationale:** Last because it consumes all other modules. The `DashboardService` composition (products + costs + calculadora + scenarios) is the final integration. Building it last means all its dependencies are independently tested first.
+**Delivers:** `/dashboard` page with catalog margin summary, net margin after Tiendanube deductions, scenario selector, product hierarchy grouping, aggregated KPI cards.
+**Avoids pitfalls:** Pitfall 3 (aggregation performance — 5 queries total, in-memory loop), Pitfall 4 (scenario isolation through read-only service composition).
 
-**Rationale:** Supplies are the foundation of cost calculation. CostsModule cannot function without supply prices. Suppliers and supply types must exist (FK constraints) before supplies can be created. This phase also establishes the append-only price history pattern and must include the composite index on `supplies_price_history(supply_id, created_at DESC)` to prevent the N+1 query pitfall.
-**Delivers:** Full CRUD for suppliers, supply types, and supplies. Append-only `POST /supplies/:id/prices` endpoint. `GET /supplies/:id/prices` returning history sorted DESC. Composite index on price history table.
-**Addresses features:** Supply CRUD with type and supplier, price history per supply, supplier CRUD with contact info, soft delete for supplies.
-**Avoids pitfalls:** Pitfall 5 (N+1 price query — index added in migration), Pitfall 6 (soft delete + unique constraints — partial index decision).
-**Research flag:** Standard NestJS CRUD patterns — no additional research needed.
-
-### Phase 4: Products and Catalog
-
-**Rationale:** Products depend on the 5 catalog dimension tables having data. Catalog must be seeded with the owner's real data (product types, names, finishes, colors, sizes) before the first product can be created. BOM management (material composition) depends on both supplies (from Phase 3) and products.
-**Delivers:** CRUD for all 5 catalog dimension tables, product CRUD with auto-generated SKU from dimension IDs, BOM management with `is_active` version history (transaction: deactivate old rows + insert new), selling price history per product.
-**Addresses features:** Product CRUD with 5-dimension catalog, SKU auto-generation, BOM management with version history, selling price history.
-**Uses:** Composition history pattern (Pattern 4 from ARCHITECTURE.md), transaction wrapping for BOM changes.
-**Research flag:** Standard patterns — SKU generation algorithm needs a brief implementation decision (abbreviation vs ID encoding) but no external research needed.
-
-### Phase 5: Cost Calculation and Integration
-
-**Rationale:** CostsModule is the last domain module because it imports both SuppliesModule and ProductsModule. It cannot be built until both parent modules are stable. This phase delivers the core value proposition: a product list page that shows each product's calculated cost from current supply prices.
-**Delivers:** `CostsService.enrichWithCosts()` with the batched DISTINCT ON query (1 composition query + 1 price query + in-memory calc = 0 N+1 queries). `GET /products` returning `ProductWithCostDto[]` (cost, cost breakdown by supply type, latest price date). Investor-ready view differentiated by role.
-**Addresses features:** Dynamic cost calculation, automatic cost propagation, cost breakdown by material type, investor read-only view.
-**Avoids pitfalls:** Pitfall 5 (N+1 queries) — the correct batched pattern is the only acceptable implementation.
-**Research flag:** Standard PostgreSQL DISTINCT ON pattern — documented in ARCHITECTURE.md. No additional research needed.
-
-### Phase 6: Expenses and Config
-
-**Rationale:** Expense tracking and Tiendanube config are lower-dependency features that can be built after the core cost management system is functional. These are simpler CRUDs with no cross-module dependencies.
-**Delivers:** Expense CRUD with category enum (parity with Sheets). `TiendanubeConfigModule` with `GET/PUT /config/tiendanube` (correctly named to avoid `@nestjs/config` collision).
-**Addresses features:** Expense tracking with categories, Tiendanube rate configuration.
-**Avoids pitfalls:** Anti-Pattern 3 (ConfigModule naming collision — use `TiendanubeConfigModule`).
-**Research flag:** Standard patterns — no research needed.
-
-### Phase 7: Frontend Integration
-
-**Rationale:** Once all backend endpoints are stable, integrate the Next.js frontend with the NestJS API. Connect the existing calculator prototype to real config data. Build CRUD views for supplies, products, and expenses.
-**Delivers:** Complete working v1 application with all backend endpoints consumed by the frontend. Investor view accessible with USER role.
-**Addresses features:** All UI-facing features from v1 scope.
-**Research flag:** Frontend patterns are well-established (Next.js App Router + fetch layer). Specific component decisions should follow the existing nemea-front scaffold conventions.
-
-### Phase 8: Data Migration
-
-**Rationale:** Migration from Google Sheets is the final phase, after the application is stable and the owner has validated the data model with real usage. Migrating too early risks building the data model around Sheets quirks.
-**Delivers:** Owner's real catalog data, supply prices, product compositions, and expense records loaded into production.
-**Research flag:** No framework research needed — this is a scripted one-time data import specific to the Sheets structure documented in `costos-nemea-appscripts.txt`.
+### Phase 6: Product UX (parallel candidate)
+**Rationale:** Fully independent of Phases 2-5 — no backend changes, no new entities. Can be parallelized with any other phase or deferred. Hierarchical product table + BOM group editor scoping are frontend-only refactors.
+**Delivers:** Type > Name > Finish collapsible product tree using existing Radix Collapsible. BOM group editor scoped to product name instead of type.
 
 ### Phase Ordering Rationale
 
-- **Auth before everything:** Every other endpoint requires the JWT guard. Building business modules without auth first means retrofitting guards on every controller.
-- **Supplies before Products:** FK constraint — supplies have suppliers (FK) and supply types (FK). Products have BOM entries that reference supply IDs (FK).
-- **Products after Catalog:** The 5 dimension tables need seed data before a product can be created.
-- **Costs last among domain modules:** CostsModule imports both SuppliesModule and ProductsModule. Building it last is architecturally required.
-- **Expenses/Config late:** No dependencies on other business modules. Can be built any time after scaffold, but prioritizing core cost model first maximizes early validation.
-- **Migration last:** Avoids data model coupling to existing Sheets structure.
+- **Hardening before everything:** Role enforcement is a security requirement. The 401 handling gap degrades the experience of every subsequent feature. DRY cleanup prevents type inconsistencies from compounding across new features.
+- **Config before Calculator:** Hard dependency — the calculator reads rates from DB on every call. Building the calculator against hardcoded rates would require a second migration step.
+- **Calculator before Scenarios:** `ScenariosModule` imports `CalculadoraModule.calcBatch()`. This dependency cannot exist until Phase 3 is complete.
+- **Scenarios before Dashboard:** `DashboardService` composes `ScenariosService.findOne()` for scenario-aware views.
+- **Product UX is parallel:** No dependencies on any v1.1 module. Can start after Phase 1 DRY cleanup establishes shared types.
 
 ### Research Flags
 
-Phases needing careful verification during implementation:
-- **Phase 2 (Auth):** The NextAuth `jwt`/`session` callback + NestJS `POST /auth/google` integration is the single highest-complexity element. Test the full token exchange flow end-to-end before building on top of it.
-- **Phase 5 (Costs):** The DISTINCT ON batched query must be verified against NestJS logger output to confirm no N+1 pattern is present. Add this as an explicit acceptance criterion.
+Phases likely needing `/gsd:research-phase` during planning:
+- **Phase 3 (Calculadora):** The number representation decision (round at chain end vs integer centavos) should be validated against the $87,000 prototype test case before writing the service. The binary search edge case matrix (negative profit, zero-cost product, unreachable target) needs explicit test design before implementation.
+- **Phase 4 (Scenarios):** The API shape for `PUT /scenarios/:id/overrides` (bulk upsert semantics, replace-all vs partial update) has no reference in the existing codebase. Design the contract before the controller is written.
 
-Phases with standard well-documented patterns (can proceed without deeper research):
-- **Phase 1 (Scaffold):** STACK.md has exact setup scripts.
-- **Phase 3 (Supplies):** Standard NestJS CRUD + append-only insert pattern.
-- **Phase 4 (Products):** Standard CRUD + transaction pattern for BOM versioning.
-- **Phase 6 (Expenses/Config):** Simplest CRUDs in the system.
+Phases with well-documented patterns (skip research-phase):
+- **Phase 1 (Hardening):** All tasks are targeted fixes to known issues. `@Roles` pattern, `apiClientFetch` 401 handling, and DRY extraction are all well-understood changes.
+- **Phase 2 (Tiendanube Config):** Pure CRUD module following identical pattern to `CatalogsModule`. Seed data is verified. No unknowns.
+- **Phase 5 (Dashboard):** The `DashboardService` composition pattern is fully specified in ARCHITECTURE.md. No novel patterns.
+- **Phase 6 (Product UX):** Frontend-only Radix Collapsible grouping. No unknowns.
 
 ---
 
@@ -191,46 +139,44 @@ Phases with standard well-documented patterns (can proceed without deeper resear
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | NestJS 11, TypeORM 0.3.28, and `@nestjs/swagger` 11.2.6 versions confirmed via WebSearch. Migration setup and Railway SSL pattern confirmed via official docs. |
-| Features | HIGH | Features derived primarily from first-party sources (scope-v1.md, business-rules.md, PROJECT.md). Competitor analysis (Craftybase, Katana MRP) validates scope is correctly lean. |
-| Architecture | HIGH | Patterns are standard NestJS. DISTINCT ON query pattern is well-documented PostgreSQL. Module dependency graph is deterministic from FK constraints. |
-| Pitfalls | MEDIUM-HIGH | Critical pitfalls (synchronize, N+1, soft delete) confirmed via TypeORM GitHub issues and multiple community sources. Auth token exchange pattern is MEDIUM — based on community discussions, not official NextAuth docs for this specific flow. |
+| Stack | HIGH | Zero new libraries. All decisions verified against existing codebase and official docs. Version compatibility table confirmed. |
+| Features | HIGH | Core features drawn from working prototype + verified Tiendanube rates (official help center, March 2026). Scenario UX patterns are MEDIUM (FP&A tools adapted for 2-user leather goods app). |
+| Architecture | HIGH | Dependency DAG verified against actual module wiring in codebase source files. No circular dependency risk. All new module patterns match existing modules exactly. |
+| Pitfalls | HIGH | Grounded in actual code analysis from v1 senior review, official docs (TypeORM issue #2937, Next.js 16 proxy docs), and confirmed runtime behavior. |
 
-**Overall confidence:** MEDIUM-HIGH
+**Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **NextAuth `id_token` exchange implementation:** The documented pattern (exchange Google `id_token` for NestJS JWT in NextAuth `jwt` callback) is community-confirmed but the exact NextAuth v4 callback signatures should be verified against the actual installed version in `nemea-front`. Validate during Phase 2 implementation.
-- **SKU generation algorithm:** Research does not prescribe the exact encoding (dimension abbreviations vs dimension IDs). This is a 30-minute implementation decision, not a research gap. Decide during Phase 4 planning.
-- **Soft delete strategy (`is_active` vs `@DeleteDateColumn`):** PITFALLS.md documents both options. The decision between them must be made in Phase 3/4 before any entity with unique constraints is persisted. Recommendation: use `@DeleteDateColumn` for TypeORM's built-in soft-delete support and cleaner partial index syntax.
-- **Pagination on product list:** PITFALLS.md notes that fetching the full product list with cost calculation per product breaks at >50 products. V1 scale may reach this. Consider adding pagination to `GET /products` from the start (cursor-based or offset — either is fine at this scale).
+- **Calculadora number representation conflict:** STACK.md recommends `Math.round(x * 100) / 100` matching existing `CostsService`. PITFALLS.md recommends rounding only at chain end (same conclusion) but also mentions integer centavos as an alternative. Resolve at Phase 3 start: run the 14-step formula both ways against the $87,000 test case and measure discrepancy. If sub-centavo, `Math.round` at chain end is sufficient.
+- **proxy.ts vs middleware.ts naming:** STACK.md says `proxy.ts` is correctly structured for Next.js 16. ARCHITECTURE.md says rename to `middleware.ts`. This is a direct conflict. Requires runtime verification at Phase 1 start — check Next.js 16 changelog to confirm the correct filename for route interception.
+- **SIRTAC / IIBB aliquot:** Rate varies per vendor based on COMARB padron (up to 5%). The app stores a single configurable value — explicitly scoped as "good enough estimation." Admin must look up their actual aliquot and enter it. No automation is possible or required.
+- **`deactivateBySupplier` wiring decision:** Either wire it into `SuppliersService.toggleStatus()` or delete it. Requires a business logic call from the user before Phase 1 execution.
 
 ---
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- `.claude/docs/planning/scope-v1.md` — V1 module definitions, table list, endpoint list
-- `.claude/docs/planning/business-rules.md` — Cost calculation formulas, expense categories, BOM structure
-- `.planning/PROJECT.md` — Scope boundaries, v1 vs v2 decisions
-- NestJS official docs (guards, modules, validation) — Architecture patterns
-- TypeORM 0.3.x official docs (DataSource, migrations) — Migration setup
-- PostgreSQL docs (DISTINCT ON, partial indexes) — Query patterns
+- Nemea codebase: `nemea-back/src/costs/costs.module.ts`, `nemea-back/src/products/products.module.ts`, `nemea-back/src/app.module.ts` — actual module wiring verified
+- Nemea codebase: `nemea-front/src/proxy.ts`, `nemea-front/src/lib/api-client.ts` — auth gap analysis
+- `_archive/calculadora/calculadora-tiendanube.jsx` — proven forward/inverse formula with business test cases
+- `.claude/docs/planning/business-rules.md` — Tiendanube rates, `calcForward` steps, test case ($87,000 wallet)
+- [Tiendanube comisiones oficiales](https://ayuda.tiendanube.com/es_AR/pago-nube-2/cuales-son-las-comisiones-de-pago-nube) — plan rates verified March 2026
+- [Tiendanube SIRTAC / IIBB](https://ayuda.tiendanube.com/es_AR/pago-nube-2/que-costos-debo-tener-en-cuenta-al-vender-con-pago-nube) — retention regime
+- [SIRTAC Argentina](https://www.argentina.gob.ar/economia/politicatributaria/armonizacion/sirtac) — official IIBB retention system
 
 ### Secondary (MEDIUM confidence)
-- WebSearch: NestJS 11 release (Trilon announcement Jan 2025) — Version confirmation
-- WebSearch: TypeORM 0.3.28 (npm registry) — Version confirmation
-- WebSearch: `@nestjs/swagger` 11.2.6 (npm registry, Feb 2026) — Version confirmation
-- GitHub: nextauthjs/next-auth Discussion #8884 — NextAuth + custom backend token exchange pattern
-- GitHub: typeorm/typeorm Issue #7549 — Soft delete + unique constraint problem
-- Medium: "NestJS & TypeORM Migrations in 2025" — Two DataSource configs pattern
-- wanago.io: "Soft deletes with PostgreSQL and TypeORM" — `@DeleteDateColumn` + partial index
+- [Auth.js v5 session protection](https://authjs.dev/getting-started/session-management/protecting) — proxy.ts patterns
+- [TypeORM decimal as string — Issue #2937](https://github.com/typeorm/typeorm/issues/2937) — decimal column behavior confirmed
+- [How to properly handle decimals with TypeORM](https://medium.com/@matthew.bajorek/how-to-properly-handle-decimals-with-typeorm-f0eb2b79ca9c) — column transformer pattern
+- [Currency calculations in JavaScript — Honeybadger](https://www.honeybadger.io/blog/currency-money-calculations-in-javascript/) — integer centavos pattern
+- [Understanding N+1 in TypeORM](https://medium.com/@bloodturtle/understanding-the-n-1-problem-in-typeorm-b93757dca974) — dashboard query optimization
+- Craftybase, Cube, Finmark, Runway — scenario simulator and investor dashboard UX patterns
 
-### Tertiary (MEDIUM-LOW confidence)
-- Craftybase, Katana MRP feature sets — Competitor analysis for scope validation
-- Railway Help Station community posts — SSL connection configuration
-- Docker Compose PostgreSQL readiness articles — `depends_on` + health check pattern
+### Tertiary (LOW confidence)
+- [Shadcn tree view component](https://github.com/MrLightful/shadcn-tree-view) — considered and rejected in favor of Radix Collapsible for product hierarchy
 
 ---
-*Research completed: 2026-02-28*
+*Research completed: 2026-03-26*
 *Ready for roadmap: yes*

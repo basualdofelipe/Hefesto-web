@@ -1,317 +1,310 @@
-# Stack Research
+# Technology Stack: v1.1 Additions
 
-**Domain:** Inventory & cost management backend — leather goods SMB
-**Researched:** 2026-02-28
-**Confidence:** MEDIUM-HIGH (core stack HIGH, version specifics MEDIUM)
-
----
-
-## Summary
-
-The stack is already decided (NestJS + TypeORM + PostgreSQL). This research validates that
-decision, fills in the specific library versions, documents the exact auth integration pattern,
-and identifies the gaps in the original stack definition that need to be addressed in scaffolding.
-
-**Bottom line:** The chosen stack is correct and production-grade. No changes recommended.
-The biggest gap is the auth integration between NextAuth v4 (frontend JWT) and NestJS (backend
-JWT validation). This pattern is well-established but requires careful implementation.
+**Project:** Nemea v1.1 -- Tiendanube Pricing, Investor Dashboard, Hardening
+**Researched:** 2026-03-26
+**Scope:** NEW libraries and patterns only. Existing stack (NestJS 11, Next.js 16, TypeORM, etc.) is validated and not re-researched.
 
 ---
 
-## Recommended Stack
+## Executive Summary
 
-### Core Technologies
+**v1.1 requires zero new npm dependencies.** The existing stack covers every feature. The calculadora migration, scenario simulator, investor dashboard, and hardening work are all achievable with current libraries. The key additions are architectural (new NestJS modules, new entities, proxy.ts wiring) not library additions.
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| NestJS | ^11.x (11.1.14 latest) | Backend framework | Current stable. NestJS 11 released Jan 2025 with improved module startup perf and structured logging. Maintained until 2030+. |
-| TypeORM | ^0.3.28 | ORM for PostgreSQL | Current stable. The 0.3.x API (DataSource) is the active API. No planned major breaking changes. |
-| PostgreSQL | 16-alpine (Docker) | Primary database | 16 is the current stable with query plan improvements. Alpine image keeps Docker layer small. |
-| Node.js | 20 LTS | Runtime | Already used by nemea-front. 20 LTS is supported until April 2026; Node 22 LTS available as upgrade path. |
-| TypeScript | ~5.x (matches NestJS 11) | Type safety | Already decided. Strict mode required. |
-
-### Authentication Stack
-
-| Library | Version | Purpose | Why This |
-|---------|---------|---------|----------|
-| @nestjs/passport | ^11.0.5 | Passport integration for NestJS | Official NestJS adapter. Version 11 matches NestJS 11 core. |
-| passport | ^0.7.x | Authentication middleware | Required peer dependency of @nestjs/passport. |
-| passport-jwt | ^4.x | JWT bearer token strategy | Validates JWT from Authorization header. v5 is pending (has breaking changes) — use v4 for now. |
-| @nestjs/jwt | ^10.x | JWT signing and verification | Official NestJS JWT module. Wraps jsonwebtoken. |
-| passport-google-oauth20 | ^2.x | Google OAuth2 strategy for Passport | Used on backend only if doing server-side OAuth flow. For the frontend-driven model (NextAuth handles OAuth, backend only validates JWT), this is NOT needed. |
-
-**Auth architecture for this project:**
-NextAuth (frontend) handles the full Google OAuth flow and issues an encrypted JWT stored
-in a cookie. The NestJS backend does NOT need to handle Google OAuth redirects. The backend
-only needs to:
-1. Expose `POST /auth/validate` — receives the NextAuth JWT token, verifies signature using
-   the shared `NEXTAUTH_SECRET`, looks up email in the users whitelist table, returns user data.
-2. Expose `GET /auth/me` — protected route returning current user from JWT in Authorization header.
-
-This means `passport-google-oauth20` is NOT needed on the backend. Use only `passport-jwt`
-with a custom `JwtStrategy` that validates the NextAuth-signed token.
-
-### Data Access Layer
-
-| Library | Version | Purpose | Notes |
-|---------|---------|---------|-------|
-| pg | ^8.x | PostgreSQL driver (node-postgres) | Required peer dependency of TypeORM for Postgres. TypeORM does not bundle it. |
-| @nestjs/typeorm | ^11.x | TypeORM module for NestJS | Official integration. Version matches NestJS 11. |
-
-**On TypeORM DECIMAL columns:** TypeORM returns DECIMAL values as strings from PostgreSQL.
-For cost calculation aggregates (SUM of price * quantity), use QueryBuilder and parse results
-with `parseFloat()` at the service layer, or use a column transformer. Do NOT rely on automatic
-numeric coercion. This is a known TypeORM quirk, not a bug.
-
-### Validation & Serialization
-
-| Library | Version | Purpose | Why This |
-|---------|---------|---------|----------|
-| class-validator | ^0.14.x | DTO input validation | Standard NestJS validation. Use standalone package (not @nestjs/class-validator which is 4yr old fork). |
-| class-transformer | ^0.5.x | DTO serialization / plainToClass | Works with ValidationPipe and @Exclude decorators for response shaping. Use standalone package. |
-
-### Configuration
-
-| Library | Version | Purpose | Notes |
-|---------|---------|---------|-------|
-| @nestjs/config | ^3.x | Environment variable management | Official module. Use `isGlobal: true` + `validationSchema` (Joi) for env var validation at startup. Fails fast if required vars are missing. |
-| joi | ^17.x | Schema validation for env vars | Use with @nestjs/config's `validationSchema`. Validates DATABASE_URL, JWT_SECRET, PORT, etc. at boot time. |
-
-### API Documentation
-
-| Library | Version | Purpose | Notes |
-|---------|---------|---------|-------|
-| @nestjs/swagger | ^11.2.6 | OpenAPI / Swagger docs | Latest version (11.2.6 published Feb 2026). Auto-generates API docs from decorators. Use in development; can disable in production via env flag. |
-| swagger-ui-express | (peer dep) | Swagger UI server | Installed automatically with @nestjs/swagger for Express adapter. |
-
-### Security
-
-| Library | Version | Purpose | Notes |
-|---------|---------|---------|-------|
-| helmet | ^8.x | HTTP security headers | Use `app.use(helmet())` in main.ts before all routes. Sets X-Frame-Options, CSP, etc. |
-| @nestjs/throttler | ^6.x | Rate limiting | Official NestJS rate limiting module. Apply at global level with `ThrottlerGuard`. |
-
-### Development Tools
-
-| Tool | Version | Purpose | Notes |
-|------|---------|---------|-------|
-| @nestjs/cli | ^11.x | NestJS CLI (generate, build, start) | Required for `nest generate` scaffolding commands. Install globally. |
-| ts-node | ^10.x | TypeScript execution for CLI | Required by TypeORM CLI to read `dataSource.ts` directly. |
-| tsconfig-paths | ^4.x | Path alias resolution at runtime | Required so TypeORM CLI can resolve `@/*` aliases in `dataSource.ts`. |
-
-### Testing
-
-| Library | Version | Purpose | Notes |
-|---------|---------|---------|-------|
-| @nestjs/testing | ^11.x | NestJS test utilities | Creates test modules. Standard for unit tests. |
-| jest | ^29.x | Test runner | NestJS CLI scaffolds this. Use ts-jest preset. |
-| supertest | ^7.x | HTTP integration testing | For e2e tests against the live NestJS app instance. |
-| @types/supertest | ^6.x | TypeScript types for supertest | Dev dependency. |
+The one area that deserves explicit justification is **decimal precision for financial calculations** -- the recommendation is to use native JavaScript `Number` (IEEE 754 double) with disciplined rounding, matching the existing prototype and the current CostsService pattern. A precision library like `decimal.js` is unnecessary for this domain.
 
 ---
 
-## Installation
+## New Stack Components: None Required
 
-```bash
-# Inside nemea-back/
+### Why No New Libraries
 
-# Core framework
-npm install @nestjs/common @nestjs/core @nestjs/platform-express reflect-metadata rxjs
-
-# Database
-npm install @nestjs/typeorm typeorm pg
-
-# Auth
-npm install @nestjs/passport @nestjs/jwt passport passport-jwt
-
-# Configuration
-npm install @nestjs/config joi
-
-# Validation
-npm install class-validator class-transformer
-
-# Security
-npm install helmet @nestjs/throttler
-
-# API Docs
-npm install @nestjs/swagger
-
-# Dev dependencies
-npm install -D @nestjs/cli @nestjs/testing ts-node tsconfig-paths jest ts-jest supertest @types/jest @types/supertest @types/passport-jwt
-```
+| v1.1 Feature | Implementation Approach | Libraries Needed |
+|---|---|---|
+| Config Tiendanube (admin-editable rates) | New TypeORM entities + NestJS CRUD module | Already have: TypeORM, class-validator, class-transformer |
+| Calculadora forward/inverse | New NestJS service with pure math functions | Native TypeScript -- no external math library |
+| Investor dashboard | New frontend page reading existing `/products` endpoint with costs | Already have: React, Shadcn/ui tables, Zod |
+| Scenario simulator | New TypeORM entity (`pricing_scenario`) + CRUD | Already have: TypeORM, react-hook-form, Zod |
+| Product hierarchical grouping | Frontend-only collapsible table UI | Already have: Radix UI accordion/collapsible, Lucide icons |
+| Proxy.ts wiring | Rename export + move file position | Already have: `proxy.ts` with `auth()` wrapper |
+| 401 handling | Add redirect logic in `apiClientFetch` | Already have: `next-auth` session, `signOut` |
+| DRY cleanup | Consolidate duplicated interfaces/utils | No new code -- refactoring only |
 
 ---
 
-## Docker Compose (Local PostgreSQL)
+## Financial Calculation Precision: Native Number
 
-```yaml
-# docker-compose.yml in nemea-back/
-services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: nemea-postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: nemea
-      POSTGRES_PASSWORD: nemea_dev
-      POSTGRES_DB: nemea_db
-    volumes:
-      - nemea_pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U nemea -d nemea_db"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+### Decision: Use `Number` with `Math.round()`, NOT decimal.js
 
-volumes:
-  nemea_pgdata:
-```
+**Confidence:** HIGH
 
-Run NestJS outside Docker in development (just `npm run start:dev`). Only PostgreSQL runs in
-Docker locally. This matches the cuerpo-fit reference pattern.
+**Rationale:**
+
+1. **Domain fit.** Argentine pesos are quoted to 2 decimal places. Rates are percentages with 2 decimal places. The prototype (`calculadora-tiendanube.jsx`) uses plain JavaScript numbers with no issues. The existing `CostsService` already uses `parseFloat()` and `Math.round(x * 100) / 100` -- same pattern.
+
+2. **Precision analysis.** IEEE 754 double-precision gives 15-17 significant digits. The largest realistic calculation: `$10,000,000 * 37.39% = $3,739,000`. This is well within safe integer range (~9 quadrillion). Rounding errors only appear at the 16th digit -- irrelevant for 2-decimal ARS amounts.
+
+3. **The prototype works.** The calcForward/calcInverse functions in the JSX prototype use native numbers and produce correct results against real business data (validated test case: Billetera Hefesto at $87,000). Introducing `decimal.js` would mean rewriting working logic for zero benefit.
+
+4. **Consistency.** The existing `CostsService.buildCostMap()` uses `Math.round(unitPrice * quantity * 100) / 100`. The calculadora service should follow the same convention.
+
+5. **Bundle cost avoided.** `decimal.js` is 32KB minified. For a backend-only calculation, bundle size is irrelevant -- but the cognitive overhead of a new API (`new Decimal(x).mul(y).toNumber()`) adds complexity with no return.
+
+**The rule:** All monetary results get `Math.round(value * 100) / 100` before being stored or returned. All percentage rates are stored as numbers (e.g., `7.69` not `0.0769`). This matches the prototype and the existing codebase.
+
+### When decimal.js WOULD be justified (not this project)
+
+- Calculations involving more than 15 significant digits (crypto, scientific)
+- Currency conversions with 6+ decimal place exchange rates
+- Accumulation of thousands of rounding operations in a single pipeline
+- Regulatory requirement for exact decimal arithmetic (banking)
+
+None of these apply to Nemea.
 
 ---
 
-## TypeORM Migration Setup
+## Backend: New NestJS Modules
 
-This is the most critical configuration decision. Migrations always, never synchronize.
+### TiendanubeModule (NEW)
+
+Replaces the previously planned `ConfigModule` (business config). Already correctly scoped in the architecture research to avoid naming clash with `@nestjs/config`.
+
+| Component | Purpose | Pattern |
+|---|---|---|
+| `TiendanubeModule` | Registers entities, exports service | Standard NestJS module |
+| `TiendanubeConfigService` | CRUD for plan rates, installment rates, tax config | Standard CRUD service |
+| `TiendanubeConfigController` | `GET/PUT /tiendanube/config` (ADMIN only) | `@Roles('ADMIN')` protected |
+| `CalculadoraService` | `calcForward()` + `calcInverse()` pure functions | Stateless service, no DB access |
+| `CalculadoraController` | `POST /tiendanube/calculate` (any role) | Accepts body with pricing params, returns breakdown |
+| Entities: `TiendanubePlan`, `InstallmentRate`, `TiendanubeSettings` | Config tables | TypeORM entities extending `BaseEntity` |
+
+**Key design choice:** `CalculadoraService` is a pure calculation service with zero DB dependencies. It receives all config as parameters. The controller orchestrates: reads config from `TiendanubeConfigService`, passes it to `CalculadoraService`. This makes the calculator testable without a database.
+
+### ScenariosModule (NEW)
+
+| Component | Purpose | Pattern |
+|---|---|---|
+| `ScenariosModule` | Registers entities, exports service | Standard NestJS module |
+| `ScenariosService` | CRUD for pricing scenarios per user | Standard CRUD with user ownership |
+| `ScenariosController` | `GET/POST/PUT/DELETE /scenarios` | User-scoped (each user sees only their scenarios) |
+| Entity: `PricingScenario` | Stores scenario name, user FK, created_at | TypeORM entity extending `BaseEntity` |
+| Entity: `ScenarioProduct` | Stores product FK, overridden sale price, scenario FK | Join table with price override |
+
+**Key design choice:** Scenarios store only overrides (product_id + override_price). The dashboard reads real costs from `CostsService` and applies overrides in-memory. No data duplication.
+
+### UsersModule (UPDATE -- admin UI)
+
+The backend CRUD already exists. The frontend needs a new page at `/(app)/usuarios/page.tsx`. No backend changes needed.
+
+---
+
+## Frontend: New Patterns
+
+### proxy.ts Wiring (HARDENING)
+
+**Current state:** `proxy.ts` exists at `nemea-front/src/proxy.ts` with the correct `auth()` wrapper and `proxy` export. It handles unauthenticated redirects and missing `accessToken` redirects.
+
+**Problem identified in PROJECT.md:** The proxy is not wired as `middleware.ts` -- it exists as `proxy.ts` but may not be in the correct location for Next.js 16 to pick it up.
+
+**Verification needed at implementation time:**
+- `proxy.ts` must be at the root of `src/` (or project root if no `src/`). Currently at `nemea-front/src/proxy.ts` -- this is the correct location for Next.js 16 with `src/` directory.
+- The export must be named `proxy` (not `middleware`). Currently: `export const proxy = auth(...)` -- correct.
+- The `config` export with `matcher` must be present. Currently present.
+
+**Conclusion:** The proxy file is already correctly structured for Next.js 16. The issue noted in PROJECT.md ("proxy.ts no wired as middleware.ts") may be stale. The hardening task should verify this works in production, not rewrite it.
+
+**Confidence:** MEDIUM -- needs runtime verification. The file structure looks correct but the PROJECT.md note suggests it may not actually be intercepting requests.
+
+### 401 Handling in apiClientFetch (HARDENING)
+
+**Current state:** `apiClientFetch` in `nemea-front/src/lib/api-client.ts` throws a generic `Error` on non-OK responses. No special handling for 401 Unauthorized (JWT expiry).
+
+**Required change:** On 401 response, trigger `signOut()` from `next-auth` to clear the stale session and redirect to login. This is a ~5 line change in the existing file:
 
 ```typescript
-// src/database/dataSource.ts (used by TypeORM CLI — runs WITHOUT NestJS)
-import { DataSource } from 'typeorm';
-import { config } from 'dotenv';
-import { join } from 'path';
-
-config(); // Load .env
-
-export const AppDataSource = new DataSource({
-  type: 'postgres',
-  url: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production'
-    ? { rejectUnauthorized: false }
-    : false,
-  entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
-  migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
-  synchronize: false,  // NEVER true. Not in dev. Not in prod.
-  logging: process.env.NODE_ENV !== 'production',
-});
-```
-
-```json
-// package.json scripts
-{
-  "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
-  "migration:generate": "npm run typeorm -- migration:generate src/migrations/$npm_config_name -d src/database/dataSource",
-  "migration:run": "npm run typeorm -- migration:run -d src/database/dataSource",
-  "migration:revert": "npm run typeorm -- migration:revert -d src/database/dataSource"
+// Pattern to implement (no new library needed):
+if (res.status === 401) {
+  // Import signOut at top of file
+  await signOut({ redirectTo: '/login' });
+  throw new Error('Session expired');
 }
 ```
 
-Usage:
-```bash
-npm run migration:generate --name=CreateSuppliesTable
-npm run migration:run
-```
+**Caveat:** `signOut` from `next-auth/react` is a client-side function. The `apiClientFetch` is already `'use client'`. This works without server-side workarounds.
+
+For `apiFetch` (server-side variant in `api.ts`), 401 handling is different -- it should throw a specific error that the calling Server Component catches and redirects via `redirect('/login')` from `next/navigation`.
+
+### DRY Cleanup Targets (HARDENING)
+
+Per PROJECT.md: `SupplyOption 8x`, `UNIT_LABELS 5x`, `formatDate 4x`. These are pure refactoring -- extract to shared files under `nemea-front/src/lib/` or `nemea-front/src/constants/`. No new libraries needed.
+
+### Product Hierarchical Grouping (FRONTEND UX)
+
+**Current approach:** Products displayed in a flat table. Grouping by type > name > finish is frontend-only.
+
+**Implementation:** Collapsible row groups using Radix UI Collapsible or Accordion (already available via `radix-ui` package). The grouping logic runs client-side on the already-fetched products array. No backend changes.
+
+**Alternative considered:** Server-side grouping via a new endpoint. Rejected because the product count is small (<100), the grouping is a display concern, and the current GET /products already returns all the catalog dimensions needed for grouping.
+
+### Investor Dashboard Page (NEW PAGE)
+
+New page at `/(app)/dashboard/page.tsx`. Reads from existing endpoints:
+- `GET /products` (with costs enriched by CostsService)
+- `GET /tiendanube/config` (new -- to show current plan rates)
+- `GET /scenarios/:id` (new -- to load saved scenario overrides)
+
+**UI components needed:** All available in Shadcn/ui:
+- `Table` for catalog margin summary
+- `Card` for KPI summaries (total cost, average margin)
+- `Select` for scenario picker
+- `Input` for inline price override editing
+- `Button` for save scenario
+
+No chart library needed for v1.1. The dashboard is a table with calculated columns, not a visualization dashboard.
+
+### Calculadora Page (NEW PAGE)
+
+New page at `/(app)/tiendanube/calculadora/page.tsx`. The UI is a form (react-hook-form + Zod for inputs) that calls `POST /tiendanube/calculate` and displays results.
+
+Key difference from the standalone prototype: the `costoProducto` field can be auto-populated by selecting a product from the DB (costs come from CostsService). The user can still override manually.
+
+No new UI libraries. The prototype's inline styles become Tailwind + Shadcn/ui components.
 
 ---
 
-## Auth Integration: NextAuth → NestJS JWT
+## Database: New Entities
 
-This is the key architectural point specific to this project.
+All new tables use the existing `BaseEntity` pattern (UUID PK, `created_at`, `updated_at`).
 
-**Flow:**
-1. User clicks "Sign in with Google" on Next.js frontend.
-2. NextAuth handles Google OAuth and creates a session JWT signed with `NEXTAUTH_SECRET`.
-3. NextAuth JWT is stored in an HTTP-only cookie on the frontend domain.
-4. Frontend sends requests to NestJS with the JWT in the `Authorization: Bearer <token>` header.
-5. NestJS `JwtStrategy` verifies the token using the same `NEXTAUTH_SECRET`.
-6. NestJS looks up the email in the `users` whitelist table. If not found → 401.
-7. NestJS attaches the user (with role) to the request object.
+### Tiendanube Config Tables
 
-**Environment variable required on NestJS:**
-```
-NEXTAUTH_SECRET=<same secret used in nemea-front>
-```
+| Table | Columns | Notes |
+|---|---|---|
+| `tiendanube_plans` | `id`, `slug` (unique), `label`, `card_rate_1d`, `card_rate_7d`, `card_rate_14d`, `transfer_rate`, `tx_tiendanube_rate`, `is_active` | One row per plan. Rates as `decimal(5,2)`. |
+| `tiendanube_installment_rates` | `id`, `installments` (int, unique), `rate` | Cuotas sin interes rates. Rate as `decimal(5,2)`. |
+| `tiendanube_settings` | `id`, `iva_rate`, `iibb_rate` | Single-row config. Rates as `decimal(5,2)`. |
 
-**JwtStrategy validates:**
-- Token signature (using NEXTAUTH_SECRET)
-- Email exists in users table
-- Role is extracted from users table (not from token — DB is source of truth for roles)
+**Design choice:** Separate tables instead of a single JSON blob. Reasons:
+1. Each plan row is independently editable without overwriting others.
+2. Installment rates can be added/removed (e.g., 18 cuotas) without schema changes.
+3. Settings is a single-row table for global tax config.
+4. TypeORM entities with `decimal` columns match the existing pattern (see `Expense.amount`).
 
----
+**Alternative rejected:** Storing all config as JSONB in a single row. Rejected because it loses type safety at the DB level, makes partial updates harder, and doesn't benefit from TypeORM's column validation.
 
-## Alternatives Considered
+### Scenario Tables
 
-| Recommended | Alternative | When to Use Alternative |
-|-------------|-------------|-------------------------|
-| TypeORM | Prisma | Prisma has better type inference and a nicer query API. Use Prisma for new projects starting from scratch with no reference architecture constraints. For Nemea, TypeORM matches the Freedom-Base reference pattern and is already decided. |
-| TypeORM | Drizzle | Drizzle is SQL-first and more explicit. Better for teams that prefer raw SQL control. Overkill for this project size. |
-| passport-jwt | jose directly | Could verify NextAuth JWT manually without Passport. Valid alternative. Passport provides a more standard NestJS guard integration. |
-| @nestjs/config + Joi | Zod for env validation | Zod v4 (already used in frontend) could validate env vars. But @nestjs/config + Joi is the officially documented NestJS pattern. Stick with it for consistency with NestJS docs. |
-| NestJS 11 | NestJS 10 | No reason to use v10. v11 is stable, actively maintained, performance improvements. |
+| Table | Columns | Notes |
+|---|---|---|
+| `pricing_scenarios` | `id`, `user_id` (FK to users), `name`, `description` (nullable) | User-owned scenario definition. |
+| `scenario_products` | `id`, `scenario_id` (FK), `product_id` (FK), `sale_price` decimal(12,2) | Price override per product in a scenario. |
 
----
+**Design choice:** Scenarios are minimal -- just a name and a set of (product, price) overrides. The margin calculation happens at read time by combining:
+1. Real cost from `CostsService.calculateAll()`
+2. Override price from `scenario_products`
+3. Tiendanube config from `tiendanube_plans` + `tiendanube_installment_rates`
 
-## What NOT to Use
-
-| Avoid | Why | Use Instead |
-|-------|-----|-------------|
-| `synchronize: true` in TypeORM | Drops and recreates columns in production. Data loss risk. Unrecoverable in production. | Migrations always. Even in dev. |
-| `@nestjs/class-validator` | 4-year-old unmaintained fork of class-validator. Will break with newer TypeScript or NestJS versions. | `class-validator` (standalone) |
-| `@nestjs/class-transformer` | Same — 4-year-old unmaintained fork. | `class-transformer` (standalone) |
-| `passport-google-oauth20` on backend | The backend is NOT doing OAuth flows. NextAuth handles all Google OAuth. Adding this creates a parallel auth system with no benefit. | Nothing. Backend only validates JWTs. |
-| `ormconfig.json` | Deprecated since TypeORM 0.3. CLI no longer reads it. | `dataSource.ts` with explicit DataSource |
-| Storing decimal results from TypeORM without parsing | TypeORM returns DECIMAL as strings. Math operations on strings produce NaN. | `parseFloat()` or column transformer |
-| Wildcard CORS (`*`) with credentials | Credentials (JWT headers) cannot be sent with wildcard CORS. Browser blocks it. | Explicit `origin: process.env.FRONTEND_URL` |
+This avoids storing derived data and ensures margins always reflect current costs.
 
 ---
 
-## Version Compatibility
+## What NOT to Add
 
-| Package | Compatible With | Notes |
-|---------|-----------------|-------|
-| @nestjs/core ^11.x | @nestjs/typeorm ^11.x | Must match major version. |
-| @nestjs/core ^11.x | @nestjs/passport ^11.x | Must match major version. |
-| @nestjs/core ^11.x | @nestjs/swagger ^11.x | Must match major version. |
-| TypeORM 0.3.x | pg ^8.x | TypeORM 0.3 requires pg v8. pg v7 not supported. |
-| passport-jwt ^4.x | @nestjs/passport ^11.x | Use v4. v5 (pending) has breaking changes not yet reflected in NestJS docs. |
-| class-validator ^0.14.x | class-transformer ^0.5.x | Must be installed together. They share reflect-metadata. |
-| Node.js 20 | NestJS 11 | NestJS 11 requires Node 16+. Node 20 LTS is safe. |
+| Library/Pattern | Why NOT | What to Do Instead |
+|---|---|---|
+| `decimal.js` / `big.js` / `dinero.js` | Overkill for ARS 2-decimal calculations. Adds API complexity for zero precision benefit at this scale. | Native `Number` + `Math.round(x * 100) / 100` |
+| `recharts` / `chart.js` / any charting library | v1.1 dashboard is a table with calculated columns, not charts. Charts are v2+ if ever. | Shadcn `Table` component |
+| `@tanstack/react-table` | Product table is <100 rows with simple grouping. TanStack Table's API is heavy for this use case. | Manual grouping with `Array.reduce()` + Radix Collapsible |
+| `redis` / `@nestjs/cache-manager` | No caching layer needed. 2-3 users, <100 products, on-the-fly calculation is fast enough. | Direct DB queries via TypeORM |
+| `@nestjs/bull` / `@nestjs/schedule` | No background jobs needed. All calculations are synchronous and fast. | Direct service calls |
+| `class-transformer` `@Expose`/`@Exclude` on responses | Already using manual DTO mapping in services. Don't introduce serialization decorators mid-project. | Continue with manual DTO mapping |
+| A separate "pricing" microservice | Single monolithic NestJS app serves 2-3 users. Microservices add deployment complexity for zero benefit. | New module within existing NestJS app |
+| `next-intl` / i18n libraries | App is internal, Spanish-only, 2-3 users. Hardcoded Spanish strings are fine. | Inline Spanish strings |
 
 ---
 
-## Railway Production Configuration
+## Integration Points for New Features
 
-```
-DATABASE_URL=postgresql://USER:PASS@HOST:PORT/DB  (Railway provides this automatically)
-NODE_ENV=production
-PORT=4000
-NEXTAUTH_SECRET=<same as frontend>
-FRONTEND_URL=https://nemea-front.vercel.app
-```
+### CalculadoraService <-> CostsService
 
-Railway injects `DATABASE_URL` automatically when you link the PostgreSQL service.
-NestJS must enable SSL when `NODE_ENV=production`:
+The calculadora needs product costs from `CostsService` to auto-populate `costoProducto`. Two integration approaches:
+
+**Recommended:** `CalculadoraController` calls `CostsService.calculateForProduct(productId)` to get cost, then passes it to `CalculadoraService.calcForward()`. The services don't import each other -- the controller orchestrates.
+
+**Why:** Keeps `CalculadoraService` pure (testable without DB). Follows the existing pattern where `ProductsController` orchestrates between `ProductsService` and `CostsService`.
+
+### ScenariosModule <-> CostsModule + TiendanubeModule
+
+The scenario dashboard read flow:
+1. `ScenariosController` loads scenario (price overrides) from DB
+2. `CostsService.calculateAll()` provides real costs per product
+3. For each product: if scenario has override, use override price; else use product's current sale price
+4. `CalculadoraService.calcForward()` computes margin with Tiendanube config
+
+All orchestration happens in the controller or a dedicated `ScenarioDashboardService`. No circular dependencies.
+
+### Proxy.ts <-> NextAuth Session
+
+Already wired. The `auth()` wrapper in `proxy.ts` accesses `req.auth` (the NextAuth session). No changes to the proxy pattern needed -- just verification that it intercepts all routes correctly.
+
+---
+
+## Version Compatibility Check
+
+All existing packages are compatible with the new features. No version bumps required.
+
+| Existing Package | Current Version | Compatible with v1.1? | Notes |
+|---|---|---|---|
+| `@nestjs/common` | ^11.0.1 | YES | New modules use standard NestJS patterns |
+| `typeorm` | ^0.3.28 | YES | New entities follow existing BaseEntity pattern |
+| `class-validator` | ^0.14.4 | YES | New DTOs use same decorators |
+| `zod` | ^4.3.6 | YES | New frontend forms use same Zod schemas |
+| `react-hook-form` | ^7.71.2 | YES | Calculadora form uses same pattern |
+| `radix-ui` | ^1.4.3 | YES | Collapsible/Accordion for product grouping |
+| `next-auth` | ^5.0.0-beta.30 | YES | signOut for 401 handling already available |
+| `next` | 16.1.6 | YES | proxy.ts already correct for Next.js 16 |
+
+---
+
+## Migration Path: Calculadora JSX -> NestJS Service
+
+The existing prototype at `_archive/calculadora/calculadora-tiendanube.jsx` contains two functions that migrate directly:
+
+### calcForward -- Direct Translation
+
 ```typescript
-ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+// calculadora-tiendanube.jsx line 156 -> TiendanubeCalculadoraService
+// Input: all params as typed interface (not loose function args)
+// Output: typed CalculationResult interface (not anonymous object)
+// Math: identical -- native Number with same formulas
+// Change: rates come from DB (TiendanubeConfigService) not hardcoded PLANS object
 ```
+
+### calcInverse -- Binary Search Migration
+
+```typescript
+// calculadora-tiendanube.jsx line 213 -> TiendanubeCalculadoraService
+// Algorithm: binary search, 100 iterations (same as prototype)
+// Change: none to the algorithm. Wraps calcForward with same convergence logic.
+// Note: Could be replaced with algebraic inverse in future, but binary search
+//       works correctly and is the proven approach from the prototype.
+```
+
+**Testing:** The business rules document provides exact test cases (Billetera Hefesto at $87,000). The migrated service MUST reproduce the same numbers as the prototype for these inputs.
 
 ---
 
 ## Sources
 
-- WebSearch: NestJS current version → "11.1.14" confirmed, Trilon announcement Jan 2025 (MEDIUM confidence)
-- WebSearch: TypeORM latest version → "0.3.28" confirmed from npm (MEDIUM confidence)
-- WebSearch: @nestjs/swagger version → "11.2.6 last published 23 days ago" (HIGH confidence — very recent)
-- WebSearch: @nestjs/passport version → "11.0.5" current (MEDIUM confidence)
-- WebSearch: NestJS TypeORM migration setup → DataSource pattern confirmed as standard (HIGH confidence — multiple sources agree)
-- WebSearch: NextAuth JWT backend validation → jose / NEXTAUTH_SECRET pattern confirmed (MEDIUM confidence)
-- WebSearch: TypeORM DECIMAL as string → Known issue confirmed in multiple GitHub issues (HIGH confidence)
-- WebSearch: Railway NestJS PostgreSQL → DATABASE_URL + SSL pattern confirmed (HIGH confidence — official Railway docs)
-- Training data: Docker Compose postgres:16-alpine, helmet, @nestjs/throttler patterns (MEDIUM confidence — verified against 2025 search results)
+- [Next.js 16 proxy.ts documentation](https://nextjs.org/docs/app/api-reference/file-conventions/proxy) -- HIGH confidence (official docs, fetched 2026-03-26)
+- [Next.js 16 middleware to proxy migration](https://nextjs.org/docs/messages/middleware-to-proxy) -- HIGH confidence (official docs)
+- [Auth.js v5 session protection patterns](https://authjs.dev/getting-started/session-management/protecting) -- MEDIUM confidence (official docs via WebSearch)
+- [decimal.js npm package](https://www.npmjs.com/package/decimal.js) -- HIGH confidence (npm registry)
+- [Decimal.js vs BigNumber.js comparison](https://medium.com/@josephgathumbi/decimal-js-vs-c1471b362181) -- MEDIUM confidence (WebSearch, single source)
+- [TypeORM decimal handling with NestJS](https://www.samundra.com.np/creating-a-field-type-to-store-amount-using-typeorm-and-nestjs/1726) -- MEDIUM confidence (WebSearch, aligns with existing codebase pattern)
+- [TypeORM DECIMAL as string quirk](https://medium.com/@matthew.bajorek/how-to-properly-handle-decimals-with-typeorm-f0eb2b79ca9c) -- HIGH confidence (matches existing codebase behavior in CostsService)
+- Existing codebase analysis: `CostsService`, `proxy.ts`, `apiClientFetch`, `auth.ts`, `calculadora-tiendanube.jsx` -- HIGH confidence (primary source)
 
 ---
 
-*Stack research for: NestJS + TypeORM + PostgreSQL backend — Nemea cost management*
-*Researched: 2026-02-28*
+*Stack research for: Nemea v1.1 Tiendanube & Investor Dashboard*
+*Researched: 2026-03-26*
