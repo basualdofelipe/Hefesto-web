@@ -170,7 +170,7 @@ Plans:
   2. When a JWT expires mid-session, the user is redirected to /login automatically instead of seeing a broken UI or generic error
   3. A USER-role investor calling a mutation endpoint (POST, PATCH, DELETE) on products, supplies, suppliers, catalogs, or expenses receives a 403 Forbidden
   4. Admin can view a /usuarios page listing all users, create a new user with email and role, and deactivate an existing user
-  5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates
+  5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates (SupplyCombobox deferred to Phase 9)
 **Plans**: 3 plans
 
 Plans:
