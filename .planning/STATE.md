@@ -6,8 +6,8 @@ status: executing
 last_updated: "2026-03-27"
 progress:
   total_phases: 6
-  completed_phases: 0
-  total_plans: 2
+  completed_phases: 1
+  total_plans: 3
   completed_plans: 2
 ---
 
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.1 — Phase 8 (Hardening) complete. Ready for Phase 9.
+**Current focus:** Milestone v1.1 — Phase 8 complete, Phase 9 planned (1 plan). Ready for execution.
 
 ## Current Position
 
-Phase: 8 of 13 (Hardening) — first phase of v1.1
-Plan: 2 of 2 (complete)
-Status: Phase 8 complete
-Last activity: 2026-03-27 — Phase 8 Plan 2 complete (DRY cleanup + users admin)
+Phase: 9 of 13 (Product UX) — second phase of v1.1
+Plan: 0 of 1 (planned, not started)
+Status: Phase 9 planned
+Last activity: 2026-03-27 — Phase 9 planned (1 plan, 1 wave)
 
-Progress (v1.1): [#####.....................] 20% (1/5 phases)
+Progress (v1.1): [#####.....................] 20% (1/6 phases)
 Progress (overall): [####################......] 77% (8/13 phases)
 
 ## Performance Metrics
@@ -82,6 +82,9 @@ Recent decisions affecting current work:
 - Phase 8 (revision): cleanSupplierData uses SupplierFormData type (not Record<string, string>)
 - Phase 8 (revision): Do NOT create shared formatAmount — collision with expenses/types.ts version
 - Phase 8 (revision): SupplyCombobox does not use Check/cn imports — omit from extraction
+- Phase 9: BOM group editor moves from type-level to name-level (PRUX-02)
+- Phase 9: Batch price button stays at type-level (type-wide pricing is still useful)
+- Phase 9: BOM override detection uses cost-heuristic first, then accurate detection after dialog opens
 
 ### Pending Todos
 
@@ -107,5 +110,5 @@ Todos absorbed into Phase 8 plans:
 ## Session Continuity
 
 Last session: 2026-03-27
-Stopped at: Completed 08-02-PLAN.md (Phase 8 complete, all 2 plans done)
-Resume file: None — next step is `/gsd:plan-phase 9`
+Stopped at: Phase 9 planned (09-01-PLAN.md created)
+Resume file: None — next step is `/gsd:execute-phase 9`

@@ -185,7 +185,10 @@ Plans:
   1. Product table displays a collapsible tree: type level collapses to show names, name level collapses to show finishes, with product rows nested under finish
   2. BOM group editor triggered from a product name header applies to all products sharing that name (e.g., all "Hercules" regardless of type), not all products of the same type
   3. An individual product can have a custom BOM that differs from its name-group default, and the UI clearly indicates which products have overrides
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 09-01-PLAN.md -- Hierarchical product tree (Type > Name > Finish), BOM group editor rescoped to name level, BOM override indicator badge
 
 ### Phase 10: Tiendanube Config
 **Goal**: Tiendanube rate tables are stored in the database and editable by admin, serving as the single source of truth for all pricing calculations
@@ -248,7 +251,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 6. Cost Calculation | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 9. Product UX | v1.1 | 0/? | Not started | - |
+| 9. Product UX | v1.1 | 0/1 | Not started | - |
 | 10. Tiendanube Config | v1.1 | 0/? | Not started | - |
 | 11. Calculadora | v1.1 | 0/? | Not started | - |
 | 12. Scenarios | v1.1 | 0/? | Not started | - |
