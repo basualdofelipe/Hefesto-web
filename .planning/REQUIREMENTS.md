@@ -97,9 +97,9 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 
 ### Calculadora
 
-- [ ] **CALC-01**: User can select a product and see net profit calculated with real cost + Tiendanube deductions (forward mode)
-- [ ] **CALC-02**: User can enter a desired profit and see the required selling price (inverse mode)
-- [ ] **CALC-03**: Calculadora uses product costs from DB and Tiendanube config from admin-editable tables
+- [x] **CALC-01**: User can select a product and see net profit calculated with real cost + Tiendanube deductions (forward mode)
+- [x] **CALC-02**: User can enter a desired profit and see the required selling price (inverse mode)
+- [x] **CALC-03**: Calculadora uses product costs from DB and Tiendanube config from admin-editable tables
 - [ ] **CALC-04**: Batch calculation endpoint returns margins for all products in the catalog
 
 ### Simulator
@@ -221,9 +221,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TNCF-02 | Phase 10: Tiendanube Config | Complete |
 | TNCF-03 | Phase 10: Tiendanube Config | Complete |
 | TNCF-04 | Phase 10: Tiendanube Config | Complete |
-| CALC-01 | Phase 11: Calculadora | Pending |
-| CALC-02 | Phase 11: Calculadora | Pending |
-| CALC-03 | Phase 11: Calculadora | Pending |
+| CALC-01 | Phase 11: Calculadora | Complete (11-02) |
+| CALC-02 | Phase 11: Calculadora | Complete (11-02) |
+| CALC-03 | Phase 11: Calculadora | Complete (11-02) |
 | CALC-04 | Phase 11: Calculadora | Pending |
 | SCEN-01 | Phase 12: Scenarios | Pending |
 | SCEN-02 | Phase 12: Scenarios | Pending |

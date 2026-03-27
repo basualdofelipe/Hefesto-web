@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
 - [x] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
 - [x] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
-- [ ] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
+- [x] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
 - [ ] **Phase 12: Scenarios** - User-scoped what-if scenarios with price overrides and recalculated margins
 - [ ] **Phase 13: Investor Dashboard** - Catalog summary with margins, Tiendanube net profit, scenario selector, aggregate KPIs
 
@@ -218,8 +218,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 11-01-PLAN.md -- CalculadoraModule: service with calcForward/calcInverse/calcBatch (TDD with Hefesto $87,000 round-trip), DTOs, controller with 3 POST endpoints, AppModule registration
-- [ ] 11-02-PLAN.md -- Frontend: /calculadora page with two-column layout, product selector with cost auto-fill, cascading gateway selectors, mode toggle (forward/inverse), full desglose panel, sidebar link
+- [x] 11-01-PLAN.md -- CalculadoraModule: service with calcForward/calcInverse/calcBatch (TDD with Hefesto $87,000 round-trip), DTOs, controller with 3 POST endpoints, AppModule registration
+- [x] 11-02-PLAN.md -- Frontend: /calculadora page with two-column layout, product selector with cost auto-fill, cascading gateway selectors, mode toggle (forward/inverse), full desglose panel, sidebar link
 
 ### Phase 12: Scenarios
 **Goal**: Investors can create what-if scenarios with overridden selling prices and see recalculated margins without touching real data
@@ -261,6 +261,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 9. Product UX | v1.1 | 1/1 | Complete | 2026-03-27 |
 | 10. Tiendanube Config | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 11. Calculadora | v1.1 | 0/2 | Planned | - |
+| 11. Calculadora | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 12. Scenarios | v1.1 | 0/? | Not started | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
