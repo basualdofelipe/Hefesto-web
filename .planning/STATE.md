@@ -6,9 +6,9 @@ status: executing
 last_updated: "2026-03-27"
 progress:
   total_phases: 6
-  completed_phases: 2
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State
@@ -18,17 +18,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.1 — Phase 9 complete (product hierarchy + BOM rescoping). Phase 10 next.
+**Current focus:** Milestone v1.1 — Phase 10 complete (Tiendanube Config). Next: Phase 11 (Calculadora).
 
 ## Current Position
 
-Phase: 9 of 13 (Product UX) — COMPLETE
-Plan: 1 of 1 (all complete)
-Status: Phase 9 complete
-Last activity: 2026-03-27 — Phase 9 executed (09-01: product hierarchy + BOM rescoping)
+Phase: 10 of 13 (Tiendanube Config) — COMPLETE
+Plan: 2 of 2 (all complete)
+Status: Phase 10 done. Both backend (10-01) and frontend (10-02) plans executed.
+Last activity: 2026-03-27 — Phase 10 completed (10-02 frontend config page)
 
-Progress (v1.1): [##########..............] 33% (2/6 phases)
-Progress (overall): [#####################.....] 82% (9/13 phases)
+Progress (v1.1): [############............] 50% (3/6 phases)
+Progress (overall): [#######################...] 87% (10/13 phases)
 
 ## Performance Metrics
 
@@ -56,6 +56,8 @@ Progress (overall): [#####################.....] 82% (9/13 phases)
 | 8 - Hardening | 08-01 | 5min | 3 | 8 |
 | 8 - Hardening | 08-02 | 9min | 2 | 22 |
 | 9 - Product UX | 09-01 | 6min | 2 | 4 |
+| 10 - TN Config | 10-01 | 4min | 2 | 14 |
+| 10 - TN Config | 10-02 | 7min | 2 | 10 |
 
 *Updated after each plan completion*
 
@@ -89,6 +91,16 @@ Recent decisions affecting current work:
 - Phase 9 (pre-mortem fix): SKU column in ProductFinishGroup is a Link to /productos/[id] — relocated from removed Nombre column
 - Phase 9 (pre-mortem fix): onDivergenceDetected callback uses local `divergent` variable, not state (React batching safety)
 - Phase 9 (pre-mortem fix): ProductExpandedRow colSpan explicitly 6 (matching 6-column leaf table)
+- Phase 10: 5 DB tables for TN config (tn_payment_gateways, tn_gateway_rates, tn_installment_rates, tn_tax_config, tn_plans)
+- Phase 10: 3 gateways modeled from day 1 (Pago Nube, Mercado Pago, MODO) — MODO seeded as inactive
+- Phase 10: Append-only rate history for gateway rates, installment rates, and tax config (same pattern as supply prices)
+- Phase 10: CPT depends on plan + gateway — Pago Nube always 0%, others vary by plan
+- Phase 10: All rates are "% + IVA" — stored rate is base, IVA calculated on top by calculadora
+- Phase 10: IIBB/SIRTAC = single configurable value (3.5%), admin enters manually
+- Phase 10: Frontend config page uses Shadcn Accordion (type="multiple", all expanded by default) for collapsible sections
+- Phase 10: Plan selector dropdown defaults to 'esencial' — state lifted to TiendanubeConfigClient
+- Phase 10: GatewaySection uses compound component pattern (Header as static property for accordion trigger)
+- Phase 10: /configuracion added to ADMIN_ONLY_ROUTES for middleware-level protection
 
 ### Pending Todos
 
@@ -105,7 +117,7 @@ Todos absorbed into Phase 8 plans:
 
 - proxy.ts vs middleware.ts naming RESOLVED: proxy.ts export `proxy` is NOT what Next.js 16 needs. The file must be named middleware.ts with export named `middleware`. Previous research was partially incorrect — runtime verification confirmed it was not firing.
 - deactivateBySupplier RESOLVED: deleted as dead code in 08-01
-- SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated. (Phase 10)
+- SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated. (Phase 10 — addressed in plan)
 
 ### Known Issues
 
@@ -114,5 +126,5 @@ Todos absorbed into Phase 8 plans:
 ## Session Continuity
 
 Last session: 2026-03-27
-Stopped at: Completed 09-01-PLAN.md (Phase 9 Product UX complete)
-Resume file: None — next step is Phase 10
+Stopped at: Completed 10-02-PLAN.md (Tiendanube Config Frontend)
+Resume file: None — next step is Phase 11 (Calculadora) planning or execution

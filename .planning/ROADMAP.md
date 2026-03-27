@@ -33,8 +33,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### v1.1 Tiendanube & Investor Dashboard (Phases 8-13)
 
 - [x] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
-- [ ] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
-- [ ] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
+- [x] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
+- [x] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
 - [ ] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
 - [ ] **Phase 12: Scenarios** - User-scoped what-if scenarios with price overrides and recalculated margins
 - [ ] **Phase 13: Investor Dashboard** - Catalog summary with margins, Tiendanube net profit, scenario selector, aggregate KPIs
@@ -188,7 +188,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 09-01-PLAN.md -- Hierarchical product tree (Type > Name > Finish), BOM group editor rescoped to name level, BOM override indicator badge
+- [x] 09-01-PLAN.md -- Hierarchical product tree (Type > Name > Finish), BOM group editor rescoped to name level, BOM override indicator badge
 
 ### Phase 10: Tiendanube Config
 **Goal**: Tiendanube rate tables are stored in the database and editable by admin, serving as the single source of truth for all pricing calculations
@@ -200,7 +200,11 @@ Plans:
   3. Admin can view and edit tax configuration (IVA rate, IIBB alicuota, transaction fee per plan)
   4. The config page shows a "Verificar tasas" link that opens the official Pago Nube rates page in a new tab
   5. Seed migration populates the tables with verified March 2026 rates so the system is usable immediately after deploy
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 10-01-PLAN.md -- TiendanubeConfigModule: 5 entities (gateways, rates, installments, tax config, plans), migration with March 2026 seed data, CRUD service with append-only history, REST controller, AppModule registration
+- [x] 10-02-PLAN.md -- Frontend: /configuracion/tiendanube page with plan selector dropdown, collapsible gateway sections, plan CPT editor, installment editor, tax editor, "Verificar tasas" link, sidebar Admin link
 
 ### Phase 11: Calculadora
 **Goal**: Users can simulate Tiendanube pricing for any product — seeing real profit after all deductions (forward) or the price needed for a target profit (inverse)
@@ -251,8 +255,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 6. Cost Calculation | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 9. Product UX | v1.1 | 0/1 | Not started | - |
-| 10. Tiendanube Config | v1.1 | 0/? | Not started | - |
+| 9. Product UX | v1.1 | 1/1 | Complete | 2026-03-27 |
+| 10. Tiendanube Config | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 11. Calculadora | v1.1 | 0/? | Not started | - |
 | 12. Scenarios | v1.1 | 0/? | Not started | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |

@@ -90,10 +90,10 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 
 ### Tiendanube Config
 
-- [ ] **TNCF-01**: Admin can view and edit Tiendanube plans (Inicial/Esencial/Impulso/Escala) with rates per payment method and deposit timing
-- [ ] **TNCF-02**: Admin can view and edit installment fee rates (1, 3, 6, 9, 12 cuotas)
-- [ ] **TNCF-03**: Admin can view and edit tax config (IVA rate, IIBB alicuota, Tiendanube transaction fee per plan)
-- [ ] **TNCF-04**: Config page includes a "Verificar tasas" link to the official Pago Nube rates page
+- [x] **TNCF-01**: Admin can view and edit Tiendanube plans (Inicial/Esencial/Impulso/Escala) with rates per payment method and deposit timing
+- [x] **TNCF-02**: Admin can view and edit installment fee rates (1, 3, 6, 9, 12 cuotas)
+- [x] **TNCF-03**: Admin can view and edit tax config (IVA rate, IIBB alicuota, Tiendanube transaction fee per plan)
+- [x] **TNCF-04**: Config page includes a "Verificar tasas" link to the official Pago Nube rates page
 
 ### Calculadora
 
@@ -217,10 +217,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PRUX-01 | Phase 9: Product UX | Pending |
 | PRUX-02 | Phase 9: Product UX | Pending |
 | PRUX-03 | Phase 9: Product UX | Pending |
-| TNCF-01 | Phase 10: Tiendanube Config | Pending |
-| TNCF-02 | Phase 10: Tiendanube Config | Pending |
-| TNCF-03 | Phase 10: Tiendanube Config | Pending |
-| TNCF-04 | Phase 10: Tiendanube Config | Pending |
+| TNCF-01 | Phase 10: Tiendanube Config | Complete |
+| TNCF-02 | Phase 10: Tiendanube Config | Complete |
+| TNCF-03 | Phase 10: Tiendanube Config | Complete |
+| TNCF-04 | Phase 10: Tiendanube Config | Complete |
 | CALC-01 | Phase 11: Calculadora | Pending |
 | CALC-02 | Phase 11: Calculadora | Pending |
 | CALC-03 | Phase 11: Calculadora | Pending |
