@@ -8,7 +8,7 @@ progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -22,10 +22,10 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 11 of 13 (Calculadora) — PLANNED
-Plan: 0 of 2 (2 plans created, none started)
-Status: Phase 11 plans written (11-01 backend TDD, 11-02 frontend + checkpoint). Ready for execution.
-Last activity: 2026-03-27 — Phase 11 plans created
+Phase: 11 of 13 (Calculadora) — EXECUTING
+Plan: 1 of 2 (Plan 01 complete, Plan 02 pending)
+Status: Phase 11 Plan 01 (Backend TDD) complete. CalculadoraService with forward/inverse/batch, 6 tests passing, 3 endpoints registered.
+Last activity: 2026-03-27 — Phase 11 Plan 01 executed (backend TDD)
 
 Progress (v1.1): [############............] 50% (3/6 phases)
 Progress (overall): [#######################...] 87% (10/13 phases)
@@ -58,6 +58,7 @@ Progress (overall): [#######################...] 87% (10/13 phases)
 | 9 - Product UX | 09-01 | 6min | 2 | 4 |
 | 10 - TN Config | 10-01 | 4min | 2 | 14 |
 | 10 - TN Config | 10-02 | 7min | 2 | 10 |
+| 11 - Calculadora | 11-01 | 9min | 2 | 9 |
 
 *Updated after each plan completion*
 
@@ -107,6 +108,17 @@ Recent decisions affecting current work:
 - Phase 11 (planning): calcForward adds CPT step (Tiendanube transaction cost) not in original prototype
 - Phase 11 (planning): Binary search uses epsilon convergence (not fixed 100 iterations), upper bound = max(cost*20, 100000)
 - Phase 11 (planning): CalculadoraModule imports TiendanubeConfigModule + CostsModule + ProductsModule
+- Phase 11 (pre-mortem fix): product.currentPrice is STRING from TypeORM decimal — must parseFloat() in calcBatch before passing to calcForward
+- Phase 11 (pre-mortem fix): rate.gateway from getAll() raw SQL is plain JSON with snake_case keys — use .slug for matching (same in both cases)
+- Phase 11 (pre-mortem fix iter3): rate.payment_method and rate.withdrawal_days are ALSO snake_case at runtime — resolveRates MUST use rate.payment_method and rate.withdrawal_days (not camelCase)
+- Phase 11 (pre-mortem fix iter3): Use toast.error() from sonner for inverse error display (Shadcn Alert not installed)
+- Phase 11 (pre-mortem fix iter3): CalculadoraClient.tsx MUST have 'use client' directive (useState/useSession/useCallback)
+- Phase 11 (pre-mortem fix iter3): ModeToggle uses Shadcn Tabs (installed), NOT ToggleGroup (not installed)
+- Phase 11 (pre-mortem fix iter3): CalculadoraService constructor injects ProductsService (needed for calcBatch findAll)
+- Phase 11 (pre-mortem fix iter4): ratePercent is NaN on ALL gateway AND installment rate objects from getAll() — raw SQL returns rate_percent (snake_case), parseFloat(rate.ratePercent) = parseFloat(undefined) = NaN. resolveRates MUST use (rate as any)['rate_percent'] and parseFloat it manually.
+- Phase 11 (pre-mortem fix iter4): IVA/IIBB stored as percentages (21, 3.5) but formulas need fractions (0.21, 0.035) — resolveRates divides by 100. Gateway/installment/CPT rates stay as percentages (divided by 100 inline in formula).
+- Phase 11 (pre-mortem fix iter4): Controller returns CalcResult directly — ResponseInterceptor wraps to { data: CalcResult }. Do NOT return { data: CalcResult } manually.
+- Phase 11 (pre-mortem fix iter4): taxConfig can be null from getAll() — resolveRates throws NotFoundException if null
 
 ### Pending Todos
 
@@ -132,5 +144,5 @@ Todos absorbed into Phase 8 plans:
 ## Session Continuity
 
 Last session: 2026-03-27
-Stopped at: Phase 11 plans created (11-01-PLAN.md + 11-02-PLAN.md)
-Resume file: None — next step is `/gsd:execute-phase 11`
+Stopped at: Completed 11-01-PLAN.md (backend TDD)
+Resume file: None — next step is Phase 11 Plan 02 (frontend)
