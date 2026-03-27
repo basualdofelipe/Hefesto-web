@@ -215,7 +215,11 @@ Plans:
   2. User enters a desired profit amount and the calculadora returns the required selling price — the forward calculation of that price matches the target profit within $0.01
   3. Product cost is auto-populated from the database (not manually entered) and updates if the underlying supply prices change
   4. A batch endpoint returns margins for all products in the catalog in a single request, using no more than 6 SQL queries regardless of product count
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 11-01-PLAN.md -- CalculadoraModule: service with calcForward/calcInverse/calcBatch (TDD with Hefesto $87,000 round-trip), DTOs, controller with 3 POST endpoints, AppModule registration
+- [ ] 11-02-PLAN.md -- Frontend: /calculadora page with two-column layout, product selector with cost auto-fill, cascading gateway selectors, mode toggle (forward/inverse), full desglose panel, sidebar link
 
 ### Phase 12: Scenarios
 **Goal**: Investors can create what-if scenarios with overridden selling prices and see recalculated margins without touching real data
@@ -257,6 +261,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 9. Product UX | v1.1 | 1/1 | Complete | 2026-03-27 |
 | 10. Tiendanube Config | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 11. Calculadora | v1.1 | 0/? | Not started | - |
+| 11. Calculadora | v1.1 | 0/2 | Planned | - |
 | 12. Scenarios | v1.1 | 0/? | Not started | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |

@@ -7,7 +7,7 @@ last_updated: "2026-03-27"
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 5
+  total_plans: 7
   completed_plans: 5
 ---
 
@@ -18,14 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.1 — Phase 10 complete (Tiendanube Config). Next: Phase 11 (Calculadora).
+**Current focus:** Milestone v1.1 — Phase 11 planned (Calculadora). Next: execute Phase 11.
 
 ## Current Position
 
-Phase: 10 of 13 (Tiendanube Config) — COMPLETE
-Plan: 2 of 2 (all complete)
-Status: Phase 10 done. Both backend (10-01) and frontend (10-02) plans executed.
-Last activity: 2026-03-27 — Phase 10 completed (10-02 frontend config page)
+Phase: 11 of 13 (Calculadora) — PLANNED
+Plan: 0 of 2 (2 plans created, none started)
+Status: Phase 11 plans written (11-01 backend TDD, 11-02 frontend + checkpoint). Ready for execution.
+Last activity: 2026-03-27 — Phase 11 plans created
 
 Progress (v1.1): [############............] 50% (3/6 phases)
 Progress (overall): [#######################...] 87% (10/13 phases)
@@ -101,6 +101,12 @@ Recent decisions affecting current work:
 - Phase 10: Plan selector dropdown defaults to 'esencial' — state lifted to TiendanubeConfigClient
 - Phase 10: GatewaySection uses compound component pattern (Header as static property for accordion trigger)
 - Phase 10: /configuracion added to ADMIN_ONLY_ROUTES for middleware-level protection
+- Phase 11 (planning): Multi-gateway support — all 3 pasarelas with cascading selectors
+- Phase 11 (planning): Plan TN inherits from config + override toggle ("Simular otro plan")
+- Phase 11 (planning): calcForward adapted for multi-gateway (accepts resolved rate params, not plan objects)
+- Phase 11 (planning): calcForward adds CPT step (Tiendanube transaction cost) not in original prototype
+- Phase 11 (planning): Binary search uses epsilon convergence (not fixed 100 iterations), upper bound = max(cost*20, 100000)
+- Phase 11 (planning): CalculadoraModule imports TiendanubeConfigModule + CostsModule + ProductsModule
 
 ### Pending Todos
 
@@ -126,5 +132,5 @@ Todos absorbed into Phase 8 plans:
 ## Session Continuity
 
 Last session: 2026-03-27
-Stopped at: Completed 10-02-PLAN.md (Tiendanube Config Frontend)
-Resume file: None — next step is Phase 11 (Calculadora) planning or execution
+Stopped at: Phase 11 plans created (11-01-PLAN.md + 11-02-PLAN.md)
+Resume file: None — next step is `/gsd:execute-phase 11`
