@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: tiendanube-investor-dashboard
-status: roadmap_complete
-last_updated: "2026-03-26"
+status: executing
+last_updated: "2026-03-27"
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 2
 ---
 
 # Project State
@@ -18,17 +18,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.1 — Phase 8 (Hardening) ready to plan.
+**Current focus:** Milestone v1.1 — Phase 8 (Hardening) complete. Ready for Phase 9.
 
 ## Current Position
 
 Phase: 8 of 13 (Hardening) — first phase of v1.1
-Plan: — (phase not yet planned)
-Status: Ready to plan
-Last activity: 2026-03-26 — Roadmap created for v1.1 (Phases 8-13)
+Plan: 2 of 2 (complete)
+Status: Phase 8 complete
+Last activity: 2026-03-27 — Phase 8 Plan 2 complete (DRY cleanup + users admin)
 
-Progress (v1.1): [..........................] 0%
-Progress (overall): [###################.......] 73% (7/13 phases)
+Progress (v1.1): [#####.....................] 20% (1/5 phases)
+Progress (overall): [####################......] 77% (8/13 phases)
 
 ## Performance Metrics
 
@@ -49,6 +49,13 @@ Progress (overall): [###################.......] 73% (7/13 phases)
 | 6 - Cost Calculation | 2 | 11min | 5.5min |
 | 7 - Expenses | 2 | ~8min | ~4min |
 
+**v1.1 Metrics:**
+
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 8 - Hardening | 08-01 | 5min | 3 | 8 |
+| 8 - Hardening | 08-02 | 9min | 2 | 22 |
+
 *Updated after each plan completion*
 
 ## Accumulated Context
@@ -65,17 +72,33 @@ Recent decisions affecting current work:
 - v1.1: Scenarios use separate scenario_overrides table, never write to product_price_history
 - v1.1: Zero new npm dependencies — existing stack covers all v1.1 features
 - v1.1: Round financial calculations once at chain end, not at intermediate steps
+- Phase 8: proxy.ts renamed to middleware.ts (export name change to `middleware`) — proxy.ts was NOT firing as Next.js middleware
+- Phase 8: @Roles(Role.ADMIN) already on all mutation endpoints — HARD-03 pre-satisfied, verify only
+- Phase 8: UsersController hard DELETE replaced with PATCH toggle-status (soft delete pattern)
+- Phase 8: deactivateBySupplier dead code deleted (never called)
+- Phase 8: SupplyOption shared type includes optional `supplier?: { name: string }` field for BOM editors
+- Phase 8 (revision): 08-02 depends on 08-01 (users page calls toggle-status endpoint created in 08-01)
+- Phase 8 (revision): formatDate MUST include { day: '2-digit', month: '2-digit', year: 'numeric' } options
+- Phase 8 (revision): cleanSupplierData uses SupplierFormData type (not Record<string, string>)
+- Phase 8 (revision): Do NOT create shared formatAmount — collision with expenses/types.ts version
+- Phase 8 (revision): SupplyCombobox does not use Check/cn imports — omit from extraction
 
 ### Pending Todos
 
 10 todos pending. See `.planning/todos/pending/`.
 Latest: Fix JWT expiry silent failure - redirect to login on 401 (auth)
 
+Todos absorbed into Phase 8 plans:
+- proxy.ts runtime verification → 08-01 Task 1 (renamed to middleware.ts)
+- ExpenseFormDialog category Select bug → 08-02 Task 2 (fix with watch())
+- Delete deactivateBySupplier dead code → 08-01 Task 2
+- Role-based redirect on login → 08-01 Task 1 (USER redirected to / by middleware)
+
 ### Blockers/Concerns
 
-- proxy.ts vs middleware.ts naming conflict: STACK.md says proxy.ts is correct for Next.js 16, ARCHITECTURE.md says rename. Verify at Phase 8 start.
-- deactivateBySupplier wiring decision: wire into SuppliersService.toggleStatus() or delete. Business logic call needed from user.
-- SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated.
+- proxy.ts vs middleware.ts naming RESOLVED: proxy.ts export `proxy` is NOT what Next.js 16 needs. The file must be named middleware.ts with export named `middleware`. Previous research was partially incorrect — runtime verification confirmed it was not firing.
+- deactivateBySupplier RESOLVED: deleted as dead code in 08-01
+- SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated. (Phase 10)
 
 ### Known Issues
 
@@ -83,6 +106,6 @@ Latest: Fix JWT expiry silent failure - redirect to login on 401 (auth)
 
 ## Session Continuity
 
-Last session: 2026-03-26
-Stopped at: Roadmap created for v1.1 milestone (Phases 8-13)
-Resume file: None — next step is `/gsd:plan-phase 8`
+Last session: 2026-03-27
+Stopped at: Completed 08-02-PLAN.md (Phase 8 complete, all 2 plans done)
+Resume file: None — next step is `/gsd:plan-phase 9`

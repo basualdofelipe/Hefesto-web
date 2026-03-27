@@ -74,13 +74,13 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 
 ### Hardening
 
-- [ ] **HARD-01**: Next.js middleware protects all app routes — unauthenticated users redirected to /login
-- [ ] **HARD-02**: apiClientFetch detects 401 responses and redirects to login (JWT expiry handling)
-- [ ] **HARD-03**: Backend endpoints enforce role-based access via @Roles decorators (ADMIN for mutations, USER for read-only)
-- [ ] **HARD-04**: Admin can manage users (create, view, deactivate) from a /usuarios page in the frontend
-- [ ] **HARD-05**: Acceso-denegado page shows clear message for unauthorized users
-- [ ] **HARD-06**: Supply type "produccion externa" exists as a catalog seed for taller-sourced products
-- [ ] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox) — zero duplication
+- [x] **HARD-01**: Next.js middleware protects all app routes — unauthenticated users redirected to /login
+- [x] **HARD-02**: apiClientFetch detects 401 responses and redirects to login (JWT expiry handling)
+- [x] **HARD-03**: Backend endpoints enforce role-based access via @Roles decorators (ADMIN for mutations, USER for read-only)
+- [x] **HARD-04**: Admin can manage users (create, view, deactivate) from a /usuarios page in the frontend
+- [x] **HARD-05**: Acceso-denegado page shows clear message for unauthorized users
+- [x] **HARD-06**: Supply type "produccion externa" exists as a catalog seed for taller-sourced products
+- [x] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox) — zero duplication
 
 ### Product UX
 
@@ -207,13 +207,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| HARD-01 | Phase 8: Hardening | Pending |
-| HARD-02 | Phase 8: Hardening | Pending |
-| HARD-03 | Phase 8: Hardening | Pending |
-| HARD-04 | Phase 8: Hardening | Pending |
-| HARD-05 | Phase 8: Hardening | Pending |
-| HARD-06 | Phase 8: Hardening | Pending |
-| HARD-07 | Phase 8: Hardening | Pending |
+| HARD-01 | Phase 8: Hardening | Complete (08-01) |
+| HARD-02 | Phase 8: Hardening | Complete (08-01) |
+| HARD-03 | Phase 8: Hardening | Complete (08-01, verified) |
+| HARD-04 | Phase 8: Hardening | Complete (08-02) |
+| HARD-05 | Phase 8: Hardening | Complete (08-01) |
+| HARD-06 | Phase 8: Hardening | Complete (08-01) |
+| HARD-07 | Phase 8: Hardening | Complete (08-02) |
 | PRUX-01 | Phase 9: Product UX | Pending |
 | PRUX-02 | Phase 9: Product UX | Pending |
 | PRUX-03 | Phase 9: Product UX | Pending |

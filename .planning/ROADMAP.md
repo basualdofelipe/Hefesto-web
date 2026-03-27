@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### v1.1 Tiendanube & Investor Dashboard (Phases 8-13)
 
-- [ ] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
+- [x] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
 - [ ] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
 - [ ] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
 - [ ] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
@@ -171,7 +171,11 @@ Plans:
   3. A USER-role investor calling a mutation endpoint (POST, PATCH, DELETE) on products, supplies, suppliers, catalogs, or expenses receives a 403 Forbidden
   4. Admin can view a /usuarios page listing all users, create a new user with email and role, and deactivate an existing user
   5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 08-01-PLAN.md -- Auth middleware fix (proxy.ts -> middleware.ts), 401/403 handling in apiClientFetch, role-based routing, user toggle-status endpoint, dead code cleanup, produccion externa seed
+- [x] 08-02-PLAN.md -- DRY extraction (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox), users admin page, sidebar admin section, expense form fix
 
 ### Phase 9: Product UX
 **Goal**: Products are navigable by business hierarchy (type > name > finish) and BOM editing respects the real grouping level (name, not type)
@@ -243,7 +247,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 5. Products and BOM | v1.0 | 4/4 | Complete | 2026-03-06 |
 | 6. Cost Calculation | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 8. Hardening | v1.1 | 0/? | Not started | - |
+| 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 9. Product UX | v1.1 | 0/? | Not started | - |
 | 10. Tiendanube Config | v1.1 | 0/? | Not started | - |
 | 11. Calculadora | v1.1 | 0/? | Not started | - |
