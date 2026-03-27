@@ -80,7 +80,7 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 - [ ] **HARD-04**: Admin can manage users (create, view, deactivate) from a /usuarios page in the frontend
 - [ ] **HARD-05**: Acceso-denegado page shows clear message for unauthorized users
 - [ ] **HARD-06**: Supply type "produccion externa" exists as a catalog seed for taller-sourced products
-- [ ] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) — zero duplication. SupplyCombobox extraction deferred to Phase 9 (Product UX) when BOM editors are refactored.
+- [ ] **HARD-07**: Shared types extracted (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData, SupplyCombobox) — zero duplication
 
 ### Product UX
 

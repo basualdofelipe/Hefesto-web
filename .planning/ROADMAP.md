@@ -170,13 +170,8 @@ Plans:
   2. When a JWT expires mid-session, the user is redirected to /login automatically instead of seeing a broken UI or generic error
   3. A USER-role investor calling a mutation endpoint (POST, PATCH, DELETE) on products, supplies, suppliers, catalogs, or expenses receives a 403 Forbidden
   4. Admin can view a /usuarios page listing all users, create a new user with email and role, and deactivate an existing user
-  5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates (SupplyCombobox deferred to Phase 9)
-**Plans**: 3 plans
-
-Plans:
-- [ ] 08-01-PLAN.md -- Backend: user toggle-status endpoint, seed Produccion Externa supply type, delete deactivateBySupplier dead code
-- [ ] 08-02-PLAN.md -- Frontend auth: verify proxy.ts runtime, add role-aware routing, 401/403 handling in apiClientFetch, fix ExpenseFormDialog category bug
-- [ ] 08-03-PLAN.md -- Frontend DRY: extract shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData), /usuarios admin page, sidebar update
+  5. Shared types (SupplyOption, UNIT_LABELS, formatDate, cleanSupplierData) exist in exactly one location each — grep confirms zero duplicates
+**Plans**: TBD
 
 ### Phase 9: Product UX
 **Goal**: Products are navigable by business hierarchy (type > name > finish) and BOM editing respects the real grouping level (name, not type)
@@ -248,7 +243,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 5. Products and BOM | v1.0 | 4/4 | Complete | 2026-03-06 |
 | 6. Cost Calculation | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 8. Hardening | v1.1 | 0/3 | Not started | - |
+| 8. Hardening | v1.1 | 0/? | Not started | - |
 | 9. Product UX | v1.1 | 0/? | Not started | - |
 | 10. Tiendanube Config | v1.1 | 0/? | Not started | - |
 | 11. Calculadora | v1.1 | 0/? | Not started | - |
