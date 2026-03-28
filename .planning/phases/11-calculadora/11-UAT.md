@@ -1,5 +1,5 @@
 ---
-status: partial
+status: complete
 phase: 11-calculadora
 source: [11-01-SUMMARY.md, 11-02-SUMMARY.md]
 started: 2026-03-28T00:00:00.000Z
@@ -24,45 +24,34 @@ awaiting: user response
 
 ### 1. Calculadora page loads
 expected: Page loads at /calculadora without errors, showing two-column layout with inputs and desglose panel
-result: issue
-reported: "Maximum update depth exceeded. Infinite setState loop in CalculadoraClient/ProductSelector/GatewaySelectors. Page crashes on load. Stack trace points to SelectTrigger setRef in ProductSelector."
-severity: blocker
+result: pass
+previous: issue (blocker) — fixed in 11-03 gap closure
 
 ### 2. Forward mode calculation
 expected: Select a product (e.g., Billetera Hefesto 6 tarjetas), select Pago Nube + tarjeta + 7 días + 1 cuota. The desglose panel shows all 16 values (comisión, IVA, IIBB, ganancia real, margen) with ARS formatting.
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
+note: Desglose panel has sticky positioning that ignores the header (cosmetic, not functional).
 
 ### 3. Gateway cascading selectors
 expected: Change pasarela to Mercado Pago. Medio de pago and Tiempo de retiro options update to match MP's options (not Pago Nube's). Select a combination and see recalculated results.
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
+note: Cuotas selector shows for all gateways but cuotas financing may only apply to Pago Nube. MP/MODO handle installments internally. Future improvement: hide/adapt cuotas per gateway.
 
 ### 4. Inverse mode
 expected: Switch to Ganancia→Precio mode. Enter a desired profit (e.g., $50,000). The desglose shows the required selling price. Switch back to forward mode with that price — the ganancia should match within $0.01.
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
 
 ### 5. Product cost auto-population
 expected: When selecting a product that has a BOM with costs, the cost field auto-fills from the DB. Selecting a different product changes the cost.
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
 
 ### 6. Plan override toggle
 expected: Toggle "Simular otro plan" — plan selector appears. Change plan. CPT values in desglose update accordingly.
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
 
 ### 7. Edge case: zero cost product
 expected: Select a product with no BOM/cost ($0). In inverse mode, trying to calculate shows an error message "Definí el costo del producto primero" (not a crash).
-result: blocked
-blocked_by: prior-test
-reason: "Page crashes on load (Test 1 blocker)."
+result: pass
 
 ### 8. Sidebar navigation
 expected: Sidebar shows "Calculadora" under "Herramientas" section. Click navigates to /calculadora.
@@ -71,10 +60,10 @@ result: pass
 ## Summary
 
 total: 8
-passed: 1
-issues: 1
+passed: 8
+issues: 0
 pending: 0
-blocked: 6
+blocked: 0
 skipped: 0
 
 ## Gaps
