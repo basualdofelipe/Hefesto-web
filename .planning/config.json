@@ -1,14 +1,14 @@
 {
   "mode": "interactive",
-  "depth": "standard",
   "parallelization": true,
   "commit_docs": true,
   "model_profile": "quality",
-  "branching_strategy": "phase",
+  "branching_strategy": "milestone",
   "workflow": {
     "research": true,
     "plan_check": true,
     "verifier": true,
     "nyquist_validation": true
-  }
+  },
+  "granularity": "standard"
 }
