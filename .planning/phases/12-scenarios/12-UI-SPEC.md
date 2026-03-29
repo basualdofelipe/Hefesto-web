@@ -55,11 +55,13 @@ Exceptions: none
 | Role | Size | Weight | Line Height | Tailwind Class | Usage in This Phase |
 |------|------|--------|-------------|----------------|---------------------|
 | Body | 14px | 400 (regular) | 1.5 | `text-sm` | Table cells, description text, dialog body, override prices |
-| Label | 14px | 500 (medium) | 1.5 | `text-sm font-medium` | Form labels, column headers, card section labels |
+| Label | 14px | 600 (semibold) | 1.5 | `text-sm font-semibold` | Form labels, column headers, card section labels |
 | Heading | 16px | 600 (semibold) | 1.5 | `text-base font-semibold` | Card titles (CardTitle), dialog titles |
 | Page Title | 24px | 600 (semibold) | 1.2 | `text-2xl font-semibold tracking-tight` | Page h1: "Escenarios", scenario editor h1 |
 | Tabular Numbers | 14px | 400 (regular) | 1.5 | `text-sm tabular-nums` | All financial values (prices, margins, percentages) |
 | Mono Values | 14px | 400 (regular) | 1.5 | `font-mono text-sm tabular-nums` | Override price inputs, margin difference values |
+
+**Weights used: 2 (400 regular, 600 semibold).** Clear regular/bold binary contrast.
 
 **Source:** Established by codebase -- CalculadoraClient, DesglosePanel, InsumosPage all use these exact sizes. Poppins weights 300/400/500/600 are loaded in layout.tsx.
 
@@ -98,11 +100,13 @@ Exceptions: none
 
 ### Page 1: Scenario List (`/escenarios`)
 
+**Primary visual anchor:** Scenario name links on each ScenarioCard -- the clickable name draws the eye and serves as the entry point into each scenario.
+
 | Component | Shadcn Base | Purpose |
 |-----------|-------------|---------|
 | Page header | None (raw h1 + p) | "Escenarios" title + subtitle |
 | ScenarioListClient | None (client wrapper) | State management for list CRUD |
-| ScenarioCard | Card + Badge + Button | One card per scenario showing name, date, product count, owner badge for shared |
+| ScenarioCard | Card + Badge + Button + Tooltip | One card per scenario showing name, date, product count, owner badge for shared |
 | Create scenario dialog | Dialog + Input + Select | Modal to create new scenario with name + optional gateway/plan |
 | Delete confirmation | AlertDialog | Confirm scenario deletion |
 | Empty state | None (div) | When user has zero scenarios |
@@ -111,17 +115,22 @@ Exceptions: none
 
 ```
 +-------------------------------------------------------+
-| [Scenario Name]                        [Compartido] B  |
+| [Scenario Name]                  [Compartido] B  [T]   |
 | Creado 28/03/2026  |  12 productos  |  Pago Nube       |
 |                                                        |
-| [Editar]  [Compartir toggle]  [Eliminar]               |
+| [Editar escenario]  [Compartir toggle]                 |
 +-------------------------------------------------------+
+
+[T] = Trash2 icon button (size="icon" variant="ghost") with Tooltip "Eliminar escenario"
+     aria-label="Eliminar escenario [name]"
 ```
 
 - Badge "(compartido por Felipe)" shown on other users' public scenarios, read-only (no edit/delete buttons)
 - Badge "Publico" shown on own public scenarios
 
 ### Page 2: Scenario Editor (`/escenarios/[id]`)
+
+**Primary visual anchor:** ProductOverrideTable -- the full-width table with editable override prices and color-coded margin comparisons is the central workspace of this page.
 
 | Component | Shadcn Base | Purpose |
 |-----------|-------------|---------|
@@ -188,8 +197,8 @@ Full width (no 2-column split -- table needs horizontal space)
 | Action | Trigger | Behavior |
 |--------|---------|----------|
 | Create scenario | Click "Crear escenario" button | Opens Dialog. Fields: name (required, text input), gateway (Select, optional), plan (Select, optional). On submit: POST /scenarios, toast success, add card to list. |
-| Edit scenario | Click "Editar" on card | Navigate to /escenarios/[id] (scenario editor page) |
-| Delete scenario | Click trash icon on card | Opens AlertDialog: "Eliminar escenario [name]? Esta accion no se puede deshacer." Confirm: DELETE /scenarios/:id, toast success, remove card. |
+| Edit scenario | Click "Editar escenario" on card | Navigate to /escenarios/[id] (scenario editor page) |
+| Delete scenario | Click Trash2 icon button on card (tooltip: "Eliminar escenario") | Opens AlertDialog: "Eliminar escenario [name]? Esta accion no se puede deshacer." Confirm: DELETE /scenarios/:id, toast success, remove card. |
 | Toggle public | Click Switch on own card | PATCH /scenarios/:id/toggle-public. Toast: "Escenario compartido con inversores" or "Escenario ahora es privado". |
 
 ### Scenario Editor Interactions
@@ -233,6 +242,7 @@ Full width (no 2-column split -- table needs horizontal space)
 | Page subtitle | "Simula cambios de precios y compara margenes sin afectar datos reales." |
 | Primary CTA (list) | "Crear escenario" |
 | Primary CTA (editor) | "Guardar y calcular" |
+| Edit scenario CTA | "Editar escenario" |
 | Bulk override CTA | "Ajuste masivo" |
 | Clear overrides CTA | "Limpiar overrides" |
 | Empty state heading | "No tenes escenarios" |
@@ -245,8 +255,9 @@ Full width (no 2-column split -- table needs horizontal space)
 | Create dialog plan label | "Plan Tiendanube (opcional)" |
 | Delete confirmation title | "Eliminar escenario" |
 | Delete confirmation body | "Se eliminara \"[name]\" y todos sus overrides de precios. Esta accion no se puede deshacer." |
-| Delete confirmation CTA | "Eliminar" (destructive variant) |
-| Delete confirmation cancel | "Cancelar" |
+| Delete confirmation CTA | "Eliminar escenario" (destructive variant) |
+| Delete confirmation dismiss | "No eliminar" |
+| Delete icon tooltip | "Eliminar escenario" |
 | Bulk dialog title | "Ajuste masivo de precios" |
 | Bulk dialog type label | "Tipo de producto" |
 | Bulk dialog type all option | "Todos los productos" |
@@ -306,7 +317,7 @@ All financial values in this phase MUST use the existing formatting utilities:
 
 | Registry | Blocks Used | Safety Gate |
 |----------|-------------|-------------|
-| shadcn official | Dialog, AlertDialog, Card, Table, Input, Select, Badge, Button, Switch, Skeleton, Separator | not required |
+| shadcn official | Dialog, AlertDialog, Card, Table, Input, Select, Badge, Button, Switch, Skeleton, Separator, Tooltip | not required |
 
 No third-party registries. Zero new npm dependencies per v1.1 constraint.
 
