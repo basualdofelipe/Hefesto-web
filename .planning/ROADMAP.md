@@ -237,7 +237,7 @@ Plans:
 
 Plans:
 - [x] 12-01-PLAN.md -- ScenariosModule: 2 entities (scenario, scenario_override), migration, CRUD service with user-scoped visibility, calculate endpoint delegating to calcForward, REST controller with 8 endpoints, AppModule registration
-- [ ] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
+- [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 
 ### Phase 13: Investor Dashboard
 **Goal**: Investors have a single page showing the full catalog with margins, aggregate metrics, and scenario-aware views
@@ -268,5 +268,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 9. Product UX | v1.1 | 1/1 | Complete | 2026-03-27 |
 | 10. Tiendanube Config | v1.1 | 2/3 | UAT gap closure | - |
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
-| 12. Scenarios | v1.1 | 1/2 | In Progress|  |
+| 12. Scenarios | v1.1 | 2/2 | Complete | 2026-03-29 |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |

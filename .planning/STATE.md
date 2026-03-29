@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: MVP
-status: executing
-stopped_at: Completed 12-01-PLAN.md
-last_updated: "2026-03-29T04:09:21.409Z"
+status: ready_for_verification
+stopped_at: Completed 12-02-PLAN.md (Scenarios Frontend)
+last_updated: "2026-03-29T04:46:00Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 12
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 32
-  completed_plans: 31
+  completed_plans: 32
 ---
 
 # Project State
@@ -24,13 +24,13 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 12 (scenarios) — EXECUTING
-Plan: 2 of 2
-Status: Ready to execute
-Last activity: 2026-03-29
+Phase: 12 (scenarios) — COMPLETE
+Plan: 2 of 2 (all complete)
+Status: Phase 12 complete. Scenarios backend + frontend done.
+Last activity: 2026-03-29 - Completed 12-02-PLAN.md (Scenarios Frontend)
 
-Progress (v1.1): [################........] 67% (4/6 phases)
-Progress (overall): [########################..] 92% (11/13 phases)
+Progress (v1.1): [####################....] 83% (5/6 phases)
+Progress (overall): [#########################.] 96% (12/13 phases)
 
 ## Performance Metrics
 
@@ -66,6 +66,7 @@ Progress (overall): [########################..] 92% (11/13 phases)
 
 *Updated after each plan completion*
 | Phase 12 P01 | 8min | 3 tasks | 12 files |
+| Phase 12 P02 | 5min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -131,6 +132,10 @@ Recent decisions affecting current work:
 - Phase 11 (gap closure): Infinite re-render caused by unstable onConfigChange prop + notifyChange useCallback depending on it. Fix: useCallback in parent + useRef for callback in child.
 - [Phase 12]: Scenario overrides use full-replace strategy (delete+insert in QueryRunner transaction)
 - [Phase 12]: calculate returns both simResult and realResult per product for override vs real comparison
+- [Phase 12]: DebouncedInput uses uncontrolled defaultValue + React key remount instead of useEffect+setState (ESLint compliance)
+- [Phase 12]: GatewayPlanSelector uses useRef for parent onChange callback to prevent re-render loops (Phase 11 fix pattern)
+- [Phase 12]: handleSaveAndCalculate uses Promise.all for parallel PUT overrides + PUT config, then sequential GET calculate
+- [Phase 12]: Escenarios visible to all users (admin + investor), not added to ADMIN_ONLY_ROUTES
 
 ### Pending Todos
 
@@ -158,6 +163,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-03-29T04:09:21.404Z
-Stopped at: Completed 12-01-PLAN.md
-Resume file: None
+Last session: 2026-03-29T04:46:00Z
+Stopped at: Completed 12-02-PLAN.md (Scenarios Frontend)
+Resume file: .planning/phases/12-scenarios/12-02-SUMMARY.md
