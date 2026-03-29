@@ -1,14 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: tiendanube-investor-dashboard
+milestone: v1.0
+milestone_name: MVP
 status: executing
-last_updated: "2026-03-27"
+stopped_at: Completed 12-01-PLAN.md
+last_updated: "2026-03-29T04:09:21.409Z"
+last_activity: 2026-03-29
 progress:
-  total_phases: 6
-  completed_phases: 4
-  total_plans: 7
-  completed_plans: 7
+  total_phases: 12
+  completed_phases: 11
+  total_plans: 32
+  completed_plans: 31
 ---
 
 # Project State
@@ -18,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Milestone v1.1 — Phase 11 complete (Calculadora). Next: plan Phase 12 (Scenarios).
+**Current focus:** Phase 12 — scenarios
 
 ## Current Position
 
-Phase: 11 of 13 (Calculadora) — EXECUTING
-Plan: 2 of 2 (Plan 01 + Plan 02 complete)
-Status: Phase 11 complete. Backend calculadora service + frontend /calculadora page with forward/inverse modes, cascading gateway selectors, full desglose panel.
-Last activity: 2026-03-27 — Phase 11 Plan 02 executed (frontend calculadora page)
+Phase: 12 (scenarios) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-29
 
 Progress (v1.1): [################........] 67% (4/6 phases)
 Progress (overall): [########################..] 92% (11/13 phases)
@@ -33,6 +35,7 @@ Progress (overall): [########################..] 92% (11/13 phases)
 ## Performance Metrics
 
 **Velocity (from v1.0):**
+
 - Total plans completed: 21
 - Average duration: 6.4min
 - Total execution time: ~2.2 hours
@@ -62,6 +65,7 @@ Progress (overall): [########################..] 92% (11/13 phases)
 | 11 - Calculadora | 11-02 | 5min | 1+checkpoint | 8 |
 
 *Updated after each plan completion*
+| Phase 12 P01 | 8min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -103,6 +107,8 @@ Recent decisions affecting current work:
 - Phase 10: Plan selector dropdown defaults to 'esencial' — state lifted to TiendanubeConfigClient
 - Phase 10: GatewaySection uses compound component pattern (Header as static property for accordion trigger)
 - Phase 10: /configuracion added to ADMIN_ONLY_ROUTES for middleware-level protection
+- Phase 10 (gap closure): Raw SQL queries MUST use explicit column aliases with camelCase ("ratePercent", "paymentMethod", "withdrawalDays", "isActive") — never use SELECT * in raw SQL that feeds parse helpers
+- Phase 10 (gap closure): json_build_object replaces row_to_json for gateway nested object — controls key names explicitly
 - Phase 11 (planning): Multi-gateway support — all 3 pasarelas with cascading selectors
 - Phase 11 (planning): Plan TN inherits from config + override toggle ("Simular otro plan")
 - Phase 11 (planning): calcForward adapted for multi-gateway (accepts resolved rate params, not plan objects)
@@ -111,17 +117,20 @@ Recent decisions affecting current work:
 - Phase 11 (planning): CalculadoraModule imports TiendanubeConfigModule + CostsModule + ProductsModule
 - Phase 11 (pre-mortem fix): product.currentPrice is STRING from TypeORM decimal — must parseFloat() in calcBatch before passing to calcForward
 - Phase 11 (pre-mortem fix): rate.gateway from getAll() raw SQL is plain JSON with snake_case keys — use .slug for matching (same in both cases)
-- Phase 11 (pre-mortem fix iter3): rate.payment_method and rate.withdrawal_days are ALSO snake_case at runtime — resolveRates MUST use rate.payment_method and rate.withdrawal_days (not camelCase)
+- Phase 11 (pre-mortem fix iter3): rate.payment_method and rate.withdrawal_days are ALSO snake_case at runtime — resolveRates MUST use rate.payment_method and rate.withdrawal_days (not camelCase) **SUPERSEDED by 10-03 gap closure fix**
 - Phase 11 (pre-mortem fix iter3): Use toast.error() from sonner for inverse error display (Shadcn Alert not installed)
 - Phase 11 (pre-mortem fix iter3): CalculadoraClient.tsx MUST have 'use client' directive (useState/useSession/useCallback)
 - Phase 11 (pre-mortem fix iter3): ModeToggle uses Shadcn Tabs (installed), NOT ToggleGroup (not installed)
 - Phase 11 (pre-mortem fix iter3): CalculadoraService constructor injects ProductsService (needed for calcBatch findAll)
-- Phase 11 (pre-mortem fix iter4): ratePercent is NaN on ALL gateway AND installment rate objects from getAll() — raw SQL returns rate_percent (snake_case), parseFloat(rate.ratePercent) = parseFloat(undefined) = NaN. resolveRates MUST use (rate as any)['rate_percent'] and parseFloat it manually.
+- Phase 11 (pre-mortem fix iter4): ratePercent is NaN on ALL gateway AND installment rate objects from getAll() — raw SQL returns rate_percent (snake_case), parseFloat(rate.ratePercent) = parseFloat(undefined) = NaN. resolveRates MUST use (rate as any)['rate_percent'] and parseFloat it manually. **SUPERSEDED by 10-03 gap closure fix — SQL now returns camelCase aliases, workarounds removed**
 - Phase 11 (pre-mortem fix iter4): IVA/IIBB stored as percentages (21, 3.5) but formulas need fractions (0.21, 0.035) — resolveRates divides by 100. Gateway/installment/CPT rates stay as percentages (divided by 100 inline in formula).
 - Phase 11 (pre-mortem fix iter4): Controller returns CalcResult directly — ResponseInterceptor wraps to { data: CalcResult }. Do NOT return { data: CalcResult } manually.
 - Phase 11 (pre-mortem fix iter4): taxConfig can be null from getAll() — resolveRates throws NotFoundException if null
 - Phase 11 (frontend): GatewaySelectors uses derived state (useMemo for effectiveMethod/effectiveDays) instead of setState-in-useEffect for cascading resets (React lint compliance)
 - Phase 11 (frontend): Sidebar "Herramientas" group with Calculadora link visible to ALL users (outside isAdmin conditional)
+- Phase 11 (gap closure): Infinite re-render caused by unstable onConfigChange prop + notifyChange useCallback depending on it. Fix: useCallback in parent + useRef for callback in child.
+- [Phase 12]: Scenario overrides use full-replace strategy (delete+insert in QueryRunner transaction)
+- [Phase 12]: calculate returns both simResult and realResult per product for override vs real comparison
 
 ### Pending Todos
 
@@ -129,6 +138,7 @@ Recent decisions affecting current work:
 Latest: Fix JWT expiry silent failure - redirect to login on 401 (auth)
 
 Todos absorbed into Phase 8 plans:
+
 - proxy.ts runtime verification → 08-01 Task 1 (renamed to middleware.ts)
 - ExpenseFormDialog category Select bug → 08-02 Task 2 (fix with watch())
 - Delete deactivateBySupplier dead code → 08-01 Task 2
@@ -139,6 +149,8 @@ Todos absorbed into Phase 8 plans:
 - proxy.ts vs middleware.ts naming RESOLVED: proxy.ts export `proxy` is NOT what Next.js 16 needs. The file must be named middleware.ts with export named `middleware`. Previous research was partially incorrect — runtime verification confirmed it was not firing.
 - deactivateBySupplier RESOLVED: deleted as dead code in 08-01
 - SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated. (Phase 10 — addressed in plan)
+- Raw SQL snake_case bug: DIAGNOSED in Phase 10 UAT, gap closure plan 10-03 created. Root cause = getLatestGatewayRates() and getInstallmentRates() use SELECT * which returns PostgreSQL snake_case column names, but parse helpers expect camelCase. Fix = column aliases in SQL.
+- Calculadora infinite re-render: DIAGNOSED in Phase 11 UAT, gap closure plan 11-03 created. Root cause = handleGatewayConfigChange not wrapped in useCallback + notifyChange/useEffect circular dependency via onConfigChange prop. Fix = useCallback in parent + ref-based callback pattern in child.
 
 ### Known Issues
 
@@ -146,6 +158,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-03-27
-Stopped at: Completed 11-02-PLAN.md (frontend calculadora page)
-Resume file: None — next step is Phase 12 (Scenarios) planning
+Last session: 2026-03-29T04:09:21.404Z
+Stopped at: Completed 12-01-PLAN.md
+Resume file: None

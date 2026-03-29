@@ -104,10 +104,10 @@ Requirements for milestone v1.1: Tiendanube & Investor Dashboard.
 
 ### Simulator
 
-- [ ] **SCEN-01**: User can create a named scenario with overridden selling prices for specific products
-- [ ] **SCEN-02**: User can apply bulk price adjustments (e.g., "+10% all cinturones", "-20% entire catalog")
-- [ ] **SCEN-03**: Scenario shows recalculated margins for all affected products using real costs + overridden prices
-- [ ] **SCEN-04**: Scenarios are user-scoped (each investor sees only their own) and persist in DB
+- [x] **SCEN-01**: User can create a named scenario with overridden selling prices for specific products
+- [x] **SCEN-02**: User can apply bulk price adjustments (e.g., "+10% all cinturones", "-20% entire catalog")
+- [x] **SCEN-03**: Scenario shows recalculated margins for all affected products using real costs + overridden prices
+- [x] **SCEN-04**: Scenarios are user-scoped (each investor sees only their own) and persist in DB
 
 ### Dashboard
 
@@ -225,10 +225,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CALC-02 | Phase 11: Calculadora | Complete (11-02) |
 | CALC-03 | Phase 11: Calculadora | Complete (11-02) |
 | CALC-04 | Phase 11: Calculadora | Pending |
-| SCEN-01 | Phase 12: Scenarios | Pending |
-| SCEN-02 | Phase 12: Scenarios | Pending |
-| SCEN-03 | Phase 12: Scenarios | Pending |
-| SCEN-04 | Phase 12: Scenarios | Pending |
+| SCEN-01 | Phase 12: Scenarios | Complete |
+| SCEN-02 | Phase 12: Scenarios | Complete |
+| SCEN-03 | Phase 12: Scenarios | Complete |
+| SCEN-04 | Phase 12: Scenarios | Complete |
 | DASH-01 | Phase 13: Investor Dashboard | Pending |
 | DASH-02 | Phase 13: Investor Dashboard | Pending |
 | DASH-03 | Phase 13: Investor Dashboard | Pending |
