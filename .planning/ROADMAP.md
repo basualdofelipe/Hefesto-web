@@ -34,8 +34,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 8: Hardening** - Auth middleware, 401 handling, role enforcement, users admin, DRY cleanup, produccion externa
 - [x] **Phase 9: Product UX** - Hierarchical product grouping (type > name > finish), BOM group editor scoped to name level
-- [x] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
-- [x] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
+- [ ] **Phase 10: Tiendanube Config** - Admin-editable rate tables for plans, installments, and taxes
+- [ ] **Phase 11: Calculadora** - Forward (price to profit) and inverse (profit to price) with real costs and Tiendanube deductions
 - [ ] **Phase 12: Scenarios** - User-scoped what-if scenarios with price overrides and recalculated margins
 - [ ] **Phase 13: Investor Dashboard** - Catalog summary with margins, Tiendanube net profit, scenario selector, aggregate KPIs
 
@@ -200,11 +200,12 @@ Plans:
   3. Admin can view and edit tax configuration (IVA rate, IIBB alicuota, transaction fee per plan)
   4. The config page shows a "Verificar tasas" link that opens the official Pago Nube rates page in a new tab
   5. Seed migration populates the tables with verified March 2026 rates so the system is usable immediately after deploy
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [x] 10-01-PLAN.md -- TiendanubeConfigModule: 5 entities (gateways, rates, installments, tax config, plans), migration with March 2026 seed data, CRUD service with append-only history, REST controller, AppModule registration
 - [x] 10-02-PLAN.md -- Frontend: /configuracion/tiendanube page with plan selector dropdown, collapsible gateway sections, plan CPT editor, installment editor, tax editor, "Verificar tasas" link, sidebar Admin link
+- [ ] 10-03-PLAN.md -- Gap closure: fix raw SQL snake_case column aliases in getLatestGatewayRates + getInstallmentRates, remove calculadora snake_case workarounds, update test mocks
 
 ### Phase 11: Calculadora
 **Goal**: Users can simulate Tiendanube pricing for any product — seeing real profit after all deductions (forward) or the price needed for a target profit (inverse)
@@ -215,11 +216,12 @@ Plans:
   2. User enters a desired profit amount and the calculadora returns the required selling price — the forward calculation of that price matches the target profit within $0.01
   3. Product cost is auto-populated from the database (not manually entered) and updates if the underlying supply prices change
   4. A batch endpoint returns margins for all products in the catalog in a single request, using no more than 6 SQL queries regardless of product count
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [x] 11-01-PLAN.md -- CalculadoraModule: service with calcForward/calcInverse/calcBatch (TDD with Hefesto $87,000 round-trip), DTOs, controller with 3 POST endpoints, AppModule registration
 - [x] 11-02-PLAN.md -- Frontend: /calculadora page with two-column layout, product selector with cost auto-fill, cascading gateway selectors, mode toggle (forward/inverse), full desglose panel, sidebar link
+- [ ] 11-03-PLAN.md -- Gap closure: fix infinite re-render loop in GatewaySelectors + CalculadoraClient (useCallback + ref-based callback pattern)
 
 ### Phase 12: Scenarios
 **Goal**: Investors can create what-if scenarios with overridden selling prices and see recalculated margins without touching real data
@@ -231,7 +233,11 @@ Plans:
   3. Scenario shows a margin summary table with real costs, overridden prices, and recalculated net margins after Tiendanube deductions
   4. Each user sees only their own scenarios — querying another user's scenario returns 404
   5. Creating or modifying a scenario never writes to product_price_history — real pricing data remains untouched
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 12-01-PLAN.md -- ScenariosModule: 2 entities (scenario, scenario_override), migration, CRUD service with user-scoped visibility, calculate endpoint delegating to calcForward, REST controller with 8 endpoints, AppModule registration
+- [ ] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 
 ### Phase 13: Investor Dashboard
 **Goal**: Investors have a single page showing the full catalog with margins, aggregate metrics, and scenario-aware views
@@ -260,7 +266,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. Expenses | v1.0 | 2/2 | Complete | 2026-03-11 |
 | 8. Hardening | v1.1 | 2/2 | Complete | 2026-03-27 |
 | 9. Product UX | v1.1 | 1/1 | Complete | 2026-03-27 |
-| 10. Tiendanube Config | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 11. Calculadora | v1.1 | 2/2 | Complete | 2026-03-27 |
-| 12. Scenarios | v1.1 | 0/? | Not started | - |
+| 10. Tiendanube Config | v1.1 | 2/3 | UAT gap closure | - |
+| 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
+| 12. Scenarios | v1.1 | 0/2 | Planned | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
