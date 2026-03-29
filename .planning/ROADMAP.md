@@ -10,7 +10,7 @@ calculadora with real costs), and delivers an investor dashboard with scenario m
 ## Milestones
 
 - v1.0 MVP - Phases 1-7 (shipped 2026-03-11)
-- v1.1 Tiendanube & Investor Dashboard - Phases 8-13 (in progress)
+- 🚧 **v1.1 Tiendanube & Investor Dashboard** - Phases 8-13 (in progress)
 
 ## Phases
 
@@ -240,6 +240,46 @@ Plans:
 - [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 - [x] 12-03-PLAN.md -- Gap closure: fix inactive products not shown in editor, admin delete for public scenarios from other users
 
+### Phase 12.3: Scenarios v2 — cost overrides and product grouping (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 12.3 to break down)
+
+### Phase 12.2: UI polish and product page UX (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 12.2 to break down)
+
+### Phase 12.1: Dynamic roles with configurable permissions (INSERTED)
+
+**Goal:** Replace hardcoded ADMIN/USER enum with dynamic roles table featuring 11 boolean permission flags, enabling admin to create custom roles and assign granular permissions via a dedicated management page
+**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10, D-11, D-12, D-13, D-14, D-15
+**Depends on:** Phase 12
+**Success Criteria** (what must be TRUE):
+  1. Role entity exists with 11 boolean permission flags, seeded ADMIN (all true) and USER (view + calc + scenarios) roles
+  2. PermissionsGuard replaces RolesGuard globally, checking permission flags via @RequirePermission decorator
+  3. All 40 controller endpoints use @RequirePermission instead of @Roles
+  4. Frontend usePermissions() hook returns all 11 flags from session, middleware enforces per-route permissions
+  5. Admin can create, edit, and delete custom roles via /roles page with permission toggles
+  6. Users page uses dynamic role selection from API instead of hardcoded admin/user dropdown
+**Plans:** 4 plans
+
+Plans:
+- [ ] 12.1-01-PLAN.md — Backend foundation: Role entity + 11 boolean flags, RolesModule CRUD, breaking migration, PermissionsGuard + @RequirePermission decorator, JWT with embedded permissions, User entity ManyToOne Role
+- [ ] 12.1-02-PLAN.md — Backend controller migration: Replace all 40 @Roles() with @RequirePermission(), fix scenarios admin bypass, delete old auth files
+- [ ] 12.1-03-PLAN.md — Frontend permission system: Permissions type, usePermissions() hook, NextAuth session extension, middleware ROUTE_PERMISSIONS map, replace isAdmin in all 16 files + sidebar
+- [ ] 12.1-04-PLAN.md — Roles management UI: /roles page with table + create/edit/delete dialogs, /usuarios page with dynamic role selection, visual verification
+
 ### Phase 13: Investor Dashboard
 **Goal**: Investors have a single page showing the full catalog with margins, aggregate metrics, and scenario-aware views
 **Depends on**: Phase 12
@@ -254,7 +294,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 12.1 -> 12.2 -> 12.3 -> 13
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -270,4 +310,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 10. Tiendanube Config | v1.1 | 2/3 | UAT gap closure | - |
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
 | 12. Scenarios | v1.1 | 3/3 | Complete | 2026-03-29 |
+| 12.1. Dynamic Roles | v1.1 | 0/4 | Planned | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
