@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: MVP
 status: completed
-stopped_at: Completed 12-02-PLAN.md (Scenarios Frontend)
-last_updated: "2026-03-29T04:57:11.398Z"
+stopped_at: Completed 12-03-PLAN.md (Gap Closure - UAT fixes)
+last_updated: "2026-03-29T17:40:00Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 12
   completed_phases: 12
-  total_plans: 32
-  completed_plans: 32
+  total_plans: 33
+  completed_plans: 33
 ---
 
 # Project State
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12
-Plan: Not started
-Status: Phase 12 complete. Scenarios backend + frontend done.
+Plan: 3 of 3 complete
+Status: Phase 12 complete. Scenarios backend + frontend + gap closure done.
 Last activity: 2026-03-29
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
@@ -67,6 +67,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 *Updated after each plan completion*
 | Phase 12 P01 | 8min | 3 tasks | 12 files |
 | Phase 12 P02 | 5min | 3 tasks | 12 files |
+| Phase 12 P03 | 3min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -136,6 +137,7 @@ Recent decisions affecting current work:
 - [Phase 12]: GatewayPlanSelector uses useRef for parent onChange callback to prevent re-render loops (Phase 11 fix pattern)
 - [Phase 12]: handleSaveAndCalculate uses Promise.all for parallel PUT overrides + PUT config, then sequential GET calculate
 - [Phase 12]: Escenarios visible to all users (admin + investor), not added to ADMIN_ONLY_ROUTES
+- [Phase 12 gap closure]: Admin delete bypasses owner filter via role param in remove(), canDelete prop separates delete visibility from ownership in ScenarioCard
 
 ### Pending Todos
 
@@ -163,6 +165,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-03-29T04:46:00Z
-Stopped at: Completed 12-02-PLAN.md (Scenarios Frontend)
-Resume file: .planning/phases/12-scenarios/12-02-SUMMARY.md
+Last session: 2026-03-29T17:40:00Z
+Stopped at: Completed 12-03-PLAN.md (Gap Closure - UAT fixes)
+Resume file: .planning/phases/12-scenarios/12-03-SUMMARY.md
