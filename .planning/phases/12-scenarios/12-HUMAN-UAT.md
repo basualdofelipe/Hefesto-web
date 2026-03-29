@@ -1,9 +1,9 @@
 ---
 status: complete
 phase: 12-scenarios
-source: [12-01-SUMMARY.md, 12-02-SUMMARY.md, 12-VERIFICATION.md]
+source: [12-01-SUMMARY.md, 12-02-SUMMARY.md, 12-VERIFICATION.md, 12-03-SUMMARY.md]
 started: "2026-03-29T05:30:00Z"
-updated: "2026-03-29T06:10:00Z"
+updated: "2026-03-29T07:00:00Z"
 ---
 
 ## Current Test
@@ -26,9 +26,7 @@ result: pass
 
 ### 4. Editor con override de precios
 expected: Entrar al escenario. Tabla muestra todos los productos con costo y precio real. Se puede editar el precio override de un producto (input azul cuando tiene valor). Los inactivos aparecen con badge "(inactivo)" y opacity reducida.
-result: issue
-reported: "los inactivos no aparecen, no creo que sea un problema que no aparezcan, pero hay que chequear la lógica porque no hace lo que pretendés"
-severity: minor
+result: pass (retest after 12-03 gap closure)
 
 ### 5. Guardar y calcular — comparación de márgenes
 expected: Click "Guardar y calcular". Spinner, luego columnas de margen se llenan. Verde = margen mejoró, rojo = empeoró. MarginSummary card muestra resumen.
@@ -48,15 +46,13 @@ result: pass
 
 ### 9. Admin puede borrar escenarios públicos de otros usuarios
 expected: Admin puede eliminar cualquier escenario público, incluso de otros usuarios. Necesario porque si un usuario se desactiva, sus escenarios públicos quedan huérfanos e inborrables.
-result: issue
-reported: "los escenarios compartidos debería poder borrarse por admin. Si desactivás un user que hizo público un escenario, sigue ahí y nadie puede borrarlo — sinfín de escenarios inborrables"
-severity: major
+result: pass (retest after 12-03 gap closure)
 
 ## Summary
 
 total: 9
-passed: 7
-issues: 2
+passed: 9
+issues: 0
 pending: 0
 skipped: 0
 blocked: 0
@@ -64,21 +60,13 @@ blocked: 0
 ## Gaps
 
 - truth: "Inactive products should appear in scenario editor with (inactivo) badge and reduced opacity"
-  status: failed
-  reason: "User reported: inactive products don't appear at all in the scenario editor table"
+  status: resolved
+  reason: "Fixed in 12-03: added ?includeInactive=true to products fetch"
   severity: minor
   test: 4
-  artifacts:
-    - nemea-front/src/app/(app)/escenarios/[id]/ScenarioEditorClient.tsx
-    - nemea-back/src/scenarios/scenarios.service.ts
-  missing: []
 
 - truth: "Admin can delete any public scenario (including from deactivated users) to prevent orphaned scenarios"
-  status: failed
-  reason: "User reported: if a user is deactivated, their public scenarios remain visible but nobody can delete them — controller only allows owner to delete"
+  status: resolved
+  reason: "Fixed in 12-03: remove() accepts role param, admin bypasses owner filter, canDelete prop on ScenarioCard"
   severity: major
   test: 9
-  artifacts:
-    - nemea-back/src/scenarios/scenarios.controller.ts
-    - nemea-back/src/scenarios/scenarios.service.ts
-  missing: []
