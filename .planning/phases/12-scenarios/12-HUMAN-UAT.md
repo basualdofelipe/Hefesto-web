@@ -3,7 +3,7 @@ status: complete
 phase: 12-scenarios
 source: [12-01-SUMMARY.md, 12-02-SUMMARY.md, 12-VERIFICATION.md]
 started: "2026-03-29T05:30:00Z"
-updated: "2026-03-29T06:00:00Z"
+updated: "2026-03-29T06:10:00Z"
 ---
 
 ## Current Test
@@ -46,11 +46,17 @@ result: pass
 expected: Click en eliminar pide confirmación. Confirmar borra el escenario y desaparece de la lista.
 result: pass
 
+### 9. Admin puede borrar escenarios públicos de otros usuarios
+expected: Admin puede eliminar cualquier escenario público, incluso de otros usuarios. Necesario porque si un usuario se desactiva, sus escenarios públicos quedan huérfanos e inborrables.
+result: issue
+reported: "los escenarios compartidos debería poder borrarse por admin. Si desactivás un user que hizo público un escenario, sigue ahí y nadie puede borrarlo — sinfín de escenarios inborrables"
+severity: major
+
 ## Summary
 
-total: 8
+total: 9
 passed: 7
-issues: 1
+issues: 2
 pending: 0
 skipped: 0
 blocked: 0
@@ -64,5 +70,15 @@ blocked: 0
   test: 4
   artifacts:
     - nemea-front/src/app/(app)/escenarios/[id]/ScenarioEditorClient.tsx
+    - nemea-back/src/scenarios/scenarios.service.ts
+  missing: []
+
+- truth: "Admin can delete any public scenario (including from deactivated users) to prevent orphaned scenarios"
+  status: failed
+  reason: "User reported: if a user is deactivated, their public scenarios remain visible but nobody can delete them — controller only allows owner to delete"
+  severity: major
+  test: 9
+  artifacts:
+    - nemea-back/src/scenarios/scenarios.controller.ts
     - nemea-back/src/scenarios/scenarios.service.ts
   missing: []
