@@ -1,14 +1,14 @@
 ---
 phase: 12
 name: Scenarios
-discussed: 2026-03-28
+discussed: 2026-03-29
 ---
 
 # Phase 12: Scenarios — Context
 
 ## Domain
 
-Investor-facing what-if scenario simulator. Create named scenarios with overridden selling prices (+ pasarela/plan config), see recalculated margins using real costs + simulated conditions. Scenarios persist in DB, user-scoped.
+Investor-facing what-if scenario simulator. Create named scenarios with overridden selling prices (+ pasarela/plan config), see recalculated margins using real costs + simulated conditions. Scenarios persist in DB, shareable between investors via is_public toggle.
 
 ## Decisions
 
@@ -24,14 +24,21 @@ Costs stay real (from DB) — the investor simulates selling conditions, not pro
 ### Data model
 
 **Decision:** 2 new tables:
-1. **scenarios** — name, user_id (FK to users), gateway_slug (override), plan_id (override, FK to tn_plans), created_at, updated_at
+1. **scenarios** — name, user_id (FK to users), gateway_slug (override), plan_id (override, FK to tn_plans), is_public (boolean, default false), created_at, updated_at
 2. **scenario_overrides** — scenario_id (FK), product_id (FK), override_price (decimal), created_at
 
 **Isolation rule:** scenario_overrides NEVER writes to product_price_history. Completely separate tables. If a scenario is deleted, its overrides cascade-delete.
 
-### User-scoped visibility
+### Visibility: own + public scenarios
 
-**Decision:** Each user sees only their own scenarios. Backend filters by `userId` from JWT. Querying another user's scenario returns 404.
+**Decision:** Each user sees their own scenarios + public scenarios from other users.
+
+- Scenarios table has `isPublic: boolean` (default false)
+- Owner can toggle `isPublic` via a "Compartir con inversores" toggle in the scenario editor
+- `GET /scenarios` returns: own scenarios (all) + other users' public scenarios (read-only)
+- Only the owner can edit or delete a scenario (even if public)
+- Public scenarios show with a badge "(compartido por [user])" in other users' lists
+- Querying a non-public scenario from another user returns 404
 
 ### Bulk override: percentage by type + individual edit
 
@@ -62,7 +69,7 @@ Sidebar: link under "Herramientas" (same group as Calculadora).
 - Scenarios accessible to both ADMIN and USER roles (it's a simulation tool)
 - `/escenarios` should NOT be in ADMIN_ONLY_ROUTES
 - Maximum scenarios per user: no limit for now (2-3 users, not a concern)
-- Scenario name is required, must be unique per user
+- Scenario name is required, must be unique per user (public scenarios from other users don't count for uniqueness)
 - When a product is deactivated, its override in a scenario is preserved but marked as "(inactivo)" in the UI
 - Bulk override rounds to nearest integer (ARS don't have meaningful centavos at these price points)
 
