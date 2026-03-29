@@ -38,7 +38,7 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 - [ ] Calculadora Tiendanube forward (precio → ganancia) con costos reales de DB
 - [ ] Calculadora Tiendanube inverse (ganancia → precio)
 - [ ] Dashboard inversores: tabla resumen catálogo con márgenes
-- [ ] Simulador de escenarios guardables por usuario (override precios de venta)
+- ✓ Simulador de escenarios guardables por usuario (override precios de venta) — v1.1 Phase 12
 
 ### Out of Scope
 
