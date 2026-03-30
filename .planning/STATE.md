@@ -2,26 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-06T22:08:48.612Z"
-progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 19
-  completed_plans: 19
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: in_progress
-last_updated: "2026-03-06T21:45:00Z"
+status: verifying
+stopped_at: Completed 12.1-01-PLAN.md (Backend Permission System)
+last_updated: "2026-03-30T15:55:49.842Z"
+last_activity: 2026-03-30
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 19
+  completed_plans: 19
+  percent: 92
 ---
 
 # Project State
@@ -37,14 +27,15 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 Phase: 6 of 7 (Cost Calculation) -- COMPLETE
 Plan: 2 of 2 in current phase (all complete)
-Status: Phase 6 complete. Cost calculation backend + frontend verified by user.
-Last activity: 2026-03-06 - Completed 06-02-PLAN.md (Frontend Cost Display) -- checkpoint approved
+Status: Phase complete — ready for verification
+Last activity: 2026-03-30
 
 Progress: [#######################░░] 92%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 18
 - Average duration: 7.6min
 - Total execution time: 2.16 hours
@@ -61,10 +52,12 @@ Progress: [#######################░░] 92%
 | 6 - Cost Calculation | 2/2 | 11min | 5.5min |
 
 **Recent Trend:**
+
 - Last 5 plans: 05-01 (5min), 05-02 (8min), 05-03 (6min), 05-04 (12min), 06-01 (5min)
 - Trend: standard CRUD plans execute fast (~5min), frontend pages ~6min, wiring plans with bug fixes ~12min
 
 *Updated after each plan completion*
+| Phase 12.1 P01 | 9.5min | 2 tasks | 28 files |
 
 ## Accumulated Context
 
@@ -156,6 +149,9 @@ Recent decisions affecting current work:
 - 06-02: Expanded row fetches product detail in parallel with BOM to get costBreakdown (list returns null)
 - 06-02: formatMargin calculates markup % (margin/cost) not gross margin (margin/price)
 - 06-02: Product name Link with stopPropagation to avoid row expand on click
+- [Phase 12.1]: Permission flags as 11 booleans on Role entity for query simplicity
+- [Phase 12.1]: PermissionsGuard replaces RolesGuard as APP_GUARD; old guard deprecated for Plan 02
+- [Phase 12.1]: TypeOrmModule.forFeature([User, Role]) in UsersModule avoids circular dependency
 
 ### Pending Todos
 
@@ -184,6 +180,6 @@ Phase 06 complete (cost calculation backend + frontend). Next: Phase 07 (Expense
 
 ## Session Continuity
 
-Last session: 2026-03-06
-Stopped at: Completed 06-02-PLAN.md (Frontend Cost Display) -- checkpoint approved
-Resume file: .planning/phases/06-cost-calculation/06-02-SUMMARY.md
+Last session: 2026-03-30T15:55:49.837Z
+Stopped at: Completed 12.1-01-PLAN.md (Backend Permission System)
+Resume file: None
