@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: MVP
-status: completed
+milestone: v1.1
+milestone_name: Tiendanube & Investor Dashboard
+status: executing
 stopped_at: Phase 12.1 context gathered
-last_updated: "2026-03-29T19:02:39.684Z"
-last_activity: 2026-03-29
+last_updated: "2026-03-30T15:43:30.687Z"
+last_activity: 2026-03-30 -- Phase 12.1 execution started
 progress:
   total_phases: 16
   completed_phases: 12
-  total_plans: 33
+  total_plans: 37
   completed_plans: 33
 ---
 
@@ -20,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 12 — scenarios
+**Current focus:** Phase 12.1 — dynamic-roles-with-configurable-permissions
 
 ## Current Position
 
-Phase: 12
-Plan: 3 of 3 complete
-Status: Phase 12 complete. Scenarios backend + frontend + gap closure done.
-Last activity: 2026-03-29
+Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
+Plan: 1 of 4
+Status: Executing Phase 12.1
+Last activity: 2026-03-30 -- Phase 12.1 execution started
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
