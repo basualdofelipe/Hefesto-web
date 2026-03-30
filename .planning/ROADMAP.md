@@ -276,7 +276,7 @@ Plans:
 
 Plans:
 - [x] 12.1-01-PLAN.md — Backend foundation: Role entity + 11 boolean flags, RolesModule CRUD, breaking migration, PermissionsGuard + @RequirePermission decorator, JWT with embedded permissions, User entity ManyToOne Role
-- [ ] 12.1-02-PLAN.md — Backend controller migration: Replace all 40 @Roles() with @RequirePermission(), fix scenarios admin bypass, delete old auth files
+- [x] 12.1-02-PLAN.md — Backend controller migration: Replace all 40 @Roles() with @RequirePermission(), fix scenarios admin bypass, delete old auth files
 - [x] 12.1-03-PLAN.md — Frontend permission system: Permissions type, usePermissions() hook, NextAuth session extension, middleware ROUTE_PERMISSIONS map, replace isAdmin in all 16 files + sidebar
 - [ ] 12.1-04-PLAN.md — Roles management UI: /roles page with table + create/edit/delete dialogs, /usuarios page with dynamic role selection, visual verification
 

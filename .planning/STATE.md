@@ -68,6 +68,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12 P01 | 8min | 3 tasks | 12 files |
 | Phase 12 P02 | 5min | 3 tasks | 12 files |
 | Phase 12 P03 | 3min | 2 tasks | 5 files |
+| Phase 12.1 P02 | 10min | 2 tasks | 12 files |
 | Phase 12.1 P03 | 9min | 2 tasks | 29 files |
 
 ## Accumulated Context
@@ -139,6 +140,8 @@ Recent decisions affecting current work:
 - [Phase 12]: handleSaveAndCalculate uses Promise.all for parallel PUT overrides + PUT config, then sequential GET calculate
 - [Phase 12]: Escenarios visible to all users (admin + investor), not added to ADMIN_ONLY_ROUTES
 - [Phase 12 gap closure]: Admin delete bypasses owner filter via role param in remove(), canDelete prop separates delete visibility from ownership in ScenarioCard
+- [Phase 12.1]: TiendanubeConfig GET endpoints have NO @RequirePermission -- accessible to any authenticated user for calculator-only users
+- [Phase 12.1]: GET endpoints protected with can_view_* permissions for defense-in-depth (not just mutations)
 - [Phase 12.1]: Frontend Permissions type mirrors backend Role entity (11 boolean flags)
 - [Phase 12.1]: Stale JWT detection: if token has role (string) but no permissions, clears backendToken to force re-auth
 - [Phase 12.1]: ROUTE_PERMISSIONS map replaces ADMIN_ONLY_ROUTES for per-route permission checks (10 routes)
