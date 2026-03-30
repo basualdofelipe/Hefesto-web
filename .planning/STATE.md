@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
-Plan: 1 of 4
-Status: Executing Phase 12.1
-Last activity: 2026-03-30 -- Phase 12.1 execution started
+Plan: 3 of 4
+Status: Executing Phase 12.1 (Plan 03 complete)
+Last activity: 2026-03-30 -- Plan 03 frontend permission system complete
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -68,6 +68,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12 P01 | 8min | 3 tasks | 12 files |
 | Phase 12 P02 | 5min | 3 tasks | 12 files |
 | Phase 12 P03 | 3min | 2 tasks | 5 files |
+| Phase 12.1 P03 | 9min | 2 tasks | 29 files |
 
 ## Accumulated Context
 
@@ -138,6 +139,12 @@ Recent decisions affecting current work:
 - [Phase 12]: handleSaveAndCalculate uses Promise.all for parallel PUT overrides + PUT config, then sequential GET calculate
 - [Phase 12]: Escenarios visible to all users (admin + investor), not added to ADMIN_ONLY_ROUTES
 - [Phase 12 gap closure]: Admin delete bypasses owner filter via role param in remove(), canDelete prop separates delete visibility from ownership in ScenarioCard
+- [Phase 12.1]: Frontend Permissions type mirrors backend Role entity (11 boolean flags)
+- [Phase 12.1]: Stale JWT detection: if token has role (string) but no permissions, clears backendToken to force re-auth
+- [Phase 12.1]: ROUTE_PERMISSIONS map replaces ADMIN_ONLY_ROUTES for per-route permission checks (10 routes)
+- [Phase 12.1]: canEdit prop pattern replaces isAdmin across all 14 client components
+- [Phase 12.1]: AppSidebar groups conditionally rendered based on specific permission flags
+- [Phase 12.1]: UsersClient interim fix: role typed as string | object union with typeof guard (Plan 04 replaces fully)
 
 ### Pending Todos
 
@@ -165,6 +172,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-03-29T19:02:39.672Z
-Stopped at: Phase 12.1 context gathered
-Resume file: .planning/phases/12.1-dynamic-roles-with-configurable-permissions/12.1-CONTEXT.md
+Last session: 2026-03-30T16:06:00Z
+Stopped at: Completed 12.1-03-PLAN.md (frontend permission system)
+Resume file: .planning/phases/12.1-dynamic-roles-with-configurable-permissions/12.1-03-SUMMARY.md
