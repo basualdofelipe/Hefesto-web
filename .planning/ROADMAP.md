@@ -252,13 +252,22 @@ Plans:
 
 ### Phase 12.2: UI polish and product page UX (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
-**Depends on:** Phase 12
-**Plans:** 0 plans
+**Goal:** Fix visual and UX issues from UI audit (18/24 score): product cascade collapse defaults, home page quick-link cards, logo PNG in sidebar/login, typography 2-weight system, size ordering, table column alignment
+**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10, D-11
+**Depends on:** Phase 12.1
+**Success Criteria** (what must be TRUE):
+  1. Products page loads with Type groups expanded but Name and Finish groups collapsed by default
+  2. Home page shows permission-aware quick-link cards (Productos, Calculadora, Insumos, Gastos) filtered by user role
+  3. Sidebar shows NEMEA logo PNG when expanded, isotipo lion PNG when collapsed; login page shows isotipo image
+  4. Application code uses only font-semibold (600) and font-normal (400) — zero font-medium or font-bold in app files
+  5. Sizes are ordered by sort_order column (Unico, Chico, Mediano, Grande) not alphabetically
+  6. Numeric/currency columns in product and supply tables are right-aligned
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 12.2 to break down)
+- [ ] 12.2-01-PLAN.md — Backend: sort_order migration for product_sizes, entity update, service query override
+- [ ] 12.2-02-PLAN.md — Frontend UX: home page cards, logo PNG sidebar/login, cascade collapse defaults, table alignment, toast fix
+- [ ] 12.2-03-PLAN.md — Typography audit: replace all font-medium/font-bold with font-semibold/font-normal across 23 app files
 
 ### Phase 12.1: Dynamic roles with configurable permissions (INSERTED)
 
@@ -311,4 +320,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
 | 12. Scenarios | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 12.1. Dynamic Roles | v1.1 | 4/4 | Complete    | 2026-04-10 |
+| 12.2. UI Polish | v1.1 | 0/3 | Planned | - |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
