@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Completed 12.1-01-PLAN.md
-last_updated: "2026-04-10T01:31:18.400Z"
+stopped_at: Completed 12.1-02-PLAN.md
+last_updated: "2026-04-10T01:39:40.538Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 16
   completed_phases: 12
   total_plans: 37
-  completed_plans: 34
-  percent: 92
+  completed_plans: 35
+  percent: 95
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-10
 
@@ -70,6 +70,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12 P02 | 5min | 3 tasks | 12 files |
 | Phase 12 P03 | 3min | 2 tasks | 5 files |
 | Phase 12.1 P01 | 35 | 2 tasks | 27 files |
+| Phase 12.1 P02 | 25min | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -144,6 +145,9 @@ Recent decisions affecting current work:
 - [Phase 12.1]: Backend re-reads permissions from DB on every request via eager-loaded role (JWT carries permissions only for frontend)
 - [Phase 12.1]: UsersModule uses TypeOrmModule.forFeature([User, Role]) directly to avoid circular dep with RolesModule
 - [Phase 12.1]: RolesGuard retained with backward-compat logic (canManageUsers=ADMIN) until Plan 02 migrates all controllers
+- [Phase 12.1]: TiendanubeConfig GET endpoints left permission-free so calculator-only users can access TN config data without can_view_products
+- [Phase 12.1]: ScenariosService.remove uses permissions.canManageUsers as admin bypass — semantic alignment with user management = admin-level access
+- [Phase 12.1]: All GET endpoints require view permissions (defense in depth) — no unguarded data reads even with valid JWT
 
 ### Pending Todos
 
@@ -171,6 +175,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-04-10T01:31:18.394Z
-Stopped at: Completed 12.1-01-PLAN.md
+Last session: 2026-04-10T01:39:40.532Z
+Stopped at: Completed 12.1-02-PLAN.md
 Resume file: None
