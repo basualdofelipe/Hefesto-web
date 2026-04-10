@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: verifying
-stopped_at: "Completed 12.1-04-PLAN.md tasks 1-2; awaiting checkpoint:human-verify for Task 3"
-last_updated: "2026-04-10T01:58:22.272Z"
+stopped_at: Completed 12.1-04-PLAN.md — Phase 12.1 complete, all 4 plans done, checkpoint approved
+last_updated: "2026-04-10T02:31:38.922Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 16
@@ -73,6 +73,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.1 P02 | 25min | 2 tasks | 13 files |
 | Phase 12.1 P03 | 40min | 2 tasks | 29 files |
 | Phase 12.1 P04 | 18min | 2 tasks | 5 files |
+| Phase 12.1 P04 | 18min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -155,6 +156,8 @@ Recent decisions affecting current work:
 - [Phase 12.1]: UsersClient interim role union type (object|string) with typeof guard — Plan 04 replaces with full RoleOption type
 - [Phase 12.1]: z.boolean() without .default() used in roleSchema — avoids optional inference that breaks zodResolver type compatibility
 - [Phase 12.1]: Shared RoleRow and RoleOption types in nemea-front/src/types/role.ts — eliminates Plan 03 interim union type and prevents duplication between /roles and /usuarios pages
+- [Phase 12.1]: z.boolean() without .default() in roleSchema — avoids optional inference that breaks zodResolver type compatibility
+- [Phase 12.1]: Circular import between Role and User entities fixed via import type + TypeORM string-form entity reference in @OneToMany decorator
 
 ### Pending Todos
 
@@ -182,6 +185,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-04-10T01:58:22.267Z
-Stopped at: Completed 12.1-04-PLAN.md tasks 1-2; awaiting checkpoint:human-verify for Task 3
+Last session: 2026-04-10T02:31:38.916Z
+Stopped at: Completed 12.1-04-PLAN.md — Phase 12.1 complete, all 4 plans done, checkpoint approved
 Resume file: None
