@@ -4,7 +4,7 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: verifying
 stopped_at: Completed 12.1-04-PLAN.md — Phase 12.1 complete, all 4 plans done, checkpoint approved
-last_updated: "2026-04-10T02:31:38.922Z"
+last_updated: "2026-04-10T13:58:41.135Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 16
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
-Plan: 4 of 4
+Phase: 12.2
+Plan: Not started
 Status: Phase complete — ready for verification
 Last activity: 2026-04-10
 
@@ -37,7 +37,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 
 **Velocity (from v1.0):**
 
-- Total plans completed: 21
+- Total plans completed: 25
 - Average duration: 6.4min
 - Total execution time: ~2.2 hours
 
@@ -52,6 +52,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | 5 - Products & BOM | 4 | 31min | 7.8min |
 | 6 - Cost Calculation | 2 | 11min | 5.5min |
 | 7 - Expenses | 2 | ~8min | ~4min |
+| 12.1 | 4 | - | - |
 
 **v1.1 Metrics:**
 
