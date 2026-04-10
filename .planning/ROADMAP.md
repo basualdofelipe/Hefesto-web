@@ -262,10 +262,10 @@ Plans:
   4. Application code uses only font-semibold (600) and font-normal (400) — zero font-medium or font-bold in app files
   5. Sizes are ordered by sort_order column (Unico, Chico, Mediano, Grande) not alphabetically
   6. Numeric/currency columns in product and supply tables are right-aligned
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] 12.2-01-PLAN.md — Backend: sort_order migration for product_sizes, entity update, service query override
+- [x] 12.2-01-PLAN.md — Backend: sort_order migration for product_sizes, entity update, service query override
 - [ ] 12.2-02-PLAN.md — Frontend UX: home page cards, logo PNG sidebar/login, cascade collapse defaults, table alignment, toast fix
 - [ ] 12.2-03-PLAN.md — Typography audit: replace all font-medium/font-bold with font-semibold/font-normal across 23 app files
 
@@ -320,5 +320,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
 | 12. Scenarios | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 12.1. Dynamic Roles | v1.1 | 4/4 | Complete    | 2026-04-10 |
-| 12.2. UI Polish | v1.1 | 0/3 | Planned | - |
+| 12.2. UI Polish | v1.1 | 1/3 | In Progress|  |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |

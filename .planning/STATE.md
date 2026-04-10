@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Phase 12.2 context gathered
-last_updated: "2026-04-10T15:51:26.321Z"
-last_activity: 2026-04-10 -- Phase 12.2 planning complete
+stopped_at: Completed 12.2-01-PLAN.md
+last_updated: "2026-04-10T16:33:00.833Z"
+last_activity: 2026-04-10
 progress:
   total_phases: 16
   completed_phases: 13
   total_plans: 40
-  completed_plans: 37
-  percent: 93
+  completed_plans: 38
+  percent: 95
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 12.1 — dynamic-roles-with-configurable-permissions
+**Current focus:** Phase 12.2 — ui-polish-and-product-page-ux
 
 ## Current Position
 
-Phase: 12.2
-Plan: Not started
+Phase: 12.2 (ui-polish-and-product-page-ux) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-04-10 -- Phase 12.2 planning complete
+Last activity: 2026-04-10
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -75,6 +75,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.1 P03 | 40min | 2 tasks | 29 files |
 | Phase 12.1 P04 | 18min | 2 tasks | 5 files |
 | Phase 12.1 P04 | 18min | 3 tasks | 6 files |
+| Phase 12.2 P01 | 12min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -159,6 +160,8 @@ Recent decisions affecting current work:
 - [Phase 12.1]: Shared RoleRow and RoleOption types in nemea-front/src/types/role.ts — eliminates Plan 03 interim union type and prevents duplication between /roles and /usuarios pages
 - [Phase 12.1]: z.boolean() without .default() in roleSchema — avoids optional inference that breaks zodResolver type compatibility
 - [Phase 12.1]: Circular import between Role and User entities fixed via import type + TypeORM string-form entity reference in @OneToMany decorator
+- [Phase 12.2]: D-09: sort_order is SMALLINT on product_sizes table, database-driven ordering not frontend sorting
+- [Phase 12.2]: Used productSizeRepo directly in CatalogsService special case to avoid any cast (ESLint/CLAUDE.md compliance)
 
 ### Pending Todos
 
@@ -186,6 +189,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-04-10T15:21:19.655Z
-Stopped at: Phase 12.2 context gathered
-Resume file: .planning/phases/12.2-ui-polish-and-product-page-ux/12.2-CONTEXT.md
+Last session: 2026-04-10T16:33:00.827Z
+Stopped at: Completed 12.2-01-PLAN.md
+Resume file: None
