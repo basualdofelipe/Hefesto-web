@@ -320,5 +320,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
 | 12. Scenarios | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 12.1. Dynamic Roles | v1.1 | 4/4 | Complete    | 2026-04-10 |
-| 12.2. UI Polish | v1.1 | 3/3 | Complete   | 2026-04-10 |
+| 12.2. UI Polish | v1.1 | 3/3 | Complete    | 2026-04-10 |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
