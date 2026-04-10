@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
-status: executing
-stopped_at: Completed 12.2-02-PLAN.md
-last_updated: "2026-04-10T16:39:37.772Z"
+status: verifying
+stopped_at: Completed 12.2-03-PLAN.md
+last_updated: "2026-04-10T18:11:09.218Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 16
-  completed_phases: 13
+  completed_phases: 14
   total_plans: 40
-  completed_plans: 39
-  percent: 98
+  completed_plans: 40
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 Phase: 12.2 (ui-polish-and-product-page-ux) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-10
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
@@ -77,6 +77,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.1 P04 | 18min | 3 tasks | 6 files |
 | Phase 12.2 P01 | 12min | 2 tasks | 3 files |
 | Phase 12.2 P02 | 4 | 2 tasks | 8 files |
+| Phase 12.2 P03 | 4min | 1 tasks | 23 files |
 
 ## Accumulated Context
 
@@ -165,6 +166,7 @@ Recent decisions affecting current work:
 - [Phase 12.2]: Used productSizeRepo directly in CatalogsService special case to avoid any cast (ESLint/CLAUDE.md compliance)
 - [Phase 12.2]: D-04 (RSC) takes precedence over D-03 hook detail: home page uses await auth() instead of usePermissions() — RSC cannot use React hooks
 - [Phase 12.2]: D-01: only Name and Finish collapse default changed to false — TypeGroup stays true (deliberately)
+- [Phase 12.2]: D-08 applied: font-medium (500) → font-semibold (600) for all emphasis contexts; font-bold (700) → font-semibold (600) for stat numbers — 2-weight system fully implemented
 
 ### Pending Todos
 
@@ -192,6 +194,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-04-10T16:39:37.765Z
-Stopped at: Completed 12.2-02-PLAN.md
+Last session: 2026-04-10T18:11:09.212Z
+Stopped at: Completed 12.2-03-PLAN.md
 Resume file: None
