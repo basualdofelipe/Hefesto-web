@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
-status: executing
-stopped_at: Completed 12.1-03-PLAN.md
-last_updated: "2026-04-10T01:50:57.010Z"
+status: verifying
+stopped_at: "Completed 12.1-04-PLAN.md tasks 1-2; awaiting checkpoint:human-verify for Task 3"
+last_updated: "2026-04-10T01:58:22.272Z"
 last_activity: 2026-04-10
 progress:
   total_phases: 16
-  completed_phases: 12
+  completed_phases: 13
   total_plans: 37
-  completed_plans: 36
-  percent: 97
+  completed_plans: 37
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-10
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
@@ -72,6 +72,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.1 P01 | 35 | 2 tasks | 27 files |
 | Phase 12.1 P02 | 25min | 2 tasks | 13 files |
 | Phase 12.1 P03 | 40min | 2 tasks | 29 files |
+| Phase 12.1 P04 | 18min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -152,6 +153,8 @@ Recent decisions affecting current work:
 - [Phase 12.1]: Stale JWT detection via key deletion (token.role exists + token.permissions absent) clears backendToken to force re-auth without rotating NEXTAUTH_SECRET
 - [Phase 12.1]: AppSidebar renders nav groups conditionally per permission — each group only shown when user has relevant flag
 - [Phase 12.1]: UsersClient interim role union type (object|string) with typeof guard — Plan 04 replaces with full RoleOption type
+- [Phase 12.1]: z.boolean() without .default() used in roleSchema — avoids optional inference that breaks zodResolver type compatibility
+- [Phase 12.1]: Shared RoleRow and RoleOption types in nemea-front/src/types/role.ts — eliminates Plan 03 interim union type and prevents duplication between /roles and /usuarios pages
 
 ### Pending Todos
 
@@ -179,6 +182,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-04-10T01:50:57.004Z
-Stopped at: Completed 12.1-03-PLAN.md
+Last session: 2026-04-10T01:58:22.267Z
+Stopped at: Completed 12.1-04-PLAN.md tasks 1-2; awaiting checkpoint:human-verify for Task 3
 Resume file: None
