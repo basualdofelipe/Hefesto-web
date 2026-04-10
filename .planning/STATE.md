@@ -1,16 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: MVP
-status: completed
-stopped_at: Phase 12.1 context gathered
-last_updated: "2026-03-29T19:02:39.684Z"
-last_activity: 2026-03-29
+milestone: v1.1
+milestone_name: Tiendanube & Investor Dashboard
+status: executing
+stopped_at: Completed 12.1-01-PLAN.md
+last_updated: "2026-04-10T01:31:18.400Z"
+last_activity: 2026-04-10
 progress:
   total_phases: 16
   completed_phases: 12
-  total_plans: 33
-  completed_plans: 33
+  total_plans: 37
+  completed_plans: 34
+  percent: 92
 ---
 
 # Project State
@@ -20,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 12 — scenarios
+**Current focus:** Phase 12.1 — dynamic-roles-with-configurable-permissions
 
 ## Current Position
 
-Phase: 12
-Plan: 3 of 3 complete
-Status: Phase 12 complete. Scenarios backend + frontend + gap closure done.
-Last activity: 2026-03-29
+Phase: 12.1 (dynamic-roles-with-configurable-permissions) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-04-10
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -68,6 +69,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12 P01 | 8min | 3 tasks | 12 files |
 | Phase 12 P02 | 5min | 3 tasks | 12 files |
 | Phase 12 P03 | 3min | 2 tasks | 5 files |
+| Phase 12.1 P01 | 35 | 2 tasks | 27 files |
 
 ## Accumulated Context
 
@@ -138,6 +140,10 @@ Recent decisions affecting current work:
 - [Phase 12]: handleSaveAndCalculate uses Promise.all for parallel PUT overrides + PUT config, then sequential GET calculate
 - [Phase 12]: Escenarios visible to all users (admin + investor), not added to ADMIN_ONLY_ROUTES
 - [Phase 12 gap closure]: Admin delete bypasses owner filter via role param in remove(), canDelete prop separates delete visibility from ownership in ScenarioCard
+- [Phase 12.1]: Permission flags as booleans on Role entity (11 flags), not a separate permissions table
+- [Phase 12.1]: Backend re-reads permissions from DB on every request via eager-loaded role (JWT carries permissions only for frontend)
+- [Phase 12.1]: UsersModule uses TypeOrmModule.forFeature([User, Role]) directly to avoid circular dep with RolesModule
+- [Phase 12.1]: RolesGuard retained with backward-compat logic (canManageUsers=ADMIN) until Plan 02 migrates all controllers
 
 ### Pending Todos
 
@@ -165,6 +171,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-03-29T19:02:39.672Z
-Stopped at: Phase 12.1 context gathered
-Resume file: .planning/phases/12.1-dynamic-roles-with-configurable-permissions/12.1-CONTEXT.md
+Last session: 2026-04-10T01:31:18.394Z
+Stopped at: Completed 12.1-01-PLAN.md
+Resume file: None

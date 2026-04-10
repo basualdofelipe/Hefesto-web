@@ -272,10 +272,10 @@ Plans:
   4. Frontend usePermissions() hook returns all 11 flags from session, middleware enforces per-route permissions
   5. Admin can create, edit, and delete custom roles via /roles page with permission toggles
   6. Users page uses dynamic role selection from API instead of hardcoded admin/user dropdown
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 Plans:
-- [ ] 12.1-01-PLAN.md — Backend foundation: Role entity + 11 boolean flags, RolesModule CRUD, breaking migration, PermissionsGuard + @RequirePermission decorator, JWT with embedded permissions, User entity ManyToOne Role
+- [x] 12.1-01-PLAN.md — Backend foundation: Role entity + 11 boolean flags, RolesModule CRUD, breaking migration, PermissionsGuard + @RequirePermission decorator, JWT with embedded permissions, User entity ManyToOne Role
 - [ ] 12.1-02-PLAN.md — Backend controller migration: Replace all 40 @Roles() with @RequirePermission(), fix scenarios admin bypass, delete old auth files
 - [ ] 12.1-03-PLAN.md — Frontend permission system: Permissions type, usePermissions() hook, NextAuth session extension, middleware ROUTE_PERMISSIONS map, replace isAdmin in all 16 files + sidebar
 - [ ] 12.1-04-PLAN.md — Roles management UI: /roles page with table + create/edit/delete dialogs, /usuarios page with dynamic role selection, visual verification
@@ -310,5 +310,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 10. Tiendanube Config | v1.1 | 2/3 | UAT gap closure | - |
 | 11. Calculadora | v1.1 | 2/3 | UAT gap closure | - |
 | 12. Scenarios | v1.1 | 3/3 | Complete | 2026-03-29 |
-| 12.1. Dynamic Roles | v1.1 | 0/4 | Planned | - |
+| 12.1. Dynamic Roles | v1.1 | 1/4 | In Progress|  |
 | 13. Investor Dashboard | v1.1 | 0/? | Not started | - |
