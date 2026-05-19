@@ -169,6 +169,10 @@ Recent decisions affecting current work:
 - [Phase 12.2]: D-01: only Name and Finish collapse default changed to false — TypeGroup stays true (deliberately)
 - [Phase 12.2]: D-08 applied: font-medium (500) → font-semibold (600) for all emphasis contexts; font-bold (700) → font-semibold (600) for stat numbers — 2-weight system fully implemented
 
+### Roadmap Evolution
+
+- Phase 12.4 inserted after Phase 12: User management — edit user role, delete user, admin self-lockout guard (URGENT) — surfaced by 12.1 UAT: custom roles undeleteable once assigned because /usuarios lacks edit-role and delete-user flows. Closes pending todos `edit-user-role.md` and `delete-user.md`.
+
 ### Pending Todos
 
 10 todos pending. See `.planning/todos/pending/`.

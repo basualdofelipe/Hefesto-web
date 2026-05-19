@@ -240,6 +240,16 @@ Plans:
 - [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 - [x] 12-03-PLAN.md -- Gap closure: fix inactive products not shown in editor, admin delete for public scenarios from other users
 
+### Phase 12.4: User management — edit user role, delete user, admin self-lockout guard (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 12.4 to break down)
+
 ### Phase 12.3: Scenarios v2 — cost overrides and product grouping (INSERTED)
 
 **Goal:** [Urgent work - to be planned]
