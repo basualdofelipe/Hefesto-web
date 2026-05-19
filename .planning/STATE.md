@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
-last_updated: "2026-05-19T16:15:18.886Z"
+stopped_at: Phase 12.4 plan 04 complete — DeleteUserAlertDialog component + tests
+last_updated: "2026-05-19T16:22:59.084Z"
 last_activity: 2026-05-19
 progress:
   total_phases: 17
   completed_phases: 14
   total_plans: 47
-  completed_plans: 43
+  completed_plans: 44
   percent: 82
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
-Plan: 4 of 7
+Plan: 5 of 7
 Status: Ready to execute
 Last activity: 2026-05-19
 
@@ -82,6 +82,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.4 P01 | 2.5min | 2 tasks | 2 files |
 | Phase 12.4 P02 | 4min | 2 tasks | 2 files |
 | Phase 12.4 P03 | 18min | 2 tasks | 3 files |
+| Phase 12.4 P04 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -179,6 +180,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P03]: jest.setup.ts polyfills ResizeObserver / scrollIntoView / setPointerCapture — required by Radix primitives under jsdom. Environment shims, not behavior mocks. Reusable by all future Radix-based component tests.
 - [Phase ?]: [Phase 12.4 P03]: Use fireEvent.click on submit button (not userEvent.click) in Radix Dialog tests — Radix sets body pointer-events:none on open which user-event respects even with pointerEventsCheck:Never.
 - [Phase ?]: [Phase 12.4 P03]: Mock UUIDs in tests MUST be valid v4 — zod .uuid() rejects literals like 'role-uuid'. Use VICTIM_ID/EDITOR_ROLE_ID/ADMIN_ROLE_ID constants at top of test files.
+- [Phase ?]: [Phase 12.4 P04]: DeleteUserAlertDialog uses className override (not variant=destructive) on AlertDialogAction — matches RolesClient/ScenarioListClient project convention
+- [Phase ?]: [Phase 12.4 P04]: AlertDialog stays open on backend error (parent controls close via onOpenChange) — gives user retry-or-cancel choice with Spanish backend message visible
 
 ### Roadmap Evolution
 
@@ -210,6 +213,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-19T16:14:35.139Z
-Stopped at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
+Last session: 2026-05-19T16:22:49.589Z
+Stopped at: Phase 12.4 plan 04 complete — DeleteUserAlertDialog component + tests
 Resume file: None
