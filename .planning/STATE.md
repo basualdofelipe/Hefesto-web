@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
 stopped_at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
-last_updated: "2026-05-19T15:52:22.808Z"
+last_updated: "2026-05-19T16:15:18.886Z"
 last_activity: 2026-05-19
 progress:
   total_phases: 17
   completed_phases: 14
   total_plans: 47
-  completed_plans: 42
+  completed_plans: 43
   percent: 82
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
-Plan: 3 of 7
+Plan: 4 of 7
 Status: Ready to execute
 Last activity: 2026-05-19
 
@@ -81,6 +81,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.2 P03 | 4min | 1 tasks | 23 files |
 | Phase 12.4 P01 | 2.5min | 2 tasks | 2 files |
 | Phase 12.4 P02 | 4min | 2 tasks | 2 files |
+| Phase 12.4 P03 | 18min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -174,6 +175,10 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P01]: @HttpCode(204) explicit on DELETE — NestJS defaults to 200 with no body; required for REQ-12.4-3 contract.
 - [Phase ?]: [Phase 12.4 P02]: Arrow function () => raw SQL is the only TypeORM-supported way to mix raw SQL with parametrization (issue #1580). user: { id } object-form coexists with arrow-function name in .set() — no fallback needed.
 - [Phase ?]: [Phase 12.4 P02]: transferOwnership specs assert QueryBuilder chain shape but NOT the literal SQL string — implementation detail. Local beforeEach restores mockReturnThis() after outer jest.clearAllMocks() to preserve chain semantics.
+- [Phase ?]: [Phase 12.4 P03]: EditUserDialog uses RHF values API (not defaultValues + useEffect/reset) — canonical pattern for prop-driven prefill, also fixes the re-open-with-different-user case where the original pattern desynced watch() from Radix Select state.
+- [Phase ?]: [Phase 12.4 P03]: jest.setup.ts polyfills ResizeObserver / scrollIntoView / setPointerCapture — required by Radix primitives under jsdom. Environment shims, not behavior mocks. Reusable by all future Radix-based component tests.
+- [Phase ?]: [Phase 12.4 P03]: Use fireEvent.click on submit button (not userEvent.click) in Radix Dialog tests — Radix sets body pointer-events:none on open which user-event respects even with pointerEventsCheck:Never.
+- [Phase ?]: [Phase 12.4 P03]: Mock UUIDs in tests MUST be valid v4 — zod .uuid() rejects literals like 'role-uuid'. Use VICTIM_ID/EDITOR_ROLE_ID/ADMIN_ROLE_ID constants at top of test files.
 
 ### Roadmap Evolution
 
@@ -205,6 +210,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-19T15:52:22.791Z
+Last session: 2026-05-19T16:14:35.139Z
 Stopped at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
 Resume file: None

@@ -253,12 +253,12 @@ Plans:
   5. Three self-lockout guards return BadRequestException 400 with Spanish messages: 'No puedes cambiar tu propio rol' / 'No puedes borrarte a vos mismo' / 'No se puede dejar el sistema sin administradores activos'
   6. Scenario rename uses parameter binding (no SQL injection) and truncates to varchar(200) via LEFT()
   7. First interactive FE test suite in the repo (EditUserDialog + DeleteUserAlertDialog) green
-**Plans:** 2/7 plans executed
+**Plans:** 3/7 plans executed
 
 Plans:
 - [x] 12.4-01-PLAN.md — Backend foundation: UpdateUserDto + UsersController PATCH/DELETE endpoints, remove toggle-status
 - [x] 12.4-02-PLAN.md — ScenariosService.transferOwnership cross-module method + spec
-- [ ] 12.4-03-PLAN.md — EditUserDialog component + RTL test suite (first interactive FE test)
+- [x] 12.4-03-PLAN.md — EditUserDialog component + RTL test suite (first interactive FE test)
 - [ ] 12.4-04-PLAN.md — DeleteUserAlertDialog component + RTL test suite
 - [ ] 12.4-05-PLAN.md — UsersModule+UsersService refactor with 3 self-lockout guards + transaction + spec
 - [ ] 12.4-06-PLAN.md — UsersClient integration (Editar+Borrar buttons) + users.controller.spec refactor
