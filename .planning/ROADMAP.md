@@ -242,13 +242,27 @@ Plans:
 
 ### Phase 12.4: User management — edit user role, delete user, admin self-lockout guard (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
-**Depends on:** Phase 12
-**Plans:** 0 plans
+**Goal:** Admin can edit any user's name, role, and active status via a Dialog on /usuarios, and hard-delete a user (transferring their scenarios to the deleting admin with a name suffix marking provenance). Backend enforces three self-lockout guards: no editing own role, no deleting self, no leaving the system without active admins.
+**Requirements**: REQ-12.4-1, REQ-12.4-2, REQ-12.4-3, REQ-12.4-4, REQ-12.4-5, REQ-12.4-6, REQ-12.4-7
+**Depends on:** Phase 12.2
+**Success Criteria** (what must be TRUE):
+  1. Backend exposes PATCH /users/:id and DELETE /users/:id requiring can_manage_users
+  2. /usuarios page replaces toggle-status with Editar+Borrar buttons; own row shows '(tu cuenta)' instead of Borrar
+  3. EditUserDialog allows changing name+role+active; in own row Role+Switch are disabled with tooltip
+  4. DeleteUserAlertDialog confirms with rename-preview copy; on confirm transfers scenarios + hard-deletes user in atomic transaction
+  5. Three self-lockout guards return BadRequestException 400 with Spanish messages: 'No puedes cambiar tu propio rol' / 'No puedes borrarte a vos mismo' / 'No se puede dejar el sistema sin administradores activos'
+  6. Scenario rename uses parameter binding (no SQL injection) and truncates to varchar(200) via LEFT()
+  7. First interactive FE test suite in the repo (EditUserDialog + DeleteUserAlertDialog) green
+**Plans:** 7 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 12.4 to break down)
+- [ ] 12.4-01-PLAN.md — Backend foundation: UpdateUserDto + UsersController PATCH/DELETE endpoints, remove toggle-status
+- [ ] 12.4-02-PLAN.md — ScenariosService.transferOwnership cross-module method + spec
+- [ ] 12.4-03-PLAN.md — EditUserDialog component + RTL test suite (first interactive FE test)
+- [ ] 12.4-04-PLAN.md — DeleteUserAlertDialog component + RTL test suite
+- [ ] 12.4-05-PLAN.md — UsersModule+UsersService refactor with 3 self-lockout guards + transaction + spec
+- [ ] 12.4-06-PLAN.md — UsersClient integration (Editar+Borrar buttons) + users.controller.spec refactor
+- [ ] 12.4-07-PLAN.md — Verification gate: tsc+lint+jest both apps + manual smoke 2-admin scenario
 
 ### Phase 12.3: Scenarios v2 — cost overrides and product grouping (INSERTED)
 
