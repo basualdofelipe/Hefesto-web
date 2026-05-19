@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Phase 12.4 plans complete (7 plans, 3 waves) — ready for execute
-last_updated: "2026-05-19T15:45:20.682Z"
+stopped_at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
+last_updated: "2026-05-19T15:52:22.808Z"
 last_activity: 2026-05-19
 progress:
   total_phases: 17
   completed_phases: 14
   total_plans: 47
-  completed_plans: 41
+  completed_plans: 42
   percent: 82
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
-Plan: 2 of 7
+Plan: 3 of 7
 Status: Ready to execute
 Last activity: 2026-05-19
 
@@ -80,6 +80,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.2 P02 | 4 | 2 tasks | 8 files |
 | Phase 12.2 P03 | 4min | 1 tasks | 23 files |
 | Phase 12.4 P01 | 2.5min | 2 tasks | 2 files |
+| Phase 12.4 P02 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -171,6 +172,8 @@ Recent decisions affecting current work:
 - [Phase 12.2]: D-08 applied: font-medium (500) → font-semibold (600) for all emphasis contexts; font-bold (700) → font-semibold (600) for stat numbers — 2-weight system fully implemented
 - [Phase ?]: [Phase 12.4 P01]: Controller stays pure delegate — guards live in UsersService (D-04). UpdateUserDto declared as new class (not PartialType) to avoid inheriting email + @IsNotEmpty constraints from CreateUserDto.
 - [Phase ?]: [Phase 12.4 P01]: @HttpCode(204) explicit on DELETE — NestJS defaults to 200 with no body; required for REQ-12.4-3 contract.
+- [Phase ?]: [Phase 12.4 P02]: Arrow function () => raw SQL is the only TypeORM-supported way to mix raw SQL with parametrization (issue #1580). user: { id } object-form coexists with arrow-function name in .set() — no fallback needed.
+- [Phase ?]: [Phase 12.4 P02]: transferOwnership specs assert QueryBuilder chain shape but NOT the literal SQL string — implementation detail. Local beforeEach restores mockReturnThis() after outer jest.clearAllMocks() to preserve chain semantics.
 
 ### Roadmap Evolution
 
@@ -202,6 +205,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-19T15:45:01.816Z
-Stopped at: Phase 12.4 plans complete (7 plans, 3 waves) — ready for execute
+Last session: 2026-05-19T15:52:22.791Z
+Stopped at: Phase 12.4 plan 02 complete — ScenariosService.transferOwnership added
 Resume file: None
