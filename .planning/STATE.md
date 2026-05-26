@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: verifying
-stopped_at: Completed 12.5-01-PLAN.md
-last_updated: "2026-05-26T22:58:44.845Z"
+stopped_at: Completed 12.5-05-PLAN.md (code-complete; Task 3 smoke deferred per user decision)
+last_updated: "2026-05-26T23:02:10.972Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 18
@@ -233,9 +233,11 @@ Todos absorbed into Phase 8 plans:
 ### Known Issues
 
 - Auth ClientFetchError on frontend homepage: NextAuth session endpoint returns HTML instead of JSON. Pre-existing from v1.0.
+- [12.5-05 deferred] R2 demo-login smoke test pending — code is complete but manual round-trip (Task 3) was deferred per user decision. Requires live environment with Plan 06 seed + both DEMO_LOGIN_ENABLED flags set to true.
+- [12.5-05 open item] ~4 pre-existing tsc --noEmit type errors in nemea-front test files (page.test.tsx, ScenarioEditorClient.test.tsx) — not introduced by this plan, confirmed via stash round-trip. Build unaffected; needs cleanup pass to achieve fully green tsc.
 
 ## Session Continuity
 
-Last session: 2026-05-26T22:58:39.927Z
-Stopped at: Completed 12.5-01-PLAN.md
+Last session: 2026-05-26T23:10:00Z
+Stopped at: Completed 12.5-05-PLAN.md (code-complete; Task 3 smoke deferred per user decision)
 Resume file: None
