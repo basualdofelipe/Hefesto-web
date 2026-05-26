@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: "Phase 12.4 Plan 08 COMPLETE — 2 UAT blockers closed (FOR UPDATE+COUNT SQL bug + updated_at property name fix) + e2e regression suite. Unit: 121/121 pass. E2e: 3/3 pass against real Postgres."
-last_updated: "2026-05-26T07:41:37.355Z"
+stopped_at: Phase 12.5 context gathered
+last_updated: "2026-05-26T20:22:11.420Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 18
@@ -226,6 +226,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T06:11:44.079Z
-Stopped at: Phase 12.4 Plan 08 COMPLETE — 2 UAT blockers closed (FOR UPDATE+COUNT SQL bug + updated_at property name fix) + e2e regression suite. Unit: 121/121 pass. E2e: 3/3 pass against real Postgres.
-Resume file: .planning/phases/12.4-user-management-edit-user-role-delete-user-admin-self-lockou/12.4-08-SUMMARY.md
+Last session: 2026-05-26T20:22:11.406Z
+Stopped at: Phase 12.5 context gathered
+Resume file: .planning/phases/12.5-demo-login-and-code-readiness-for-portfolio/12.5-CONTEXT.md
