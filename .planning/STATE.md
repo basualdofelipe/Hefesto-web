@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
-status: verifying
-stopped_at: Completed 12.5-05-PLAN.md (code-complete; Task 3 smoke deferred per user decision)
-last_updated: "2026-05-26T23:02:10.972Z"
+status: ready_to_plan
+stopped_at: Phase 12.5 complete (6/6) — ready to discuss Phase 13
+last_updated: 2026-05-26T23:33:25.468Z
 last_activity: 2026-05-26
 progress:
   total_phases: 18
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 12.5 — demo-login-and-code-readiness-for-portfolio
+**Current focus:** Phase 13 — investor dashboard
 
 ## Current Position
 
-Phase: 12.5 (demo-login-and-code-readiness-for-portfolio) — EXECUTING
-Plan: 6 of 6
-Status: Phase complete — ready for verification
+Phase: 13
+Plan: Not started
+Status: Ready to plan
 Last activity: 2026-05-26
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
@@ -37,7 +37,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 
 **Velocity (from v1.0):**
 
-- Total plans completed: 28
+- Total plans completed: 34
 - Average duration: 6.4min
 - Total execution time: ~2.2 hours
 
@@ -54,6 +54,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | 7 - Expenses | 2 | ~8min | ~4min |
 | 12.1 | 4 | - | - |
 | 12.2 | 3 | - | - |
+| 12.5 | 6 | - | - |
 
 **v1.1 Metrics:**
 
