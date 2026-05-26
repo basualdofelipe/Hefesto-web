@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Phase 12.4 execute COMPLETE — pending /gsd:code-review and /gsd:verify-work (Task 3 manual smoke deferred to verify-work as registered gap G-1)
-last_updated: "2026-05-26T00:00:00.000Z"
+stopped_at: "Phase 12.4 Plan 08 COMPLETE — 2 UAT blockers closed (FOR UPDATE+COUNT SQL bug + updated_at property name fix) + e2e regression suite. Unit: 121/121 pass. E2e: 3/3 pass against real Postgres."
+last_updated: "2026-05-26T06:11:44.094Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 17
-  completed_phases: 14
-  total_plans: 47
-  completed_plans: 47
-  percent: 82
+  completed_phases: 15
+  total_plans: 48
+  completed_plans: 48
+  percent: 88
 ---
 
 # Project State
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTE STEP DONE
-Plan: 7 of 7 — COMPLETE (with G-1 gap registered for /gsd:verify-work)
-Status: Awaiting /gsd:code-review and /gsd:verify-work
+Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
+Plan: 2 of 8
+Status: Ready to execute
 Last activity: 2026-05-26
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
@@ -86,6 +86,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.4 P05 | 8min | 3 tasks | 3 files |
 | Phase 12.4 P06 | 4.25min | 2 tasks | 2 files |
 | Phase 12.4 P07 | ~3min | 3 tasks (1+2 PASS, 3 SKIP→G-1) | 1 file (SUMMARY only) |
+| Phase 12.4 P08 | 7min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -191,6 +192,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P05]: Fast-fail guards (self-delete + 404 + last-admin) BEFORE opening QueryRunner — avoids orphan transactions on rejection paths
 - [Phase ?]: [Phase 12.4 P06]: UsersClient integration complete — Editar+Borrar buttons per row, (tu cuenta) marker on own row (D-09), Editar always visible with internal disable via isOwnRow prop (D-08). Controller spec rewrite closes the final 5 tsc errors from Plan 01; backend tsc --noEmit fully clean.
 - [Phase ?]: [Phase 12.4 P07]: Phase verification gate PASS — backend triple-gate (tsc 0, lint 0, jest 107/107) + frontend triple-gate (tsc 0, lint 0, jest 10/10 on EditUserDialog + DeleteUserAlertDialog suites). Pre-existing NextAuth v5 ESM Jest parse fail on page.test.tsx is heritage from Phase 03/12.1, NOT a 12.4 regression (confirmed via git stash round-trip in Plan 03). Manual 8-AC smoke (Task 3) explicitly skipped per user decision (Windows + single Google account impracticable for 2-admin simultaneous login) and registered as Gap G-1 for /gsd:verify-work — full unit-test coverage map documented (AC3/AC4/AC7/AC8 + rollback covered by users.service.spec 24/24; AC1/AC2/AC5/AC6 require real-DB smoke).
+- [Phase ?]: [Phase 12.4 P08]: countOtherActiveAdmins — FOR UPDATE + COUNT is illegal in PostgreSQL; removed setLock. SERIALIZABLE isolation on the outer transaction already prevents concurrent race conditions without a row-lock on the aggregate.
+- [Phase ?]: [Phase 12.4 P08]: transferOwnership uses 'updatedAt' (entity property name) not 'updated_at' (DB column) in TypeORM QueryBuilder .set() — TypeORM resolves .set() keys by property name and throws EntityPropertyNotFoundError when given column name.
 
 ### Roadmap Evolution
 
@@ -222,6 +225,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T00:00:00.000Z
-Stopped at: Phase 12.4 execute COMPLETE — pending /gsd:code-review and /gsd:verify-work. Plan 07 closed administratively: Backend gate PASS (3/3) and Frontend gate PASS-with-caveat (3/3) results from 2026-05-19 session carried into 12.4-07-SUMMARY. Task 3 (manual 8-AC smoke) SKIPPED by explicit user decision (Windows + single Google account impracticable for 2-admin simultaneous setup) and registered as Gap G-1 for downstream /gsd:verify-work. Pre-existing NextAuth ESM Jest fail on page.test.tsx remains attributed to Phase 03/12.1 (not 12.4).
-Resume file: .planning/phases/12.4-user-management-edit-user-role-delete-user-admin-self-lockou/12.4-07-SUMMARY.md (G-1 gap context for verify-work)
+Last session: 2026-05-26T06:11:44.079Z
+Stopped at: Phase 12.4 Plan 08 COMPLETE — 2 UAT blockers closed (FOR UPDATE+COUNT SQL bug + updated_at property name fix) + e2e regression suite. Unit: 121/121 pass. E2e: 3/3 pass against real Postgres.
+Resume file: .planning/phases/12.4-user-management-edit-user-role-delete-user-admin-self-lockou/12.4-08-SUMMARY.md
