@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-stopped_at: Phase 12.5 context gathered
-last_updated: "2026-05-26T21:45:22.887Z"
-last_activity: 2026-05-26 -- Phase 12.5 planning complete
+stopped_at: Completed 12.5-01-PLAN.md
+last_updated: "2026-05-26T22:07:17.154Z"
+last_activity: 2026-05-26
 progress:
   total_phases: 18
   completed_phases: 15
   total_plans: 54
-  completed_plans: 48
+  completed_plans: 49
   percent: 83
 ---
 
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
-Plan: 2 of 8
+Phase: 12.5 (demo-login-and-code-readiness-for-portfolio) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-05-26 -- Phase 12.5 planning complete
+Last activity: 2026-05-26
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -87,6 +87,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.4 P06 | 4.25min | 2 tasks | 2 files |
 | Phase 12.4 P07 | ~3min | 3 tasks (1+2 PASS, 3 SKIP→G-1) | 1 file (SUMMARY only) |
 | Phase 12.4 P08 | 7min | 3 tasks | 5 files |
+| Phase 12.5 P01 | 4min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -194,6 +195,7 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P07]: Phase verification gate PASS — backend triple-gate (tsc 0, lint 0, jest 107/107) + frontend triple-gate (tsc 0, lint 0, jest 10/10 on EditUserDialog + DeleteUserAlertDialog suites). Pre-existing NextAuth v5 ESM Jest parse fail on page.test.tsx is heritage from Phase 03/12.1, NOT a 12.4 regression (confirmed via git stash round-trip in Plan 03). Manual 8-AC smoke (Task 3) explicitly skipped per user decision (Windows + single Google account impracticable for 2-admin simultaneous login) and registered as Gap G-1 for /gsd:verify-work — full unit-test coverage map documented (AC3/AC4/AC7/AC8 + rollback covered by users.service.spec 24/24; AC1/AC2/AC5/AC6 require real-DB smoke).
 - [Phase ?]: [Phase 12.4 P08]: countOtherActiveAdmins — FOR UPDATE + COUNT is illegal in PostgreSQL; removed setLock. SERIALIZABLE isolation on the outer transaction already prevents concurrent race conditions without a row-lock on the aggregate.
 - [Phase ?]: [Phase 12.4 P08]: transferOwnership uses 'updatedAt' (entity property name) not 'updated_at' (DB column) in TypeORM QueryBuilder .set() — TypeORM resolves .set() keys by property name and throws EntityPropertyNotFoundError when given column name.
+- [Phase ?]: Phase 12.5 P01: validateDemoLogin uses configService.get (not getOrThrow) — DEMO_LOGIN_ENABLED optional with default false; JWT payload identical to Google path with no provider field
 
 ### Roadmap Evolution
 
@@ -226,6 +228,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T20:22:11.406Z
-Stopped at: Phase 12.5 context gathered
-Resume file: .planning/phases/12.5-demo-login-and-code-readiness-for-portfolio/12.5-CONTEXT.md
+Last session: 2026-05-26T22:07:17.138Z
+Stopped at: Completed 12.5-01-PLAN.md
+Resume file: None
