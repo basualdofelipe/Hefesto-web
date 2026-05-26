@@ -240,6 +240,16 @@ Plans:
 - [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 - [x] 12-03-PLAN.md -- Gap closure: fix inactive products not shown in editor, admin delete for public scenarios from other users
 
+### Phase 12.5: Demo login and code-readiness for portfolio (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 12.5 to break down)
+
 ### Phase 12.4: User management — edit user role, delete user, admin self-lockout guard (INSERTED)
 
 **Goal:** Admin can edit any user's name, role, and active status via a Dialog on /usuarios, and hard-delete a user (transferring their scenarios to the deleting admin with a name suffix marking provenance). Backend enforces three self-lockout guards: no editing own role, no deleting self, no leaving the system without active admins.

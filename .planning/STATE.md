@@ -4,14 +4,14 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
 stopped_at: "Phase 12.4 Plan 08 COMPLETE — 2 UAT blockers closed (FOR UPDATE+COUNT SQL bug + updated_at property name fix) + e2e regression suite. Unit: 121/121 pass. E2e: 3/3 pass against real Postgres."
-last_updated: "2026-05-26T06:11:44.094Z"
+last_updated: "2026-05-26T07:41:37.355Z"
 last_activity: 2026-05-26
 progress:
-  total_phases: 17
+  total_phases: 18
   completed_phases: 15
   total_plans: 48
   completed_plans: 48
-  percent: 88
+  percent: 83
 ---
 
 # Project State
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 12.4 — user-management-edit-user-role-delete-user-admin-self-lockou
+**Current focus:** Phase 12.5 — demo-login-and-code-readiness-for-portfolio
 
 ## Current Position
 
@@ -198,6 +198,7 @@ Recent decisions affecting current work:
 ### Roadmap Evolution
 
 - Phase 12.4 inserted after Phase 12: User management — edit user role, delete user, admin self-lockout guard (URGENT) — surfaced by 12.1 UAT: custom roles undeleteable once assigned because /usuarios lacks edit-role and delete-user flows. Closes pending todos `edit-user-role.md` and `delete-user.md`.
+- Phase 12.5 inserted after Phase 12: Demo login and code-readiness for portfolio (URGENT)
 
 ### Pending Todos
 
