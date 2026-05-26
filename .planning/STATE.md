@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
 stopped_at: Completed 12.5-01-PLAN.md
-last_updated: "2026-05-26T22:07:17.154Z"
+last_updated: "2026-05-26T22:13:31.175Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 18
   completed_phases: 15
   total_plans: 54
-  completed_plans: 49
+  completed_plans: 50
   percent: 83
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.5 (demo-login-and-code-readiness-for-portfolio) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-05-26
 
@@ -88,6 +88,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.4 P07 | ~3min | 3 tasks (1+2 PASS, 3 SKIP→G-1) | 1 file (SUMMARY only) |
 | Phase 12.4 P08 | 7min | 3 tasks | 5 files |
 | Phase 12.5 P01 | 4min | 2 tasks | 5 files |
+| Phase 12.5 P02 | 4min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -196,6 +197,7 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P08]: countOtherActiveAdmins — FOR UPDATE + COUNT is illegal in PostgreSQL; removed setLock. SERIALIZABLE isolation on the outer transaction already prevents concurrent race conditions without a row-lock on the aggregate.
 - [Phase ?]: [Phase 12.4 P08]: transferOwnership uses 'updatedAt' (entity property name) not 'updated_at' (DB column) in TypeORM QueryBuilder .set() — TypeORM resolves .set() keys by property name and throws EntityPropertyNotFoundError when given column name.
 - [Phase ?]: Phase 12.5 P01: validateDemoLogin uses configService.get (not getOrThrow) — DEMO_LOGIN_ENABLED optional with default false; JWT payload identical to Google path with no provider field
+- [Phase ?]: [Phase 12.5 P02]: Unit specs use mocked repositories (D-06); EntityManager re-attached after clearAllMocks(); TiendanubeConfigService spec has no EntityManager provider
 
 ### Roadmap Evolution
 
@@ -228,6 +230,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T22:07:17.138Z
+Last session: 2026-05-26T22:13:14.898Z
 Stopped at: Completed 12.5-01-PLAN.md
 Resume file: None
