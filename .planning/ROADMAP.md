@@ -253,7 +253,7 @@ Plans:
   5. Three self-lockout guards return BadRequestException 400 with Spanish messages: 'No puedes cambiar tu propio rol' / 'No puedes borrarte a vos mismo' / 'No se puede dejar el sistema sin administradores activos'
   6. Scenario rename uses parameter binding (no SQL injection) and truncates to varchar(200) via LEFT()
   7. First interactive FE test suite in the repo (EditUserDialog + DeleteUserAlertDialog) green
-**Plans:** 7/7 plans executed (Plan 07 closes execute-step with G-1 gap registered for /gsd:verify-work)
+**Plans:** 8 plans (7 executed; Plan 08 = gap closure for UAT blockers, Tests 2/6/8)
 
 Plans:
 - [x] 12.4-01-PLAN.md — Backend foundation: UpdateUserDto + UsersController PATCH/DELETE endpoints, remove toggle-status
@@ -263,6 +263,7 @@ Plans:
 - [x] 12.4-05-PLAN.md — UsersModule+UsersService refactor with 3 self-lockout guards + transaction + spec
 - [x] 12.4-06-PLAN.md — UsersClient integration (Editar+Borrar buttons) + users.controller.spec refactor
 - [x] 12.4-07-PLAN.md — Verification gate: backend triple-gate PASS (tsc 0, lint 0, jest 107/107), frontend triple-gate PASS-with-caveat (tsc 0, lint 0, jest 10/10 12.4 surface; pre-existing NextAuth ESM fail attributed to Phase 03); manual 8-AC smoke deferred to /gsd:verify-work as Gap G-1
+- [ ] 12.4-08-PLAN.md — Gap closure: fix last-admin guard SQL crash (FOR UPDATE+aggregate) + transferOwnership entity-property bug (updated_at→updatedAt) + real-Postgres regression coverage
 
 ### Phase 12.3: Scenarios v2 — cost overrides and product grouping (INSERTED)
 
