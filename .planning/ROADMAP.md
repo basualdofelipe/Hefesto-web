@@ -245,12 +245,12 @@ Plans:
 **Goal:** The repo is clone-and-run for a reviewer without a whitelisted Google account (env-gated demo login alongside Google OAuth) and the codebase reaches a professional portfolio bar: 100%-green test suite in both repos with behavior coverage of the untested business logic, App Router error/loading boundaries, no internal process comments in source, and Tiendanube slug literals centralized in application code.
 **Requirements**: R1, R2, R3, R4, R5, R6, R7, R8, R9, R10 (locked in 12.5-SPEC.md)
 **Depends on:** Phase 12
-**Plans:** 2/6 plans executed
+**Plans:** 3/6 plans executed
 
 Plans:
 - [x] 12.5-01-PLAN.md — Backend demo-login endpoint + DTO + env flag + auth.service spec (R1)
 - [x] 12.5-02-PLAN.md — Backend service specs: products, supplies, tiendanube-config (R4, R7)
-- [ ] 12.5-03-PLAN.md — Frontend tests: CalculadoraClient, ScenarioEditorClient, home test replace (R5, R6, R7)
+- [x] 12.5-03-PLAN.md — Frontend tests: CalculadoraClient, ScenarioEditorClient, home test replace (R5, R6, R7)
 - [ ] 12.5-04-PLAN.md — error.tsx/loading.tsx boundaries + slug constants + process-comment cleanup (R8, R9, R10)
 - [ ] 12.5-05-PLAN.md — Frontend Credentials provider + "Entrar como demo" button (R2)
 - [ ] 12.5-06-PLAN.md — Demo-user seed migration (R3)
