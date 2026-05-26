@@ -39,6 +39,7 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 - [ ] Calculadora Tiendanube inverse (ganancia → precio)
 - [ ] Dashboard inversores: tabla resumen catálogo con márgenes
 - ✓ Simulador de escenarios guardables por usuario (override precios de venta) — v1.1 Phase 12
+- ✓ Demo login env-gated (clone-and-run para reviewers) + readiness portfolio: suites 100% verdes, error/loading boundaries, constantes centralizadas — v1.1 Phase 12.5
 
 ### Out of Scope
 
@@ -132,4 +133,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-26 after v1.1 milestone start*
+*Last updated: 2026-05-26 after Phase 12.5 (demo login + portfolio code-readiness)*
