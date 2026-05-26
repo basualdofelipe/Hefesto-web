@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
 stopped_at: Completed 12.5-01-PLAN.md
-last_updated: "2026-05-26T22:22:08.812Z"
+last_updated: "2026-05-26T22:38:57.787Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 18
   completed_phases: 15
   total_plans: 54
-  completed_plans: 51
+  completed_plans: 52
   percent: 83
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.5 (demo-login-and-code-readiness-for-portfolio) — EXECUTING
-Plan: 4 of 6
+Plan: 5 of 6
 Status: Ready to execute
 Last activity: 2026-05-26
 
@@ -90,6 +90,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.5 P01 | 4min | 2 tasks | 5 files |
 | Phase 12.5 P02 | 4min | 3 tasks | 3 files |
 | Phase 12.5 P03 | 18min | 3 tasks | 4 files |
+| Phase 12.5 P04 | 11 | 4 tasks | 15 files |
 
 ## Accumulated Context
 
@@ -199,6 +200,9 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.4 P08]: transferOwnership uses 'updatedAt' (entity property name) not 'updated_at' (DB column) in TypeORM QueryBuilder .set() — TypeORM resolves .set() keys by property name and throws EntityPropertyNotFoundError when given column name.
 - [Phase ?]: Phase 12.5 P01: validateDemoLogin uses configService.get (not getOrThrow) — DEMO_LOGIN_ENABLED optional with default false; JWT payload identical to Google path with no provider field
 - [Phase ?]: [Phase 12.5 P02]: Unit specs use mocked repositories (D-06); EntityManager re-attached after clearAllMocks(); TiendanubeConfigService spec has no EntityManager provider
+- [Phase ?]: [Phase 12.5 P04]: error.tsx uses 'use client' + error.digest only (not error.message/stack) — security (T-12.5-ER); loading.tsx is plain Server Component
+- [Phase ?]: [Phase 12.5 P04]: TN_GATEWAY_PAGO_NUBE/TN_PLAN_ESENCIAL/TN_PAYMENT_TARJETA centralized as const in one module per repo (nemea-back/src/constants/tiendanube.ts, nemea-front/src/constants/tiendanube.ts)
+- [Phase ?]: [Phase 12.5 P04]: DTO @ApiProperty example strings excluded from R10 slug-constants replacement (Swagger metadata, not branching logic)
 
 ### Roadmap Evolution
 
@@ -231,6 +235,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T22:22:08.796Z
+Last session: 2026-05-26T22:38:57.770Z
 Stopped at: Completed 12.5-01-PLAN.md
 Resume file: None
