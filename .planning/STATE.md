@@ -4,12 +4,12 @@ milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
 stopped_at: Phase 12.5 context gathered
-last_updated: "2026-05-26T20:22:11.420Z"
-last_activity: 2026-05-26
+last_updated: "2026-05-26T21:45:22.887Z"
+last_activity: 2026-05-26 -- Phase 12.5 planning complete
 progress:
   total_phases: 18
   completed_phases: 15
-  total_plans: 48
+  total_plans: 54
   completed_plans: 48
   percent: 83
 ---
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 Phase: 12.4 (user-management-edit-user-role-delete-user-admin-self-lockou) — EXECUTING
 Plan: 2 of 8
 Status: Ready to execute
-Last activity: 2026-05-26
+Last activity: 2026-05-26 -- Phase 12.5 planning complete
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
