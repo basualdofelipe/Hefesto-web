@@ -12,8 +12,8 @@ App web de gestión y pricing para **Nemea** — emprendimiento de marroquinerí
 |------|------------|
 | **Frontend** | Next.js 16 (App Router) · TypeScript · Tailwind v4 · Shadcn/ui · NextAuth |
 | **Backend** | NestJS · TypeScript · TypeORM · JWT |
-| **DB** | PostgreSQL (Railway) |
-| **Hosting** | Vercel (front) · Railway (back + DB) |
+| **DB** | PostgreSQL (local vía Docker · Railway-ready) |
+| **Hosting** | Configurado para Vercel (front) + Railway (back + DB) — no hosteado, corre local |
 | **Auth** | NextAuth (front) + JWT (back) — múltiples usuarios con roles dinámicos |
 
 ---
@@ -43,7 +43,10 @@ App web de gestión y pricing para **Nemea** — emprendimiento de marroquinerí
 | Backend  | `nemea-back/`  | NestJS + TS + PostgreSQL + TypeORM     | 4000 | `development` → `main` |
 | Root     | `./`           | Orquestador (este repo)                | —    | direct `main` |
 
-Cada sub-repo tiene su propio README con detalles específicos de setup, scripts y deploy.
+Cada sub-repo tiene su propia documentación con detalles de setup, scripts y deploy:
+
+- **Frontend** — [README](nemea-front/README.md) · [Arquitectura](nemea-front/docs/ARCHITECTURE.md)
+- **Backend** — [README](nemea-back/README.md) · [Arquitectura](nemea-back/docs/ARCHITECTURE.md)
 
 ---
 
@@ -319,7 +322,7 @@ npm install
 npm run start:dev    # http://localhost:4000
 ```
 
-> Variables de entorno en cada sub-repo (`.env.example`). Para DB local usar PostgreSQL o apuntar al Railway dev.
+> Variables de entorno en cada sub-repo (`.env.example`). El backend necesita una PostgreSQL local — levantala con `docker compose up -d postgres` desde `nemea-back/` antes de `npm run start:dev` (ver [README del back](nemea-back/README.md)).
 
 ---
 
