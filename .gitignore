@@ -5,7 +5,9 @@ _archive/
 /nemea-front/
 /nemea-back/
 
+# Local tooling (not tracked)
+.claude/
+
 # OS
 .DS_Store
 Thumbs.db
-.claude/settings.local.json
