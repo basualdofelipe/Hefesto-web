@@ -1,362 +1,179 @@
+**English** · [Español](README.es.md)
+
 # Nemea
 
-App web de gestión y pricing para **Nemea** — emprendimiento de marroquinería en cuero. Reemplaza el Google Sheets que se usaba para insumos, productos, costos, gastos y la calculadora de pricing de Tiendanube. Incluye dashboard de inversores y escenarios de simulación de precios.
+Nemea is a web app for managing and calculating costs, prices, and profit margins for leather goods. Each product gets its cost breakdown (leather, supplies, packaging, etc.), and a calculator works out the margin for a given sale price, accounting for costs + taxes + payment fees + installment interest. It replaces the Google Sheets that used to hold all of this, and adds Tiendanube configuration, pricing-scenario simulation, and an investor dashboard.
 
-> Monorepo orquestador con dos sub-proyectos independientes (`nemea-front` + `nemea-back`).
-
----
-
-## Stack
-
-| Capa | Tecnología |
-|------|------------|
-| **Frontend** | Next.js 16 (App Router) · TypeScript · Tailwind v4 · Shadcn/ui · NextAuth |
-| **Backend** | NestJS · TypeScript · TypeORM · JWT |
-| **DB** | PostgreSQL (local vía Docker · Railway-ready) |
-| **Hosting** | Configurado para Vercel (front) + Railway (back + DB) — no hosteado, corre local |
-| **Auth** | NextAuth (front) + JWT (back) — múltiples usuarios con roles dinámicos |
+> **Note:** this is the *orchestrator* repository. It ties together the two sub-projects — front and back — which live in their own repositories and are cloned inside this one. The orchestrator's job is to run **GSD (get-shit-done)**, a framework that structures application development phase by phase.
 
 ---
 
-## Arquitectura
+## The two sub-projects
+
+| Project | Repo | What it does | Stack | Link |
+|---------|------|--------------|-------|------|
+| **Frontend** | `nemea-front` | The web app: products, costs, supplies, expenses, calculator, scenarios, dashboard. Google auth + demo login. | Next.js 16 · TypeScript strict · Tailwind v4 · Shadcn/ui · Auth.js v5 | [→ repo](https://github.com/basualdofelipe/nemea-front) |
+| **Backend** | `nemea-back` | REST API: business logic, cost engine, pricing engine, RBAC, persistence. | NestJS 11 · TypeScript strict · TypeORM · PostgreSQL 16 · JWT | [→ repo](https://github.com/basualdofelipe/nemea-back) |
 
 ```
-┌──────────┐      ┌──────────────────┐      ┌─────────────────┐      ┌────────────────┐
-│  Usuario │ ───► │  nemea-front     │ ───► │  nemea-back     │ ───► │  PostgreSQL    │
-│ (browser)│      │  Next.js · :3000 │      │  NestJS · :4000 │      │  Railway       │
-└──────────┘      │  Vercel          │      │  Railway        │      └────────────────┘
-                  └──────────────────┘      └─────────────────┘
-                       NextAuth                  JWT + RBAC
+┌──────────┐      ┌────────────────────┐      ┌────────────────────┐      ┌──────────────┐
+│  User    │ ───► │  nemea-front       │ ───► │  nemea-back        │ ───► │  PostgreSQL  │
+│ (browser)│      │  Next.js   · :3000 │      │  NestJS    · :4000 │      │   (Docker)   │
+└──────────┘      └────────────────────┘      └────────────────────┘      └──────────────┘
+                       Auth.js v5                  JWT + RBAC
+                    (Google OAuth)             (11 permissions/role)
 ```
 
-- **Frontend** sirve UI + auth (Google OAuth via NextAuth) y llama al backend con el JWT.
-- **Backend** expone REST, valida con guards (roles + permisos), y persiste vía TypeORM.
-- **DB** centraliza todo: catálogos, productos, costos, historial de precios, configuración Tiendanube y escenarios.
+Each sub-repo has its own README with setup, scripts, internal architecture, and data model.
 
 ---
 
-## Sub-proyectos
+## How GSD works
 
-| Proyecto | Carpeta | Stack | Puerto | Branch model |
-|----------|---------|-------|--------|--------------|
-| Frontend | `nemea-front/` | Next.js + TS + Tailwind v4 + Shadcn/ui | 3000 | `development` → `main` |
-| Backend  | `nemea-back/`  | NestJS + TS + PostgreSQL + TypeORM     | 4000 | `development` → `main` |
-| Root     | `./`           | Orquestador (este repo)                | —    | direct `main` |
+Every phase goes through a pipeline of versioned artifacts kept in `.planning/`: define *what* to build, then *how*, plan the code, review the plan, execute, and review what was built.
 
-Cada sub-repo tiene su propia documentación con detalles de setup, scripts y deploy:
+### The cycle
 
-- **Frontend** — [README](nemea-front/README.md) · [Arquitectura](nemea-front/docs/ARCHITECTURE.md)
-- **Backend** — [README](nemea-back/README.md) · [Arquitectura](nemea-back/docs/ARCHITECTURE.md)
+It starts with `/new-project`, which creates a **MILESTONE** (a large goal, e.g. *"replace the Google Sheets"*) and splits it into **PHASES**. Each phase runs this cycle:
+
+```
+                       ┌──────────────────────── MILESTONE ────────────────────────┐
+     /new-project ───► │   large goal  ──►  split into PHASES (1, 2, 3 …)           │
+                       └─────────────────────────────┬──────────────────────────────┘
+                                                      │
+            ┌──────────────────  for each PHASE  ─────┘
+            ▼
+   ╭───────────╮   ╭───────────╮   ╭───────────╮   ╭───────────────╮
+   │ ① SPECS   │──►│ ② DISCUSS │──►│  ③ PLAN   │──►│ ④ PLAN REVIEW │
+   │   what?   │   │   how?    │   │ the plan  │   │  looks ok?    │
+   ╰───────────╯   ╰───────────╯   ╰───────────╯   ╰───────┬───────╯
+     success        design          task by         missing? breaks?
+     criteria       decisions        task                  │
+                                                          │ ──► back to ③ (re-plan)
+                                                          ▼ ok
+   ╭───────────╮   ╭───────────────╮   ╭─────────────────╮
+   │ ⑥ VERIFY  │◄──│ ⑤ CODE REVIEW │◄──│   EXECUTE       │
+   │  meets    │   │  any bugs?    │   │  writes code    │
+   │  goal?    │   │  security?    │   │  in front/back  │
+   ╰───────────╯   ╰───────┬───────╯   ╰─────────────────╯
+                     bugs? │ ──► REVIEW-FIX (fix and re-review)
+```
+
+The cycle isn't linear: the *plan review* can send things back to re-planning before any code is written, and the *code review* can trigger fixes (`REVIEW-FIX`) before the phase closes.
+
+### Each stage maps to an artifact
+
+Every box in the diagram is a real file under `.planning/phases/<phase>/`:
+
+| Stage | What happens | Artifact |
+|-------|--------------|----------|
+| **① Specs** | Define *what* to build and the success criteria. | `REQUIREMENTS.md` · `NN-SPEC.md` |
+| **② Discuss** | Decide *how* to solve it. | `NN-CONTEXT.md` (+ `NN-RESEARCH.md`) |
+| **③ Plan** | An agent reads the real repo and proposes a code plan, task by task. | `NN-PP-PLAN.md` |
+| **④ Plan review** | The plan is audited before coding: assumptions, missing steps, regressions. | `NN-REVIEWS.md` |
+| **Execute** | The plan is executed and the code is written in the sub-repo, with atomic commits. | `NN-PP-SUMMARY.md` |
+| **⑤ Code review** | The written code is reviewed: bugs, security, conventions, tests. | `NN-REVIEW.md` |
+| **⑥ Verify** | UAT against the phase's success criteria. | `NN-VERIFICATION.md` / `NN-UAT.md` |
+
+> `NN` = phase number, `PP` = plan number within the phase. A phase can have several plans (phase 5 has 4, phase 12.4 has 8). Not every phase has every artifact, and naming isn't 100% uniform across phases.
+
+### What lives in `.planning/`
+
+```
+.planning/
+├── PROJECT.md          # Context: what it is, who for, constraints, decisions
+├── ROADMAP.md          # Milestone phases, status, and success criteria
+├── REQUIREMENTS.md     # Requirements with traceability
+├── STATE.md            # Current project state + metrics
+├── research/           # Pre-milestone research
+├── codebase/           # Map of the existing code
+└── phases/
+    └── 05-products-and-bom/
+        ├── 05-CONTEXT.md            # ② discuss
+        ├── 05-RESEARCH.md           # ② research
+        ├── 05-01-PLAN.md  …         # ③ plan (one per unit of work)
+        ├── 05-01-SUMMARY.md  …      # execute
+        └── 05-VERIFICATION.md       # ⑥ verify
+```
+
+### Example — Phase 5 (Products & BOM)
+
+- **② Discuss** settled the SKU format `type.name.finish.color.size` → `1.2.1.3.0` (inherited from the original Google Sheets), batch creation per product as the Cartesian product of colors × sizes, and BOM versioning via `is_active`.
+- **③ Plan** was split into 4 plans (entity + migrations → BOM + prices → products table → UI editors), each listing the exact files to touch.
+- **⑥ Verify** closed with 5/5 criteria verified, with line-level evidence. E.g.: when the BOM changes, the previous one is preserved with `is_active=false` — verified in `products.service.ts:296-301`, inside a transaction.
+
+It's all in `.planning/phases/05-products-and-bom/`.
+
+### By the numbers
+
+The project went through **17 phases** and **54 executed plans**, all versioned in `.planning/`.
 
 ---
 
-## Modelo de datos
+## Run it locally
 
-> Generado a partir de las entities TypeORM en `nemea-back/src/**/*.entity.ts`.
-> Todas las entidades extienden `BaseEntity` → `id: uuid PK`, `created_at: timestamptz`, `updated_at: timestamptz` (omitidos en los diagramas para que se vean limpios).
->
-> Se divide en 5 dominios. Cada diagrama es independiente y autocontenido.
+Clone-and-run with the demo login: no Google Cloud or OAuth setup needed. You'll need **Node 20+**, **npm**, **Docker** (for PostgreSQL), and two terminals.
 
-### 1. Auth & RBAC
-
-Usuarios con login por Google y roles dinámicos con permisos granulares.
-
-```mermaid
-erDiagram
-    USERS {
-        uuid id PK
-        varchar email UK
-        varchar name
-        varchar picture_url
-        varchar google_id
-        uuid role_id FK
-        bool is_active
-    }
-    ROLES {
-        uuid id PK
-        varchar name UK
-        varchar description
-        bool is_system
-        bool can_view_products
-        bool can_edit_products
-        bool can_view_supplies
-        bool can_edit_supplies
-        bool can_view_expenses
-        bool can_edit_expenses
-        bool can_use_calculator
-        bool can_manage_scenarios
-        bool can_view_dashboard
-        bool can_manage_config
-        bool can_manage_users
-    }
-    USERS }o--|| ROLES : ""
-```
-
-### 2. Suppliers & Supplies
-
-Proveedores, insumos (cuero, herrajes, packaging) con tipo y unidad, e historial inmutable de precios.
-
-```mermaid
-erDiagram
-    SUPPLIERS {
-        uuid id PK
-        varchar name
-        varchar address
-        varchar email
-        varchar phone
-        varchar whatsapp
-        text description
-        bool is_active
-    }
-    SUPPLY_TYPES {
-        uuid id PK
-        varchar name UK
-    }
-    SUPPLIES {
-        uuid id PK
-        varchar name
-        uuid type_id FK
-        uuid supplier_id FK
-        enum unit_type "m2|unidad|metro|kg"
-        text notes
-        bool is_active
-    }
-    SUPPLY_PRICE_HISTORY {
-        uuid id PK
-        uuid supply_id FK
-        decimal price
-    }
-    SUPPLIES }o--|| SUPPLY_TYPES : ""
-    SUPPLIES }o--|| SUPPLIERS : ""
-    SUPPLY_PRICE_HISTORY }o--|| SUPPLIES : ""
-```
-
-### 3. Products Catalog
-
-Productos con SKU compuesto por 5 ejes (type · name · finish · color · size), historial de precios e historial de BOM (insumos por producto).
-
-```mermaid
-erDiagram
-    PRODUCT_TYPES {
-        uuid id PK
-        varchar name UK
-        smallint sku_code UK
-    }
-    PRODUCT_NAMES {
-        uuid id PK
-        varchar name UK
-        smallint sku_code UK
-    }
-    PRODUCT_FINISHES {
-        uuid id PK
-        varchar name UK
-        smallint sku_code UK
-    }
-    PRODUCT_COLORS {
-        uuid id PK
-        varchar name UK
-        smallint sku_code UK
-    }
-    PRODUCT_SIZES {
-        uuid id PK
-        varchar name UK
-        smallint sku_code UK
-        smallint sort_order
-    }
-    PRODUCTS {
-        uuid id PK
-        varchar sku_code
-        uuid product_type_id FK
-        uuid product_name_id FK
-        uuid product_finish_id FK
-        uuid product_color_id FK
-        uuid product_size_id FK
-        bool is_active
-    }
-    PRODUCT_PRICE_HISTORY {
-        uuid id PK
-        uuid product_id FK
-        decimal price
-        varchar currency "default ARS"
-    }
-    SUPPLIES_PER_PRODUCT_HISTORY {
-        uuid id PK
-        uuid product_id FK
-        uuid supply_id FK
-        decimal quantity
-        bool is_active
-    }
-    SUPPLIES {
-        uuid id PK
-        varchar name
-    }
-    PRODUCTS }o--|| PRODUCT_TYPES : ""
-    PRODUCTS }o--|| PRODUCT_NAMES : ""
-    PRODUCTS }o--|| PRODUCT_FINISHES : ""
-    PRODUCTS }o--|| PRODUCT_COLORS : ""
-    PRODUCTS }o--|| PRODUCT_SIZES : ""
-    PRODUCT_PRICE_HISTORY }o--|| PRODUCTS : ""
-    SUPPLIES_PER_PRODUCT_HISTORY }o--|| PRODUCTS : ""
-    SUPPLIES_PER_PRODUCT_HISTORY }o--|| SUPPLIES : ""
-```
-
-> `SUPPLIES` aparece como stub para mostrar la relación de la BOM. Su definición completa está en el diagrama (2).
-
-### 4. Expenses
-
-Gastos con categoría. Simple, sin historial — se versiona con `updated_at`.
-
-```mermaid
-erDiagram
-    EXPENSE_CATEGORIES {
-        uuid id PK
-        varchar name UK
-    }
-    EXPENSES {
-        uuid id PK
-        decimal amount
-        varchar concept
-        date date
-        uuid category_id FK
-    }
-    EXPENSES }o--|| EXPENSE_CATEGORIES : ""
-```
-
-### 5. Tiendanube Config & Scenarios
-
-Configuración de planes, gateways, cuotas e impuestos para la calculadora de pricing. Los escenarios permiten guardar combinaciones y sobreescribir precios de productos puntuales sin tocar el catálogo real.
-
-```mermaid
-erDiagram
-    TN_PLANS {
-        uuid id PK
-        varchar slug UK
-        varchar label
-        decimal cpt_pago_nube
-        decimal cpt_other_gateways
-        bool only_pago_nube
-        bool is_active
-    }
-    TN_PAYMENT_GATEWAYS {
-        uuid id PK
-        varchar slug UK
-        varchar label
-        bool is_active
-    }
-    TN_GATEWAY_RATES {
-        uuid id PK
-        uuid gateway_id FK
-        varchar payment_method
-        int withdrawal_days
-        decimal rate_percent
-        bool is_active
-    }
-    TN_INSTALLMENT_RATES {
-        uuid id PK
-        int installments
-        decimal rate_percent
-        bool is_active
-    }
-    TN_TAX_CONFIG {
-        uuid id PK
-        decimal iva_rate
-        decimal iibb_rate
-        bool is_active
-    }
-    SCENARIOS {
-        uuid id PK
-        varchar name
-        uuid user_id FK
-        bool is_public
-        varchar gateway_slug
-        varchar payment_method
-        int withdrawal_days
-        int installments
-        uuid plan_id FK "nullable"
-    }
-    SCENARIO_OVERRIDES {
-        uuid id PK
-        uuid scenario_id FK
-        uuid product_id FK
-        decimal override_price
-    }
-    USERS {
-        uuid id PK
-        varchar email
-    }
-    PRODUCTS {
-        uuid id PK
-        varchar sku_code
-    }
-    TN_GATEWAY_RATES }o--|| TN_PAYMENT_GATEWAYS : ""
-    SCENARIOS }o--|| USERS : ""
-    SCENARIOS }o--o| TN_PLANS : ""
-    SCENARIO_OVERRIDES }o--|| SCENARIOS : ""
-    SCENARIO_OVERRIDES }o--|| PRODUCTS : ""
-```
-
-> `USERS` y `PRODUCTS` aparecen como stubs para mostrar las relaciones cruzadas.
-
-### Notas de modelado
-
-- **UUIDs en todas las entidades** (`@PrimaryGeneratedColumn('uuid')`).
-- **Roles dinámicos con permisos granulares**: cada permiso es un boolean en `roles`. Los roles `is_system = true` no se pueden borrar.
-- **SKU compuesto** en `products`: se arma con los `sku_code` de los 5 catálogos (type · name · finish · color · size).
-- **Historial inmutable** (`*_price_history`, `supplies_per_product_history`): nunca se updatea, se insertan nuevas filas. El precio/BOM "actual" es la fila más reciente. `ON DELETE CASCADE` desde el producto/insumo padre.
-- **Scenarios** permiten simular pricing alternativo (gateway, plan, cuotas) y sobreescribir precios de productos específicos sin tocar el catálogo real.
-- **Tiendanube config** está desnormalizada en varias tablas para soportar combinaciones de plan × gateway × medio de pago × cuotas × días de retiro.
-
----
-
-## Quickstart
+### 1. Clone the orchestrator and the two repos inside it
 
 ```bash
-# Frontend
-cd nemea-front
-npm install
-npm run dev          # http://localhost:3000
+git clone https://github.com/basualdofelipe/Nemea-web.git
+cd Nemea-web
+git clone https://github.com/basualdofelipe/nemea-back.git
+git clone https://github.com/basualdofelipe/nemea-front.git
+```
 
-# Backend (en otra terminal)
+### 2. Backend + database
+
+```bash
 cd nemea-back
 npm install
-npm run start:dev    # http://localhost:4000
+cp .env.example .env
+docker compose up -d postgres     # PostgreSQL 16 on :5432
+npm run start:dev                 # API at http://localhost:4000/api
 ```
 
-> Variables de entorno en cada sub-repo (`.env.example`). El backend necesita una PostgreSQL local — levantala con `docker compose up -d postgres` desde `nemea-back/` antes de `npm run start:dev` (ver [README del back](nemea-back/README.md)).
+Migrations run automatically on startup (`migrationsRun: true`), including the one that seeds the demo user (`demo@nemea.app`).
 
----
+### 3. Frontend (another terminal)
 
-## Comandos del orquestador
-
-| Comando | Acción |
-|---------|--------|
-| `/run`  | Levantar dev servers (front, back, o ambos) |
-| `/stop` | Parar dev servers |
-| `/commit` | Commit local: `/commit f`, `/commit b "msg"`, `/commit w` |
-| `/push` | Push + PR: `/push f d` (front→dev), `/push b p` (back→prod) |
-| `/plan` | Gestionar planes de implementación |
-| `/senior` | Senior code reviewer (review, chat, audit, premortem) |
-
----
-
-## Estructura del repo
-
+```bash
+cd nemea-front
+npm install
+cp .env.example .env.local
+npm run dev                       # app at http://localhost:3000
 ```
-Nemea-web/
-├── nemea-front/          # Next.js app
-├── nemea-back/           # NestJS API
-├── calculadora/          # Prototipo original de la calculadora (referencia)
-├── .planning/            # GSD: PROJECT, ROADMAP, STATE, fases, research
-├── .claude/              # Agentes, commands, docs internos
-└── CLAUDE.md             # Orquestador raíz (convenciones del monorepo)
-```
+
+The `.env.example` ships an `AUTH_SECRET` placeholder that runs as-is locally (generate your own with `npx auth secret` if you want).
+
+### 4. Log in
+
+Open `http://localhost:3000` and use the **"Entrar como demo"** button: it logs you in as `demo@nemea.app` (admin role, all permissions). The demo login is enabled by default in the `.env.example` files and turned off in production (`DEMO_LOGIN_ENABLED=false`).
+
+> No hosted instance. The infra is wired for Vercel (front) + Railway (back + DB), but the project runs locally. Setup details are in each sub-repo's README.
 
 ---
 
 ## Roadmap
 
-- **v1.0** — ✅ Reemplazo de Google Sheets: ABM insumos/precios, productos/costos, gastos, auth.
-- **v1.1** — 🚧 Hardening, UX de productos, config Tiendanube, calculadora integrada, dashboard de inversores.
-- **v2+** — Integración API Tiendanube (ventas reales), clientes B2B, órdenes, solicitudes de compra a talleres.
+| Milestone | Scope | Status |
+|-----------|-------|--------|
+| **v1.0** | Google Sheets replacement: supplies/prices CRUD, products/costs (versioned BOM), expenses, and auth. | Done |
+| **v1.1** | Hardening, granular RBAC, product UX, Tiendanube config, forward/inverse calculator, scenarios, and investor dashboard. | In progress |
+| **v2+** | Tiendanube API integration (real sales), B2B clients, orders, and purchase requests to workshops. | Planned |
 
-Detalle completo en [`.planning/ROADMAP.md`](.planning/ROADMAP.md).
+Per-phase detail in [`.planning/ROADMAP.md`](.planning/ROADMAP.md).
+
+---
+
+## Repo structure
+
+```
+Nemea-web/
+├── .planning/        # GSD: specs, roadmap, phases, research, state
+├── CLAUDE.md         # Project conventions
+├── README.md         # this file (default, English)
+├── README.es.md      # Spanish version
+├── nemea-front/      # cloned here (separate repo, gitignored)
+└── nemea-back/       # cloned here (separate repo, gitignored)
+```
