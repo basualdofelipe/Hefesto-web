@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 Phase: 13
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-05-26
+Last activity: 2026-05-27 - Completed quick task 260527-usx: Agrandar 2x y centrar el logo del leon en /login
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -230,6 +230,12 @@ Todos absorbed into Phase 8 plans:
 - SIRTAC/IIBB aliquot: single configurable value, admin enters manually. Not automated. (Phase 10 — addressed in plan)
 - Raw SQL snake_case bug: DIAGNOSED in Phase 10 UAT, gap closure plan 10-03 created. Root cause = getLatestGatewayRates() and getInstallmentRates() use SELECT * which returns PostgreSQL snake_case column names, but parse helpers expect camelCase. Fix = column aliases in SQL.
 - Calculadora infinite re-render: DIAGNOSED in Phase 11 UAT, gap closure plan 11-03 created. Root cause = handleGatewayConfigChange not wrapped in useCallback + notifyChange/useEffect circular dependency via onConfigChange prop. Fix = useCallback in parent + ref-based callback pattern in child.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260527-usx | Agrandar 2x y centrar el logo del leon en /login | 2026-05-27 | 43ef4e1 | [260527-usx-agrandar-2x-y-centrar-el-logo-del-leon-e](./quick/260527-usx-agrandar-2x-y-centrar-el-logo-del-leon-e/) |
 
 ### Known Issues
 
