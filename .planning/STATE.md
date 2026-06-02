@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
-status: ready_to_plan
-stopped_at: Phase 12.5 complete (6/6) — ready to discuss Phase 13
-last_updated: 2026-05-26T23:33:25.468Z
-last_activity: 2026-05-26
+status: planning
+last_updated: "2026-06-02T00:25:31.833Z"
+last_activity: "2026-05-27 - Completed quick task 260527-usx: Agrandar 2x y centrar el logo del leon en /login"
 progress:
-  total_phases: 18
+  total_phases: 19
   completed_phases: 16
   total_plans: 54
   completed_plans: 54
-  percent: 89
+  percent: 84
 ---
 
 # Project State
@@ -210,6 +209,7 @@ Recent decisions affecting current work:
 
 - Phase 12.4 inserted after Phase 12: User management — edit user role, delete user, admin self-lockout guard (URGENT) — surfaced by 12.1 UAT: custom roles undeleteable once assigned because /usuarios lacks edit-role and delete-user flows. Closes pending todos `edit-user-role.md` and `delete-user.md`.
 - Phase 12.5 inserted after Phase 12: Demo login and code-readiness for portfolio (URGENT)
+- Phase 12.6 inserted after Phase 12: Branding configurable por env (URGENT)
 
 ### Pending Todos
 
@@ -245,6 +245,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-05-26T23:10:00Z
-Stopped at: Completed 12.5-05-PLAN.md (code-complete; Task 3 smoke deferred per user decision)
-Resume file: None
+Last session: 2026-06-02T00:25:31.821Z
+Stopped at: Phase 12.6 context gathered
+Resume file: .planning/phases/12.6-branding-configurable-por-env/12.6-CONTEXT.md
