@@ -240,6 +240,16 @@ Plans:
 - [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 - [x] 12-03-PLAN.md -- Gap closure: fix inactive products not shown in editor, admin delete for public scenarios from other users
 
+### Phase 12.6: Branding configurable por env (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 12.6 to break down)
+
 ### Phase 12.5: Demo login and code-readiness for portfolio (INSERTED)
 
 **Goal:** The repo is clone-and-run for a reviewer without a whitelisted Google account (env-gated demo login alongside Google OAuth) and the codebase reaches a professional portfolio bar: 100%-green test suite in both repos with behavior coverage of the untested business logic, App Router error/loading boundaries, no internal process comments in source, and Tiendanube slug literals centralized in application code.
