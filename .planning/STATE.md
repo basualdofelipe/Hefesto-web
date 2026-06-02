@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-last_updated: "2026-06-02T06:55:39.154Z"
+last_updated: "2026-06-02T07:06:21.243Z"
 last_activity: 2026-06-02
 progress:
   total_phases: 19
   completed_phases: 16
   total_plans: 58
-  completed_plans: 56
+  completed_plans: 57
   percent: 84
 ---
 
@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 12.6 (branding-configurable-por-env) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-06-02
 
@@ -94,6 +94,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.5 P05 | 8min | 2 tasks | 3 files |
 | Phase 12.6 P01 | 4min | 3 tasks | 5 files |
 | Phase 12.6 P03 | 4min | 3 tasks | 6 files |
+| Phase 12.6 P02 | 15min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -208,6 +209,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.5 P04]: DTO @ApiProperty example strings excluded from R10 slug-constants replacement (Swagger metadata, not branching logic)
 - [Phase ?]: [Phase 12.6 P01]: getDemoEmail() getter (not frozen const) para demo email — test override funciona sin jest.resetModules
 - [Phase ?]: [Phase 12.6 P01]: branding.ts no usa ConfigService — migraciones fuera del DI de Nest usan process.env vía dotenv en data-source.ts
+- [Phase ?]: Phase 12.6 P02: SeedDemoUser.down() uses process.env.DEMO_EMAIL ?? 'demo@hefesto.com' (same expression as up) — symmetric rollback regardless of env at migration time
+- [Phase ?]: Phase 12.6 P02: demoName derived as 'Demo ${APP_NAME}' from APP_NAME env — no separate DEMO_NAME env needed (R5, minimal env surface)
 
 ### Roadmap Evolution
 
@@ -249,6 +252,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-06-02T06:55:39.142Z
-Stopped at: Completed 12.6-01-PLAN.md
+Last session: 2026-06-02T07:06:21.231Z
+Stopped at: Completed 12.6-02-PLAN.md
 Resume file: None
