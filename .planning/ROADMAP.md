@@ -242,13 +242,16 @@ Plans:
 
 ### Phase 12.6: Branding configurable por env (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Nemea") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).
+**Requirements**: R1-R10 (locked in 12.6-SPEC.md)
 **Depends on:** Phase 12
-**Plans:** 0 plans
+**Plans:** 4 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 12.6 to break down)
+- [ ] 12.6-01-PLAN.md -- Back branding core: constants/branding.ts + Joi (DEMO_EMAIL/ADMIN_EMAIL) + auth.service demo email + Swagger title + spec/override test (R2,R3,R6,R7)
+- [ ] 12.6-02-PLAN.md -- Back seed-from-env: CreateUserTable (admin) + SeedDemoUser (demo) parametrizados + [BLOCKING] migration:run en DB fresca (R5,R9)
+- [ ] 12.6-03-PLAN.md -- Front branding: constants/branding.ts + layout title + 3 alt + acceso-denegado (heading/texto/contacto) + DemoLoginButton (R1,R4,R10)
+- [ ] 12.6-04-PLAN.md -- Docs: .env.example (front+back) + DTO example + ARCHITECTURE + seccion Rebranding en README + greps de cierre (R8)
 
 ### Phase 12.5: Demo login and code-readiness for portfolio (INSERTED)
 
