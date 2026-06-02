@@ -294,11 +294,11 @@ Plans:
 **Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Nemea") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).
 **Requirements**: R1-R10 (locked in 12.6-SPEC.md)
 **Depends on:** Phase 12
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 Plans:
 **Wave 1**
 
-- [ ] 12.6-01-PLAN.md -- Back branding core: constants/branding.ts + Joi (DEMO_EMAIL/ADMIN_EMAIL) + auth.service demo email + Swagger title + spec/override test (R2,R3,R6,R7)
+- [x] 12.6-01-PLAN.md -- Back branding core: constants/branding.ts + Joi (DEMO_EMAIL/ADMIN_EMAIL) + auth.service demo email + Swagger title + spec/override test (R2,R3,R6,R7)
 - [ ] 12.6-03-PLAN.md -- Front branding: constants/branding.ts + layout title + 3 alt + acceso-denegado (heading/texto/contacto) + DemoLoginButton (R1,R4,R10)
 
 **Wave 2** *(blocked on Wave 1 completion)*

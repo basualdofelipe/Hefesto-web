@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
 status: executing
-last_updated: "2026-06-02T06:33:01.414Z"
-last_activity: 2026-06-02 -- Phase 12.6 planning complete
+last_updated: "2026-06-02T06:49:17.012Z"
+last_activity: 2026-06-02
 progress:
   total_phases: 19
   completed_phases: 16
   total_plans: 58
-  completed_plans: 54
+  completed_plans: 55
   percent: 84
 ---
 
@@ -20,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 13 — investor dashboard
+**Current focus:** Phase 12.6 — branding-configurable-por-env
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
+Phase: 12.6 (branding-configurable-por-env) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-06-02 -- Phase 12.6 planning complete
+Last activity: 2026-06-02
 
 Progress (v1.1): [####################....] 83% (5/6 phases)
 Progress (overall): [#########################.] 96% (12/13 phases)
@@ -92,6 +92,7 @@ Progress (overall): [#########################.] 96% (12/13 phases)
 | Phase 12.5 P03 | 18min | 3 tasks | 4 files |
 | Phase 12.5 P04 | 11 | 4 tasks | 15 files |
 | Phase 12.5 P05 | 8min | 2 tasks | 3 files |
+| Phase 12.6 P01 | 4min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -204,6 +205,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 12.5 P04]: error.tsx uses 'use client' + error.digest only (not error.message/stack) — security (T-12.5-ER); loading.tsx is plain Server Component
 - [Phase ?]: [Phase 12.5 P04]: TN_GATEWAY_PAGO_NUBE/TN_PLAN_ESENCIAL/TN_PAYMENT_TARJETA centralized as const in one module per repo (nemea-back/src/constants/tiendanube.ts, nemea-front/src/constants/tiendanube.ts)
 - [Phase ?]: [Phase 12.5 P04]: DTO @ApiProperty example strings excluded from R10 slug-constants replacement (Swagger metadata, not branching logic)
+- [Phase ?]: [Phase 12.6 P01]: getDemoEmail() getter (not frozen const) para demo email — test override funciona sin jest.resetModules
+- [Phase ?]: [Phase 12.6 P01]: branding.ts no usa ConfigService — migraciones fuera del DI de Nest usan process.env vía dotenv en data-source.ts
 
 ### Roadmap Evolution
 
@@ -245,6 +248,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-06-02T00:25:31.821Z
-Stopped at: Phase 12.6 context gathered
-Resume file: .planning/phases/12.6-branding-configurable-por-env/12.6-CONTEXT.md
+Last session: 2026-06-02T06:49:17.000Z
+Stopped at: Completed 12.6-01-PLAN.md
+Resume file: None
