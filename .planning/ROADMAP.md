@@ -294,7 +294,7 @@ Plans:
 **Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Nemea") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).
 **Requirements**: R1-R10 (locked in 12.6-SPEC.md)
 **Depends on:** Phase 12
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 Plans:
 **Wave 1**
 
@@ -307,7 +307,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 12.6-04-PLAN.md -- Docs: .env.example (front+back) + DTO example + ARCHITECTURE + seccion Rebranding en README + greps de cierre (R8)
+- [x] 12.6-04-PLAN.md -- Docs: .env.example (front+back) + DTO example + ARCHITECTURE + seccion Rebranding en README + greps de cierre (R8)
 
 ### Phase 12.5: Demo login and code-readiness for portfolio (INSERTED)
 
