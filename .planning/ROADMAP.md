@@ -289,6 +289,17 @@ Plans:
 - [x] 12-02-PLAN.md -- Frontend: /escenarios list page with create/delete/toggle-public, /escenarios/[id] editor with product override table, bulk override dialog, gateway/plan selectors, margin comparison, sidebar link
 - [x] 12-03-PLAN.md -- Gap closure: fix inactive products not shown in editor, admin delete for public scenarios from other users
 
+### Phase 12.7: branding hefesto (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+
+- [ ] TBD (run /gsd-plan-phase 12.7 to break down)
+
 ### Phase 12.6: Branding configurable por env (INSERTED)
 
 **Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Nemea") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).

@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Tiendanube & Investor Dashboard
-status: ready_to_plan
-last_updated: 2026-06-04T11:46:27.876Z
-last_activity: 2026-06-02
+status: planning
+last_updated: "2026-06-16T14:59:05.853Z"
+last_activity: 2026-06-04
 progress:
-  total_phases: 19
+  total_phases: 20
   completed_phases: 17
   total_plans: 58
   completed_plans: 58
-  percent: 89
-stopped_at: Phase 12.6 complete (4/4) — ready to discuss Phase 13
+  percent: 85
 ---
 
 # Project State
@@ -21,11 +20,11 @@ stopped_at: Phase 12.6 complete (4/4) — ready to discuss Phase 13
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automaticamente cuando cambian los precios de los insumos.
-**Current focus:** Phase 13 — investor dashboard
+**Current focus:** Phase 12.7 — branding hefesto
 
 ## Current Position
 
-Phase: 13
+Phase: 12.7
 Plan: Not started
 Status: Ready to plan
 Last activity: 2026-06-04
@@ -220,6 +219,7 @@ Recent decisions affecting current work:
 - Phase 12.4 inserted after Phase 12: User management — edit user role, delete user, admin self-lockout guard (URGENT) — surfaced by 12.1 UAT: custom roles undeleteable once assigned because /usuarios lacks edit-role and delete-user flows. Closes pending todos `edit-user-role.md` and `delete-user.md`.
 - Phase 12.5 inserted after Phase 12: Demo login and code-readiness for portfolio (URGENT)
 - Phase 12.6 inserted after Phase 12: Branding configurable por env (URGENT)
+- Phase 12.7 inserted after Phase 12: branding hefesto (URGENT)
 
 ### Pending Todos
 
@@ -255,6 +255,6 @@ Todos absorbed into Phase 8 plans:
 
 ## Session Continuity
 
-Last session: 2026-06-02T07:11:06.832Z
-Stopped at: Completed 12.6-02-PLAN.md
-Resume file: None
+Last session: 2026-06-16T14:59:05.835Z
+Stopped at: Phase 12.7 context gathered
+Resume file: .planning/phases/12.7-branding-hefesto/12.7-CONTEXT.md
