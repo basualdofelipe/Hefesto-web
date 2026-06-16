@@ -66,7 +66,6 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 
 ## Context
 
-**Empresa:** SEMPERGY ENTERPRISES SAS (marroquinería / artículos de cuero, marca Nemea)
 
 **Situación actual:** v1.0 completo — la app reemplaza Google Sheets para gestión de productos, insumos, costos y gastos. Desplegada en producción (Vercel + Railway). El negocio está pivotando de producción artesanal a compra de productos terminados de talleres externos.
 
