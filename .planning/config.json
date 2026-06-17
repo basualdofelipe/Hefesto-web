@@ -33,6 +33,9 @@
     "branching_strategy": "none",
     "create_tag": true
   },
+  "planning": {
+    "sub_repos": ["nemea-front", "nemea-back"]
+  },
   "hooks": {
     "context_warnings": true
   }
