@@ -1,4 +1,4 @@
-# Requirements: Nemea
+# Requirements: Hefesto
 
 **Defined:** 2026-02-28
 **Core Value:** Saber el costo real y margen de ganancia de cada producto en todo momento, actualizado automáticamente cuando cambian los precios de los insumos.

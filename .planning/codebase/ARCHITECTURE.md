@@ -15,16 +15,16 @@
 
 ## Layers
 
-**Frontend (nemea-front/):**
+**Frontend (hefesto-front/):**
 - Purpose: Web UI for product/supply management, pricing calculator, and investor dashboard
-- Location: `nemea-front/src/`
+- Location: `hefesto-front/src/`
 - Contains: Next.js pages, React components, custom hooks, type definitions, utilities
 - Depends on: React 19, Next.js 16, Tailwind CSS, Shadcn/ui (Radix primitives), next-themes, react-hook-form, Zod for validation
 - Used by: Browser clients (desktop, potentially mobile via responsive design)
 
-**Backend (nemea-back/):**
+**Backend (hefesto-back/):**
 - Purpose: REST API providing CRUD operations, business logic, authentication, and cost calculation
-- Location: `nemea-back/src/` (currently scaffolded with no actual modules yet)
+- Location: `hefesto-back/src/` (currently scaffolded with no actual modules yet)
 - Contains: NestJS controllers, services, modules, TypeORM entities, migrations
 - Depends on: NestJS, TypeORM, PostgreSQL (Railway), JWT for auth validation
 - Used by: Frontend via HTTP requests, external Tiendanube webhooks (future)
@@ -107,7 +107,7 @@
 
 ## Entry Points
 
-**Frontend (nemea-front/):**
+**Frontend (hefesto-front/):**
 - Location: `src/app/layout.tsx` (server component) → `src/app/page.tsx` (client component)
 - Triggers: Browser request to `/`
 - Responsibilities:
@@ -115,7 +115,7 @@
   - Wrap React tree with providers (ThemeProvider)
   - Mount Sonner toast notification system
 
-**Backend (nemea-back/):**
+**Backend (hefesto-back/):**
 - Location: `src/main.ts` (scaffolded, implementation pending Phase 2)
 - Triggers: Railway server startup
 - Responsibilities:

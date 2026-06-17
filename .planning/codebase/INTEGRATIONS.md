@@ -27,7 +27,7 @@
 
 **File Storage:**
 - Local filesystem only
-  - Public assets: `nemea-front/public/`
+  - Public assets: `hefesto-front/public/`
     - Custom fonts: `fonts/EngravingCC.ttf`, `fonts/EngravingShadedCC.ttf`
     - Other static files: icons, images (managed by Next.js)
   - No external cloud storage (S3, Cloudinary, etc.) planned for V1
@@ -44,7 +44,7 @@
 
 **Implementation Details:**
 - Frontend: NextAuth 4+ (not yet installed)
-  - Configuration location: To be implemented in `nemea-front/src/auth/`
+  - Configuration location: To be implemented in `hefesto-front/src/auth/`
   - Callback URL: `http://localhost:3000/api/auth/callback/google` (dev)
   - Redirect on login: `/productos` (or protected route)
 
@@ -74,7 +74,7 @@
 
 **Frontend:**
 - Vercel - Free tier
-  - Source: GitHub (`Nemea-web/nemea-front` development branch)
+  - Source: GitHub (`Hefesto-web/hefesto-front` development branch)
   - Deployment trigger: Push to `main` branch (production) and `development` branch (staging)
   - Environment variables: Set in Vercel dashboard
   - Build command: `npm run build`
@@ -82,7 +82,7 @@
 
 **Backend:**
 - Railway - ~$5/month
-  - Source: GitHub (`Nemea-web/nemea-back` development branch)
+  - Source: GitHub (`Hefesto-web/hefesto-back` development branch)
   - Deployment trigger: Push to `main` branch (production) and `development` (staging)
   - Includes PostgreSQL hosting
   - Environment variables: Set in Railway dashboard
@@ -98,7 +98,7 @@
 
 **Frontend (.env.local or .env.development):**
 ```
-NEXT_PUBLIC_APP_NAME=Nemea
+NEXT_PUBLIC_APP_NAME=Hefesto
 NEXT_PUBLIC_API_URL=http://localhost:4000
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=<generated-with-openssl>
@@ -107,16 +107,16 @@ NODE_ENV=development
 
 **Frontend (Production on Vercel):**
 ```
-NEXT_PUBLIC_APP_NAME=Nemea
-NEXT_PUBLIC_API_URL=https://nemea-api.railway.app  # or Railway URL
-NEXTAUTH_URL=https://nemea.vercel.app
+NEXT_PUBLIC_APP_NAME=Hefesto
+NEXT_PUBLIC_API_URL=https://hefesto-api.railway.app  # or Railway URL
+NEXTAUTH_URL=https://hefesto.vercel.app
 NEXTAUTH_SECRET=<production-secret>
 NODE_ENV=production
 ```
 
 **Backend (Development - not yet scaffolded):**
 ```
-DATABASE_URL=postgresql://user:password@localhost:5432/nemea_dev
+DATABASE_URL=postgresql://user:password@localhost:5432/hefesto_dev
 NODE_ENV=development
 JWT_SECRET=<secret-for-token-signing>
 GOOGLE_CLIENT_ID=<from-google-console>
@@ -134,13 +134,13 @@ DATABASE_SSL=true
 **Secrets location:**
 - Development: Local `.env.local` files (not committed)
 - Production: Vercel dashboard (frontend), Railway dashboard (backend)
-- `.env.example` files present for template reference (`nemea-front/.env.example`)
+- `.env.example` files present for template reference (`hefesto-front/.env.example`)
 
 ## Webhooks & Callbacks
 
 **Incoming:**
 - NextAuth OAuth callback: `POST /api/auth/callback/google`
-  - Path: `nemea-front/src/app/api/auth/callback/google/route.ts` (to be implemented)
+  - Path: `hefesto-front/src/app/api/auth/callback/google/route.ts` (to be implemented)
   - Triggered by: Google OAuth after user consent
   - Purpose: Exchange auth code for JWT session
 
@@ -174,7 +174,7 @@ DATABASE_SSL=true
 - Railway staging: To be set up
 
 **Database:**
-- Local: `postgresql://postgres:password@localhost:5432/nemea_dev`
+- Local: `postgresql://postgres:password@localhost:5432/hefesto_dev`
 - Railway production: Configured via `DATABASE_URL` env var
 
 ---

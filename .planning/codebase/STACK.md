@@ -23,12 +23,12 @@
 
 ## Frameworks
 
-**Frontend (nemea-front/):**
+**Frontend (hefesto-front/):**
 - Next.js 16.1.6 - Full-stack React with App Router
   - nextAuth v4+ planned for OAuth integration (Google)
   - `next-themes` 0.4.6 - Theme management (light/dark)
 
-**Backend (nemea-back/):**
+**Backend (hefesto-back/):**
 - NestJS - Scaffolding phase, not yet implemented
 - TypeORM - ORM for PostgreSQL (planned)
 
@@ -58,7 +58,7 @@
 **Typography:**
 - Poppins (Google Fonts) - Body text, weights: 300, 400, 500, 600
 - JetBrains Mono (Google Fonts) - Monospace, weights: 400, 500
-- EngravingCC (local font) - Custom display font (Nemea branding)
+- EngravingCC (local font) - Custom display font (Hefesto branding)
 - EngravingShadedCC (local font) - Custom shaded display variant
 
 ## Form Management
@@ -104,9 +104,9 @@
 ## Configuration
 
 **Environment:**
-- `.env.example` present at `nemea-front/.env.example`
+- `.env.example` present at `hefesto-front/.env.example`
 - Environment variables configured in next.config.mjs:
-  - `NEXT_PUBLIC_APP_NAME` - "Nemea"
+  - `NEXT_PUBLIC_APP_NAME` - "Hefesto"
   - `NEXT_PUBLIC_API_URL` - Backend API endpoint (dev: `http://localhost:4000`)
   - `NEXTAUTH_URL` - NextAuth callback URL (dev: `http://localhost:3000`)
   - `NEXTAUTH_SECRET` - Session encryption key

@@ -6,11 +6,11 @@
 
 **Runner:**
 - Jest v30.2.0
-- Config: `nemea-front/jest.config.js`
+- Config: `hefesto-front/jest.config.js`
 
 **Environment:**
 - Test environment: `jsdom` (browser-like environment for React testing)
-- Setup file: `nemea-front/jest.setup.ts` (loads `@testing-library/jest-dom`)
+- Setup file: `hefesto-front/jest.setup.ts` (loads `@testing-library/jest-dom`)
 
 **Assertion Library:**
 - Jest built-in matchers
@@ -65,9 +65,9 @@ jest.mock('next-themes', () => ({
 }));
 
 describe('Home page', () => {
-  it('renders the NEMEA heading', () => {
+  it('renders the HEFESTO heading', () => {
     render(<Home />);
-    const heading = screen.getByText('NEMEA');
+    const heading = screen.getByText('HEFESTO');
     expect(heading).toBeInTheDocument();
   });
 

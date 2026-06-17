@@ -1,4 +1,4 @@
-# Nemea
+# Hefesto
 
 ## What This Is
 
@@ -80,10 +80,10 @@ Saber el costo real y margen de ganancia de cada producto en todo momento, actua
 **Referencia arquitectónica:** cuerpo-fit (frontend) y Freedom-Base (estructura de monorepo) del laburo del usuario.
 
 **Archivos fuente:**
-- `Diagrama ER db Nemea.pdf` — modelo de datos original
-- `Costos Nemea.xlsx` — datos reales del negocio
+- `Diagrama ER db Hefesto.pdf` — modelo de datos original
+- `Costos Hefesto.xlsx` — datos reales del negocio
 - `calculadora/calculadora-tiendanube.jsx` — prototipo funcional (v2)
-- `costos-nemea-appscripts.txt` — lógica de Apps Scripts a migrar
+- `costos-hefesto-appscripts.txt` — lógica de Apps Scripts a migrar
 - `.claude/docs/planning/business-rules.md` — reglas de negocio completas
 - `.claude/docs/planning/scope-v1.md` — scope detallado de v1
 

@@ -178,7 +178,7 @@ Recent decisions affecting current work:
 - [Phase 12.1]: AppSidebar renders nav groups conditionally per permission — each group only shown when user has relevant flag
 - [Phase 12.1]: UsersClient interim role union type (object|string) with typeof guard — Plan 04 replaces with full RoleOption type
 - [Phase 12.1]: z.boolean() without .default() used in roleSchema — avoids optional inference that breaks zodResolver type compatibility
-- [Phase 12.1]: Shared RoleRow and RoleOption types in nemea-front/src/types/role.ts — eliminates Plan 03 interim union type and prevents duplication between /roles and /usuarios pages
+- [Phase 12.1]: Shared RoleRow and RoleOption types in hefesto-front/src/types/role.ts — eliminates Plan 03 interim union type and prevents duplication between /roles and /usuarios pages
 - [Phase 12.1]: z.boolean() without .default() in roleSchema — avoids optional inference that breaks zodResolver type compatibility
 - [Phase 12.1]: Circular import between Role and User entities fixed via import type + TypeORM string-form entity reference in @OneToMany decorator
 - [Phase 12.2]: D-09: sort_order is SMALLINT on product_sizes table, database-driven ordering not frontend sorting
@@ -207,7 +207,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Phase 12.5 P01: validateDemoLogin uses configService.get (not getOrThrow) — DEMO_LOGIN_ENABLED optional with default false; JWT payload identical to Google path with no provider field
 - [Phase ?]: [Phase 12.5 P02]: Unit specs use mocked repositories (D-06); EntityManager re-attached after clearAllMocks(); TiendanubeConfigService spec has no EntityManager provider
 - [Phase ?]: [Phase 12.5 P04]: error.tsx uses 'use client' + error.digest only (not error.message/stack) — security (T-12.5-ER); loading.tsx is plain Server Component
-- [Phase ?]: [Phase 12.5 P04]: TN_GATEWAY_PAGO_NUBE/TN_PLAN_ESENCIAL/TN_PAYMENT_TARJETA centralized as const in one module per repo (nemea-back/src/constants/tiendanube.ts, nemea-front/src/constants/tiendanube.ts)
+- [Phase ?]: [Phase 12.5 P04]: TN_GATEWAY_PAGO_NUBE/TN_PLAN_ESENCIAL/TN_PAYMENT_TARJETA centralized as const in one module per repo (hefesto-back/src/constants/tiendanube.ts, hefesto-front/src/constants/tiendanube.ts)
 - [Phase ?]: [Phase 12.5 P04]: DTO @ApiProperty example strings excluded from R10 slug-constants replacement (Swagger metadata, not branching logic)
 - [Phase ?]: [Phase 12.6 P01]: getDemoEmail() getter (not frozen const) para demo email — test override funciona sin jest.resetModules
 - [Phase ?]: [Phase 12.6 P01]: branding.ts no usa ConfigService — migraciones fuera del DI de Nest usan process.env vía dotenv en data-source.ts
@@ -251,7 +251,7 @@ Todos absorbed into Phase 8 plans:
 
 - Auth ClientFetchError on frontend homepage: NextAuth session endpoint returns HTML instead of JSON. Pre-existing from v1.0.
 - [12.5-05 deferred] R2 demo-login smoke test pending — code is complete but manual round-trip (Task 3) was deferred per user decision. Requires live environment with Plan 06 seed + both DEMO_LOGIN_ENABLED flags set to true.
-- [12.5-05 open item] ~4 pre-existing tsc --noEmit type errors in nemea-front test files (page.test.tsx, ScenarioEditorClient.test.tsx) — not introduced by this plan, confirmed via stash round-trip. Build unaffected; needs cleanup pass to achieve fully green tsc.
+- [12.5-05 open item] ~4 pre-existing tsc --noEmit type errors in hefesto-front test files (page.test.tsx, ScenarioEditorClient.test.tsx) — not introduced by this plan, confirmed via stash round-trip. Build unaffected; needs cleanup pass to achieve fully green tsc.
 
 ## Session Continuity
 

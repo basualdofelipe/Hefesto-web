@@ -1,8 +1,8 @@
-# Roadmap: Nemea
+# Roadmap: Hefesto
 
 ## Overview
 
-Nemea is a cost management and pricing simulation system for an artisan leather goods business.
+Hefesto is a cost management and pricing simulation system for an artisan leather goods business.
 v1.0 replaced Google Sheets with a production-grade NestJS + Next.js app covering products, supplies,
 costs, and expenses. v1.1 hardens the foundation, adds Tiendanube pricing simulation (forward/inverse
 calculadora with real costs), and delivers an investor dashboard with scenario modeling for margin analysis.
@@ -52,7 +52,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Requirements**: INFR-01, INFR-02, INFR-03, INFR-04, INFR-05
 **Success Criteria** (what must be TRUE):
 
-  1. `npm run start:dev` in nemea-back/ boots without errors and responds to `GET /health`
+  1. `npm run start:dev` in hefesto-back/ boots without errors and responds to `GET /health`
   2. `npm run migration:generate` and `npm run migration:run` execute without errors against local Docker PostgreSQL
   3. `synchronize: false` is hardcoded unconditionally in TypeORM config — verified by code review
   4. Swagger UI is accessible at `http://localhost:4000/api/docs` in development
@@ -85,7 +85,7 @@ Plans:
 
 - [x] 02-01-PLAN.md -- User entity + migration with admin seed, UsersModule/UsersService, auth decorators (@Public/@Roles/@CurrentUser), JwtAuthGuard + RolesGuard as APP_GUARD, JWT strategy with whitelist check, AuthModule wiring
 - [x] 02-02-PLAN.md -- AuthService (Google id_token verification + JWT minting), AuthController (POST /auth/google, GET /auth/me), UsersController (whitelist CRUD, ADMIN only), E2E tests
-- [x] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Nemea branding, access-denied page, SessionProvider, api.ts fetch wrapper
+- [x] 02-03-PLAN.md -- Auth.js v5 NextAuth config (Google provider, jwt/session callbacks, token exchange), proxy.ts route protection, login page with Hefesto branding, access-denied page, SessionProvider, api.ts fetch wrapper
 
 ### Phase 3: Catalogs and Suppliers
 
@@ -291,7 +291,7 @@ Plans:
 
 ### Phase 12.7: branding hefesto (INSERTED)
 
-**Goal:** Ningún repo público del portfolio (front, back, y el orquestador que va público como showcase GSD) muestra el literal `nemea` (case-insensitive); todo dice Hefesto en docker, DB, env de ejemplo, paquetes, código, docs y los docs principales de `.planning`. Find-replace mecánico case-sensitive, sin cambios de comportamiento.
+**Goal:** Ningún repo público del portfolio (front, back, y el orquestador que va público como showcase GSD) muestra el nombre de marca anterior (case-insensitive); todo dice Hefesto en docker, DB, env de ejemplo, paquetes, código, docs y los docs principales de `.planning`. Find-replace mecánico case-sensitive, sin cambios de comportamiento.
 **Requirements**: SPEC reqs 1-7 (locked in 12.7-SPEC.md; req 7 acotado por CONTEXT D-02/D-03)
 **Depends on:** Phase 12
 **Plans:** 1/4 plans executed
@@ -300,8 +300,8 @@ Plans:
 
 **Wave 1** *(parallel — disjoint file sets per repo)*
 
-- [x] 12.7-01-PLAN.md — nemea-back sweep: infra (docker+env) + code + package + docs + 8 specs, docker re-seed on hefesto_db (reqs 1,2,3,5,6)
-- [ ] 12.7-02-PLAN.md — nemea-front sweep: package identity + docs + 4 test fixtures, suite green (reqs 2,4,5,6)
+- [x] 12.7-01-PLAN.md — hefesto-back sweep: infra (docker+env) + code + package + docs + 8 specs, docker re-seed on hefesto_db (reqs 1,2,3,5,6)
+- [ ] 12.7-02-PLAN.md — hefesto-front sweep: package identity + docs + 4 test fixtures, suite green (reqs 2,4,5,6)
 - [ ] 12.7-03-PLAN.md — root docs + .planning principal set (root docs + codebase/*) sweep; phases/* excluded per D-03 (reqs 4,7)
 
 **Wave 2** *(blocked on Wave 1)*
@@ -310,7 +310,7 @@ Plans:
 
 ### Phase 12.6: Branding configurable por env (INSERTED)
 
-**Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Nemea") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).
+**Goal:** El nombre de la app y la identidad del demo/admin/contacto dejan de estar hardcodeados ("Hefesto") y se leen de env con fallback en codigo (default Hefesto / demo@hefesto.com / admin@hefesto.com), de modo que rebrandear = setear envs + reemplazar el logo + rebuild (white-label ready).
 **Requirements**: R1-R10 (locked in 12.6-SPEC.md)
 **Depends on:** Phase 12
 **Plans:** 4/4 plans complete
@@ -393,7 +393,7 @@ Plans:
 
   1. Products page loads with Type groups expanded but Name and Finish groups collapsed by default
   2. Home page shows permission-aware quick-link cards (Productos, Calculadora, Insumos, Gastos) filtered by user role
-  3. Sidebar shows NEMEA logo PNG when expanded, isotipo lion PNG when collapsed; login page shows isotipo image
+  3. Sidebar shows HEFESTO logo PNG when expanded, isotipo lion PNG when collapsed; login page shows isotipo image
   4. Application code uses only font-semibold (600) and font-normal (400) — zero font-medium or font-bold in app files
   5. Sizes are ordered by sort_order column (Unico, Chico, Mediano, Grande) not alphabetically
   6. Numeric/currency columns in product and supply tables are right-aligned
