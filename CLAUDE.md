@@ -1,18 +1,18 @@
-# Nemea-web
+# Hefesto-web
 
-Monorepo orquestador para el proyecto Nemea — app de gestión y pricing para emprendimiento de marroquinería (cuero).
+Monorepo orquestador para el proyecto Hefesto — app de gestión y pricing para emprendimiento de marroquinería (cuero).
 
 ## Sub-proyectos
 
 | Proyecto | Carpeta | Stack | Puerto | Descripción |
 |----------|---------|-------|--------|-------------|
-| Nemea Frontend | `nemea-front/` | Next.js + TypeScript + Tailwind v4 + Shadcn/ui | 3000 | Web app (calculadora, productos, dashboard) |
-| Nemea Backend | `nemea-back/` | NestJS + TypeScript + PostgreSQL | 4000 | API REST + auth + lógica de negocio |
+| Hefesto Frontend | `hefesto-front/` | Next.js + TypeScript + Tailwind v4 + Shadcn/ui | 3000 | Web app (calculadora, productos, dashboard) |
+| Hefesto Backend | `hefesto-back/` | NestJS + TypeScript + PostgreSQL | 4000 | API REST + auth + lógica de negocio |
 
 ## Arquitectura
 
 ```
-Usuario → nemea-front (Vercel) → nemea-back (Railway) → PostgreSQL (Railway)
+Usuario → hefesto-front (Vercel) → hefesto-back (Railway) → PostgreSQL (Railway)
 ```
 
 - **Frontend**: Next.js 16+ con App Router, deployed en Vercel
@@ -24,9 +24,9 @@ Usuario → nemea-front (Vercel) → nemea-back (Railway) → PostgreSQL (Railwa
 
 | Proyecto | Model | Branches |
 |----------|-------|----------|
-| Nemea-web (root) | Direct | `main` |
-| nemea-front | 2-branch | `development` → `main` |
-| nemea-back | 2-branch | `development` → `main` |
+| Hefesto-web (root) | Direct | `main` |
+| hefesto-front | 2-branch | `development` → `main` |
+| hefesto-back | 2-branch | `development` → `main` |
 
 PRs en sub-proyectos siempre apuntan a `development`. Con tag `[PROD]` se promueve a `main`.
 

@@ -1,8 +1,8 @@
 **English** · [Español](README.es.md)
 
-# Nemea
+# Hefesto
 
-Nemea is a web app for managing and calculating costs, prices, and profit margins for leather goods. Each product gets its cost breakdown (leather, supplies, packaging, etc.), and a calculator works out the margin for a given sale price, accounting for costs + taxes + payment fees + installment interest. It replaces the Google Sheets that used to hold all of this, and adds Tiendanube configuration, pricing-scenario simulation, and an investor dashboard.
+Hefesto is a web app for managing and calculating costs, prices, and profit margins for leather goods. Each product gets its cost breakdown (leather, supplies, packaging, etc.), and a calculator works out the margin for a given sale price, accounting for costs + taxes + payment fees + installment interest. It replaces the Google Sheets that used to hold all of this, and adds Tiendanube configuration, pricing-scenario simulation, and an investor dashboard.
 
 > **Note:** this is the *orchestrator* repository. It ties together the two sub-projects — front and back — which live in their own repositories and are cloned inside this one. The orchestrator's job is to run **GSD (get-shit-done)**, a framework that structures application development phase by phase.
 
@@ -12,12 +12,12 @@ Nemea is a web app for managing and calculating costs, prices, and profit margin
 
 | Project | Repo | What it does | Stack | Link |
 |---------|------|--------------|-------|------|
-| **Frontend** | `nemea-front` | The web app: products, costs, supplies, expenses, calculator, scenarios, dashboard. Google auth + demo login. | Next.js 16 · TypeScript strict · Tailwind v4 · Shadcn/ui · Auth.js v5 | [→ repo](https://github.com/basualdofelipe/nemea-front) |
-| **Backend** | `nemea-back` | REST API: business logic, cost engine, pricing engine, RBAC, persistence. | NestJS 11 · TypeScript strict · TypeORM · PostgreSQL 16 · JWT | [→ repo](https://github.com/basualdofelipe/nemea-back) |
+| **Frontend** | `hefesto-front` | The web app: products, costs, supplies, expenses, calculator, scenarios, dashboard. Google auth + demo login. | Next.js 16 · TypeScript strict · Tailwind v4 · Shadcn/ui · Auth.js v5 | [→ repo](https://github.com/basualdofelipe/hefesto-front) |
+| **Backend** | `hefesto-back` | REST API: business logic, cost engine, pricing engine, RBAC, persistence. | NestJS 11 · TypeScript strict · TypeORM · PostgreSQL 16 · JWT | [→ repo](https://github.com/basualdofelipe/hefesto-back) |
 
 ```
 ┌──────────┐      ┌────────────────────┐      ┌────────────────────┐      ┌──────────────┐
-│  User    │ ───► │  nemea-front       │ ───► │  nemea-back        │ ───► │  PostgreSQL  │
+│  User    │ ───► │  hefesto-front     │ ───► │  hefesto-back      │ ───► │  PostgreSQL  │
 │ (browser)│      │  Next.js   · :3000 │      │  NestJS    · :4000 │      │   (Docker)   │
 └──────────┘      └────────────────────┘      └────────────────────┘      └──────────────┘
                        Auth.js v5                  JWT + RBAC
@@ -117,28 +117,28 @@ Clone-and-run with the demo login: no Google Cloud or OAuth setup needed. You'll
 ### 1. Clone the orchestrator and the two repos inside it
 
 ```bash
-git clone https://github.com/basualdofelipe/Nemea-web.git
-cd Nemea-web
-git clone https://github.com/basualdofelipe/nemea-back.git
-git clone https://github.com/basualdofelipe/nemea-front.git
+git clone https://github.com/basualdofelipe/Hefesto-web.git
+cd Hefesto-web
+git clone https://github.com/basualdofelipe/hefesto-back.git
+git clone https://github.com/basualdofelipe/hefesto-front.git
 ```
 
 ### 2. Backend + database
 
 ```bash
-cd nemea-back
+cd hefesto-back
 npm install
 cp .env.example .env
 docker compose up -d postgres     # PostgreSQL 16 on :5432
 npm run start:dev                 # API at http://localhost:4000/api
 ```
 
-Migrations run automatically on startup (`migrationsRun: true`), including the one that seeds the demo user (`demo@nemea.app`).
+Migrations run automatically on startup (`migrationsRun: true`), including the one that seeds the demo user (`demo@hefesto.app`).
 
 ### 3. Frontend (another terminal)
 
 ```bash
-cd nemea-front
+cd hefesto-front
 npm install
 cp .env.example .env.local
 npm run dev                       # app at http://localhost:3000
@@ -148,7 +148,7 @@ The `.env.example` ships an `AUTH_SECRET` placeholder that runs as-is locally (g
 
 ### 4. Log in
 
-Open `http://localhost:3000` and use the **"Entrar como demo"** button: it logs you in as `demo@nemea.app` (admin role, all permissions). The demo login is enabled by default in the `.env.example` files and turned off in production (`DEMO_LOGIN_ENABLED=false`).
+Open `http://localhost:3000` and use the **"Entrar como demo"** button: it logs you in as `demo@hefesto.app` (admin role, all permissions). The demo login is enabled by default in the `.env.example` files and turned off in production (`DEMO_LOGIN_ENABLED=false`).
 
 > No hosted instance. The infra is wired for Vercel (front) + Railway (back + DB), but the project runs locally. Setup details are in each sub-repo's README.
 
@@ -169,11 +169,11 @@ Per-phase detail in [`.planning/ROADMAP.md`](.planning/ROADMAP.md).
 ## Repo structure
 
 ```
-Nemea-web/
+Hefesto-web/
 ├── .planning/        # GSD: specs, roadmap, phases, research, state
 ├── CLAUDE.md         # Project conventions
 ├── README.md         # this file (default, English)
 ├── README.es.md      # Spanish version
-├── nemea-front/      # cloned here (separate repo, gitignored)
-└── nemea-back/       # cloned here (separate repo, gitignored)
+├── hefesto-front/    # cloned here (separate repo, gitignored)
+└── hefesto-back/     # cloned here (separate repo, gitignored)
 ```
