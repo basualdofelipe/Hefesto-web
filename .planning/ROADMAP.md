@@ -294,13 +294,13 @@ Plans:
 **Goal:** Ningún repo público del portfolio (front, back, y el orquestador que va público como showcase GSD) muestra el literal `nemea` (case-insensitive); todo dice Hefesto en docker, DB, env de ejemplo, paquetes, código, docs y los docs principales de `.planning`. Find-replace mecánico case-sensitive, sin cambios de comportamiento.
 **Requirements**: SPEC reqs 1-7 (locked in 12.7-SPEC.md; req 7 acotado por CONTEXT D-02/D-03)
 **Depends on:** Phase 12
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 Plans:
 
 **Wave 1** *(parallel — disjoint file sets per repo)*
 
-- [ ] 12.7-01-PLAN.md — nemea-back sweep: infra (docker+env) + code + package + docs + 8 specs, docker re-seed on hefesto_db (reqs 1,2,3,5,6)
+- [x] 12.7-01-PLAN.md — nemea-back sweep: infra (docker+env) + code + package + docs + 8 specs, docker re-seed on hefesto_db (reqs 1,2,3,5,6)
 - [ ] 12.7-02-PLAN.md — nemea-front sweep: package identity + docs + 4 test fixtures, suite green (reqs 2,4,5,6)
 - [ ] 12.7-03-PLAN.md — root docs + .planning principal set (root docs + codebase/*) sweep; phases/* excluded per D-03 (reqs 4,7)
 
