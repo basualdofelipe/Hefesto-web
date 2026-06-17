@@ -11,3 +11,6 @@ _archive/
 # OS
 .DS_Store
 Thumbs.db
+
+# Phase 12.7 (rebrand) — interno, fuera del repo público
+.planning/phases/12.7-branding-hefesto/
